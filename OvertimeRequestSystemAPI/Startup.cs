@@ -29,9 +29,17 @@ namespace OvertimeRequestSystemAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<ParameterRepository>();
+            services.AddScoped<AccountRepository>();
+            services.AddScoped<AccountRoleRepository>();
+            services.AddScoped<EmployeeRepository>();
+            services.AddScoped<OvertimeRepository>();
+            services.AddScoped<OvertimeDetailRepository>();
+            services.AddScoped<ResponseRepository>();
+            services.AddScoped<RoleRepository>();
             services.AddDbContext<MyContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("APIContext")));
-            services.AddScoped<ParameterRepository>();
+          
             services.AddRazorPages();
         }
 

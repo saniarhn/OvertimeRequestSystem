@@ -1,11 +1,11 @@
-﻿using Client.Repository.Interface;
+﻿using OvertimeRequestSystemClient.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Client.Base.Controllers
+namespace OvertimeRequestSystemClient.Base.Controllers
 {
 
         public class BaseController<TEntity, TRepository, TId> : Controller

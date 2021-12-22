@@ -1,5 +1,6 @@
-﻿using Client.Base.Urls;
-using Client.Repository.Interface;
+﻿
+using OvertimeRequestSystemClient.Base.Urls;
+using OvertimeRequestSystemClient.Repository.Interface;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
@@ -11,7 +12,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.Repository
+namespace OvertimeRequestSystemClient.Repository
 {
     public class GeneralRepository<TEntity, TId> : IRepository<TEntity, TId>
           where TEntity : class

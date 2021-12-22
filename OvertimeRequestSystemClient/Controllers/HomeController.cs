@@ -28,6 +28,11 @@ namespace OvertimeRequestSystemClient.Controllers
             return View();
         }
 
+        public IActionResult DashboardAdmin()
+        {
+            return View("DashboardAdmin");
+        }
+
         [HttpGet("Unauthorized/")]
         public IActionResult Page_401()
         {
