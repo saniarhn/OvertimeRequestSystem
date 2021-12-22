@@ -16,10 +16,6 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net;
-using System.Net;
-using System.Net;
-using System.Net;
 
 namespace OvertimeRequestSystemAPI.Controllers.NewControllers
 {
