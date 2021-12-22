@@ -13,5 +13,6 @@ namespace OvertimeRequestSystemAPI.ViewModel
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        public string Email2 { get; set; }
     }
 }
