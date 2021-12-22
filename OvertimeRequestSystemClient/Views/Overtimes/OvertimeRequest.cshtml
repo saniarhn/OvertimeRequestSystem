@@ -3,20 +3,88 @@
 *@
 @{
 }
-<h1>testtt</h1>
+<h1>Overtime Request</h1>
+
+<form class="overtime-request">
+    <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-6">
+            <div class="form-group mb-0">
+                <label for="name" class="">Your NIP</label>
+                <input type="text" id="name" name="name" class="form-control">
+
+            </div>
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-md-6">
+            <div class="form-group mb-0">
+                <label for="email" class="">Your Name</label>
+                <input type="text" id="email" name="email" class="form-control">
+            </div>
+        </div>
+        <!--Grid column-->
+
+    </div>
+
+    <!--Grid row-->
+    <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-6">
+            <div class="form-group mb-0">
+                <label for="example">Tanggal Mulai</label>
+                <input placeholder="Select date" type="date" id="example" class="form-control">
+            </div>
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-md-6">
+            <div class="form-group mb-0">
+                <label for="example">Tanggal Selesai</label>
+                <input placeholder="Select date" type="date" id="example" class="form-control">
+            </div>
+        </div>
+        <!--Grid column-->
+
+    </div>
+  
+        <h1>Detail</h1>
+ 
+    <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-6">
+            <div class="form-group mb-0">
+                <label for="inputMDEx1">Jam Mulai</label>
+                <input type="time" id="inputMDEx1" class="form-control">
+            </div>
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-md-6">
+            <div class="form-group mb-0">
+                <label for="inputMDEx1">Jam Selesai</label>
+                <input type="time" id="inputMDEx1" class="form-control">
+            </div>
+        </div>
+        <!--Grid column-->
+
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Tugas</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <div class="form-group mb-0">
+        <label for="email" class="">Location</label>
+        <input type="text" id="email" name="email" class="form-control">
+    </div>
 
 
-<div class="md-form">
-    <input type="text" id="form1" class="form-control">
-    <label for="form1">Your Name</label>
-</div>
-
-<div class="md-form mx-5 my-5">
-    <input type="time" id="inputMDEx1" class="form-control">
-    <label for="inputMDEx1">Choose your time</label>
-</div>
-
-<div class="md-form mx-5 my-5 input-with-post-icon datepicker">
-    <input placeholder="Select date" type="date" id="example" class="form-control">
-    <label for="example">Try me...</label>
-</div>
+    <button type="button" id="btn-add-list" class="btn btn-primary text-center">Add List</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+@section Scripts{
+    <script src="~/js/Overtime/OvertimeRequest.js"></script>
+}

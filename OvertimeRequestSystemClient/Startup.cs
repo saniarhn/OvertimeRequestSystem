@@ -1,4 +1,4 @@
-using Client.Base.Urls;
+using OvertimeRequestSystemClient.Base.Urls;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,7 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Tokens;
 using OvertimeRequestSystemClient.Controllers;
+using OvertimeRequestSystemClient.Repository.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,7 @@ namespace OvertimeRequestSystemClient
         {
             services.AddScoped<Address>();
             services.AddScoped<OvertimesController>();
+            services.AddScoped<AccountRepository>();
             services.AddControllersWithViews();
             services.AddSession();
             services.AddHttpContextAccessor();

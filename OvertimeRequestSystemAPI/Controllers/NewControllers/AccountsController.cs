@@ -1,11 +1,20 @@
 ﻿using OvertimeRequestSystemAPI.Base;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using OvertimeRequestSystemAPI.Context;
 using OvertimeRequestSystemAPI.Models;
 using OvertimeRequestSystemAPI.Repository.Data;
+using OvertimeRequestSystemAPI.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using OvertimeRequestSystemAPI.VM;
 using OvertimeRequestSystemAPI.Context;
@@ -22,31 +31,38 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
     [ApiController]
     public class AccountsController : BaseController<Account, AccountRepository, int>
     {
-        private AccountRepository AccountRepository;
-        private readonly MyContext context;
+        private AccountRepository accountRepository;
         public IConfiguration _configuration;
-        public AccountsController(AccountRepository repository, MyContext myContext) : base(repository)
+        private readonly MyContext context;
+      
+     
+        public AccountsController(AccountRepository repository, IConfiguration configuration, MyContext myContext) : base(repository)
         {
-            this.AccountRepository = repository;
+            this.accountRepository = repository;
+            this._configuration = configuration;
             this.context = myContext;
         }
+
         [HttpPost("Login")]
         public ActionResult Post(LoginVM loginVM)
         {
-            var log = AccountRepository.Login(loginVM);
-            var profile = AccountRepository.GetProfile(loginVM);
-            if (log == 2)
+            var result = accountRepository.Login(loginVM);
+            if (result == 1)
             {
-                var getUserData = (from e in context.Employees
-                                   where e.Email == loginVM.Email
-                                   join a in context.Accounts on e.NIP equals a.NIP
-                                   join ar in context.AccountRoles on a.NIP equals ar.NIP
-                                   join r in context.Roles on ar.RoleId equals r.RoleId
-                                   select new
-                                   {
-                                       Email = e.Email,
-                                       Name = r.RoleName
-                                   }).ToList();
+                /* return Ok(new { status = HttpStatusCode.OK, result, messageResult = "berhasil login" });/
+                return RedirectToAction("GetAll",loginVM);
+                /     return Redirect(“Accounts / All”);*/
+                var getUserData = (
+                                    from e in context.Set<Employee>()
+                                    join a in context.Set<Account>() on e.NIP equals a.NIP
+                                    join ar in context.Set<AccountRole>() on a.NIP equals ar.NIP
+                                    join r in context.Set<Role>() on ar.RoleId equals r.RoleId
+                                    where e.Email == loginVM.Email
+                                    select new
+                                    {
+                                        Email = e.Email,
+                                        Name = r.RoleName
+                                    }).ToList();
 
                 var claims = new List<Claim>
                         {
@@ -71,16 +87,60 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
                 var idtoken = new JwtSecurityTokenHandler().WriteToken(token);
                 claims.Add(new Claim("TokenSecurity", idtoken.ToString()));
 
-                return Ok(new { status = HttpStatusCode.OK, idtoken, profile, Message = $"Login Berhasil" });
-                //return Ok(new JWTokenVM { Token = idtoken, Messages = "Login Success" });
-                //return Ok(new { status = HttpStatusCode.OK, result = profile, message = "Login Berhasil" });
-                //return RedirectToAction("GetProfile", "Accounts", loginVM);
+                /*   return Ok(result);*/
+                return Ok(new JWTokenVM { Token = idtoken, Messages = "Login Sucsses" });
+                /*                return Ok(new { status = HttpStatusCode.OK, token = idtoken, data = accountRepository.GetProfile(loginVM), Message = $"Login Berhasil" });*/
+                /*            return Ok(new { status = HttpStatusCode.OK, Message = $"Login Berhasil" });*/
+                /*             return Ok(new
+                             {
+                                 status = HttpStatusCode.OK,
+                                 data = accountRepository.GetProfile(loginVM),
+                                 message = "Berhasil Login"
+                             });*/
+               /* return Ok(new { status = HttpStatusCode.OK, token = idtoken, Message = $"Login Berhasil" });*/
             }
-            else if (log == 3)
+            else if (result == 2)
             {
-                return BadRequest(new { status = HttpStatusCode.BadRequest, result = log, message = "Password Salah, Login Gagal" });
+                return NotFound(new { status = HttpStatusCode.NoContent, result, messageResult = "Password Salah" });
             }
-            return NotFound(new { status = HttpStatusCode.NotFound, result = log, message = "Email/Phone Number Tidak Ditemukan, Login Gagal" });
+            else if (result == 3)
+            {
+                return NotFound(new { status = HttpStatusCode.NoContent, result, messageResult = "Akun tidak ditemukan" });
+            }
+
+            return NotFound(new { status = HttpStatusCode.BadRequest, result, messageResult = "gagal login" });
         }
+
+        [HttpPost("InsertAccount")]
+        public  ActionResult<AccVM> Post(AccVM accVM)
+        {
+            try
+            {
+                var result = accountRepository.InsertAccount(accVM);
+                return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data telah berhasil di buat" });
+          /*      return Ok(result);*/
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { status = HttpStatusCode.BadRequest, Message = "Gagal memasukan data" });
+            }
+        }
+
+       /* [HttpPost("InsertAccount")]
+        public ActionResult Post(Account account)
+        {
+            try
+            {
+                var result = accountRepository.InsertAccount(account);
+                *//*   return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data telah berhasil di buat" });*//*
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { status = HttpStatusCode.BadRequest, Message = "Gagal memasukan data" });
+            }
+        }*/
+
     }
+    
 }

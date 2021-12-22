@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using OvertimeRequestSystemAPI.Context;
 
 namespace OvertimeRequestSystemAPI.Controllers.NewControllers
 {
@@ -14,10 +16,17 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
     [ApiController]
     public class AccountRolesController : BaseController<AccountRole, AccountRoleRepository, int>
     {
+      
         private AccountRoleRepository AccountRoleRepository;
-        public AccountRolesController(AccountRoleRepository repository) : base(repository)
+        public IConfiguration _configuration;
+        private readonly MyContext context;
+
+
+        public AccountRolesController(AccountRoleRepository repository, IConfiguration configuration, MyContext myContext) : base(repository)
         {
             this.AccountRoleRepository = repository;
+            this._configuration = configuration;
+            this.context = myContext;
         }
     }
 }

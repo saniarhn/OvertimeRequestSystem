@@ -7,7 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OvertimeRequestSystemAPI.VM;
+using Microsoft.Extensions.Configuration;
+using OvertimeRequestSystemAPI.Context;
 using System.Net;
 
 namespace OvertimeRequestSystemAPI.Controllers.NewControllers
@@ -16,30 +17,18 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
     [ApiController]
     public class EmployeesController : BaseController<Employee, EmployeeRepository, int>
     {
+    
         private EmployeeRepository EmployeeRepository;
-        public EmployeesController(EmployeeRepository repository) : base(repository)
+        public IConfiguration _configuration;
+        private readonly MyContext context;
+
+     
+        public EmployeesController(EmployeeRepository repository, IConfiguration configuration, MyContext myContext) : base(repository)
         {
             this.EmployeeRepository = repository;
+            this._configuration = configuration;
+            this.context = myContext;
         }
-        [HttpPost("Register")]
-        public ActionResult Post(RegisterVM registerVM)
-        {
-            var masuk = EmployeeRepository.Register(registerVM);
-            if (masuk == 1)
-            {
-                /*return Ok(new { status = HttpStatusCode.OK, result = masuk, message = "Pendaftaran Berhasil" });*/
-                return Ok(masuk);
-            }
-            else if (masuk == 2)
-            {
-                return NotFound(new { status = HttpStatusCode.NotFound, result = masuk, message = "NIK sudah terdaftar, Register Gagal" });
-            }
-            else if (masuk == 3)
-            {
-                return NotFound(new { status = HttpStatusCode.NotFound, result = masuk, message = "Email Sudah terdaftar, Register Gagal" });
-            }
-            return NotFound(new { status = HttpStatusCode.NotFound, result = masuk, message = "Register Gagal" });
-        }
-
+    
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
-namespace Client.Base.Urls
+namespace OvertimeRequestSystemClient.Base.Urls
 {
     public class Address
     {

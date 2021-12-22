@@ -15,9 +15,10 @@ namespace OvertimeRequestSystemAPI.Hashing
         {
             return BCrypt.Net.BCrypt.HashPassword(password, GetRandomSalt());
         }
-        public static bool ValidatePassword(string password, string correctHashing)
+        public static bool ValidatePassword(string password, string correctHash)
         {
-            return BCrypt.Net.BCrypt.Verify(password, correctHashing);
+            return BCrypt.Net.BCrypt.Verify(password, correctHash);
         }
+
     }
 }

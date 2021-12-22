@@ -32,7 +32,7 @@ namespace OvertimeRequestSystemAPI.Base
         }
 
         [HttpPost]
-        public ActionResult<Entity> Post(Entity entity)
+        public virtual ActionResult<Entity> Post(Entity entity)
         {
             var Masuk = repository.Insert(entity);
             if (Masuk != 0)
