@@ -15,15 +15,6 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using OvertimeRequestSystemAPI.VM;
-using OvertimeRequestSystemAPI.Context;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using System.Net;
 
 namespace OvertimeRequestSystemAPI.Controllers.NewControllers
 {
