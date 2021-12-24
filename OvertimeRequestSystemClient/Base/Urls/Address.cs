@@ -10,7 +10,7 @@ namespace OvertimeRequestSystemClient.Base.Urls
     public class Address
     {
         // Sesuaikan dengan link Localhost API kalian
-        public string Link = "https://localhost:44356/OvertimeRequestSystemAPI/";
+        public string Link = "https://localhost:44382/OvertimeRequestSystemAPI/";
 
 
     }

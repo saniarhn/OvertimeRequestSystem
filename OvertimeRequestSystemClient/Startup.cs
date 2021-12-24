@@ -33,7 +33,7 @@ namespace OvertimeRequestSystemClient
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<Address>();
-            services.AddScoped<OvertimesController>();
+            services.AddScoped<OvertimeRepository>();
             services.AddScoped<AccountRepository>();
             services.AddControllersWithViews();
             services.AddSession();
