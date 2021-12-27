@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,10 +14,10 @@ namespace OvertimeRequestSystemAPI.Models
         [Key]
         public int NIP { get; set; }
         public string Name { get; set; }
-        [Index(IsUnique = true)]
+    
         public string Email { get; set; }
         public string Position { get; set;  }
-        public string BasicSalary { get; set; }
+        public float BasicSalary { get; set; }
         public int ManagerId { get; set; }
         //penghubung one to one dengan Account
         public virtual Account Account { get; set; }

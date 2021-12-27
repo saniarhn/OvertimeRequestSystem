@@ -13,12 +13,14 @@ namespace OvertimeRequestSystemAPI.Models
         [Key]
         public int ResponseId { get; set; }
         public string ResponseDescription { get; set; }
-        public int ManagerOrFinanceId { get; set; }
+       
         public int OvertimeId { get; set; }
         //penghubung one to many dengan overtime
         public virtual Overtime Overtime { get; set; }
+        [Required]
         //penghubung one to many dengan employee
-        [ForeignKey("ManagerOfFinanceId")]
+        [ForeignKey("ManagerOrFinanceId")]
         public virtual Employee Employee { get; set; }
+        public int ManagerOrFinanceId { get; set; }
     }
 }

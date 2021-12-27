@@ -29,5 +29,18 @@ namespace OvertimeRequestSystemClient.Controllers
             var result = overtimeRepository.PostOvertimeRequest(overtimerequestVM);
             return Json(result);
         }
+
+        public IActionResult OvertimeResponse()
+        {
+            return View("OvertimeResponse");
+        }
+
+        [HttpPut]
+        public JsonResult PutOvertimeResponseManager(OvertimeResponseVM overtimeResponseVM)
+        {
+            var result = overtimeRepository.OvertimeResponseManager(overtimeResponseVM);
+            return Json(result);
+        }
+
     }
 }

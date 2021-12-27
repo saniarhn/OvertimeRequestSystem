@@ -1,98 +1,103 @@
-﻿$("#btn-add-list").on('click', myFunction );
-function myFunction() {
-    var text = ''
-    text = `
-    <div class="row">
-        <!--Grid column-->
-        <div class="col-md-6">
-            <div class="form-group mb-0">
-                <label for="inputMDEx1">Jam Mulai</label>
-                <input type="time" id="starthour" class="form-control">
-            </div>
-        </div>
-        <!--Grid column-->
-        <!--Grid column-->
-        <div class="col-md-6">
-            <div class="form-group mb-0">
-                <label for="inputMDEx1">Jam Selesai</label>
-                <input type="time" id="endhour" class="form-control">
-            </div>
-        </div>
-        <!--Grid column-->
+﻿$("#btn-add-list").on('click', myFunction);
+var index = 0;
+var dataPertama = [];
 
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Tugas</label>
-        <textarea class="form-control" id="taskname" rows="3"></textarea>
-    </div>
-    <div class="form-group mb-0">
-        <label for="email" class="">Location</label>
-        <input type="text" id="locationname" name="locationname" class="form-control">
-    </div>`
-    $('#detail').append(text);
+function myFunction() {
+
+
+    var data1 = {};
+    
+    $("#form-header").find('input').each(function (i) {
+        if ((i + 1) % 2 === 0) {
+            data1[this.id] = this.value;
+            data1["starthour"] = null;
+            data1["endhour"] = null;
+            data1["taskname"] = null;
+            data1["locationname"] = null;
+            dataPertama.push(data1);
+            data1 = {};
+        }
+        else {
+            data1[this.id] = this.value;
+        }
+    });
+
+    $("#detail").find('input').each(function (i) {
+        switch (i) {
+            case 0:
+                dataPertama[index].starthour = this.value;
+                break;
+            case 1:
+                dataPertama[index].endhour = this.value;
+                break;
+            case 2:
+                dataPertama[index].locationname = this.value;
+                break;
+            default:
+        }
+    });
+
+    $("#detail").find('textarea').each(function (i) {
+        dataPertama[index].taskname = this.value;
+    });
+
+    index += 1;
+
+    console.log(dataPertama)
+
+    
+    for (let i = 0; i < dataPertama.length; i++) {
+        document.getElementById("tb_content").innerHTML = null;
+        var a = 0;
+        while (a < dataPertama.length) {
+            var tableContent = '<tr>';
+            tableContent += "<td>" + (a + 1) + "</td>" +
+                "<td>" + dataPertama[a].date + "</td>" +
+                "<td>" + dataPertama[a].starthour + "</td>" +
+                "<td>" + dataPertama[a].endhour + "</td>" +
+                "<td>" + dataPertama[a].taskname + "</td>" +
+                "<td>" + dataPertama[a].locationname + "</td>";
+            tableContent += '</tr>';
+            document.getElementById("tb_content").innerHTML += tableContent;
+            a++;
+        }
+
+    }
+    
+   
+    
+    $("#detail input").val('');
+    $("#detail textarea").val('');
+
+
+
 
 }
 
 
 function OvertimeRequest() {
-    //Get a formdata instance
-/*    var fd = new FormData(detail)
 
-    // Get all values
-    var starthour = fd.getAll('starthour')
-    var endhour = fd.getAll('endhour')
-    var taskname = fd.getAll('taskname')
-    var locationname = fd.getAll('locationname')
-    // Transform
-    var unavailable = starthour.map((starthour, i) => ({
-        starthour, endhour: endhour[i],
-        taskname: taskname[i],
-        locationname: locationname[i]}))
-         console.log({ unavailable })*/
+/*    ambil array untuk list*/
 
+    const dataKedua = []
+    var data = {}
+    for (index = 0; index < dataPertama.length; index++)
+    {
 
-      /*  var data = [];*/
+        data["starthour"]=dataPertama[index].starthour 
+        data["endhour"] = dataPertama[index].endhour
+        data["locationname"] = dataPertama[index].locationname
+        data["taskname"] = dataPertama[index].taskname
+        dataKedua.push(data);
+        data = {}
 
-  /*  $('#detail input').each(function () {
-      
-          *//*  data.push({
-                starthour: $(this).val()
-               *//* endhour: $(this).next().val()*//*
-*//*                taskname: $(this).val(),
-                locationname: $(this).val(),*//*
-            });*//*
-        $(this).val()
-     
-       });
-       
-        console.log(data);*/
+    }
 
-    var dataArray = [];
-    var data = {};
-  
-    $("#detail").find('input').each(function (i) {
-        if ((i + 1) % 3 === 0) {
-            data[this.id] = this.value;
-            data["taskname"] = null;
-            dataArray.push(data);
-            data = {};
-        } else {
-            data[this.id] = this.value;
-        }
-    });
-
-    $("#detail").find('textarea').each(function (i) {
-        dataArray[i].taskname = this.value;
-    });
-
-    console.log(dataArray)
-
-     var obj = new Object();
-    obj.StartDate = $("#startdate").val();
-    obj.EndDate = $("#enddate").val();
+    var obj = new Object();
+    obj.Date = $("#date").val();
     obj.NIP = $("#nip").val();
-    obj.ListDetail = dataArray;
-    
+    obj.ListDetail = dataKedua;
+    console.log('data yang akan dikirim');
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     console.log(obj);
     $.ajax({

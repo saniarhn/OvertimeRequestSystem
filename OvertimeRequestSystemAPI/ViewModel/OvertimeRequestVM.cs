@@ -11,8 +11,7 @@ namespace OvertimeRequestSystemAPI.ViewModel
     public class OvertimeRequestVM
     {
         
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime Date { get; set; }
         public int SumOvertimeHour { get; set; }
         public int OvertimeSalary { get; set; }
         public string StatusByManager { get; set; }

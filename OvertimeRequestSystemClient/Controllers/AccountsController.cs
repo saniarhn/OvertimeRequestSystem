@@ -55,5 +55,15 @@ namespace OvertimeRequestSystemClient.Controllers
 
             return RedirectToAction("DashboardAdmin", "Home");
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Create()
+        {
+            return View("Create");
+        }
     }
  }

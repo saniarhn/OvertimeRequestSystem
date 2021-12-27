@@ -5,50 +5,41 @@
 }
 <h1>Overtime Request</h1>
 
-<form class="overtime-request">
-    <div class="row">
-
-        <!--Grid column-->
-        <div class="col-md-6">
-            <div class="form-group mb-0">
-                <label for="name" class="">Your NIP</label>
-                <input type="text" id="nip" name="nip" class="form-control">
-
+<form id="form" class="overtime-request">
+    <div id="form-header">
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-md-6">
+                <div class="form-group mb-0">
+                    <label for="name" class="">Your NIP</label>
+                    <input type="text" id="nip" name="nip" class="form-control">
+                </div>
             </div>
-        </div>
-        <!--Grid column-->
-        <!--Grid column-->
-        @* <div class="col-md-6">
+            <!--Grid column-->
+            <!--Grid column-->
+            @* <div class="col-md-6">
                 <div class="form-group mb-0">
                     <label for="email" class="">Your Name</label>
                     <input type="text" id="email" name="email" class="form-control">
                 </div>
             </div>*@
-        <!--Grid column-->
+            <!--Grid column-->
+        </div>
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-md-6">
+                <div class="form-group mb-0">
+                    <label for="example">Tanggal Mulai</label>
+                    <input placeholder="Select date" type="date" id="date" class="form-control">
+                </div>
+            </div>
+            
+       
 
+        </div>
     </div>
 
     <!--Grid row-->
-    <div class="row">
-
-        <!--Grid column-->
-        <div class="col-md-6">
-            <div class="form-group mb-0">
-                <label for="example">Tanggal Mulai</label>
-                <input placeholder="Select date" type="date" id="startdate" class="form-control">
-            </div>
-        </div>
-        <!--Grid column-->
-        <!--Grid column-->
-        <div class="col-md-6">
-            <div class="form-group mb-0">
-                <label for="example">Tanggal Selesai</label>
-                <input placeholder="Select date" type="date" id="enddate" class="form-control">
-            </div>
-        </div>
-        <!--Grid column-->
-
-    </div>
 
     <h1>Detail</h1>
     <div id="detail">
@@ -85,7 +76,24 @@
 
 
     <button type="button" id="btn-add-list" class="btn btn-primary text-center">Add List</button>
-    <button type="button" id="kirim"class="btn btn-primary add-btn" onclick="OvertimeRequest()">Kirim</button>
+
+    <table  class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Jam Mulai</th>
+                <th scope="col">Jam Selesai</th>
+                <th scope="col">Tugas</th>
+                <th scope="col">Lokasi</th>
+            </tr>
+        </thead>
+        <tbody  id="tb_content">
+
+        </tbody>
+    </table>
+
+    <button type="button" id="kirim" class="btn btn-primary add-btn" onclick="OvertimeRequest()">Kirim</button>
 
 
 </form>

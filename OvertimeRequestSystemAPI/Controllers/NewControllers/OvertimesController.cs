@@ -43,7 +43,7 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
             else if (result == 2)
             {
                 /*      return BadRequest(new { status = HttpStatusCode.BadRequest, result, messageResult = "NIK sudah digunakan" });*/
-                return Ok(new { status = HttpStatusCode.OK, result, messageResult = "berhasil masuk" });
+                return BadRequest(new { status = HttpStatusCode.BadRequest, result, messageResult = "Tanggal Mulai dan Tanggal Selesai tidak sama" });
             }
             else if (result == 3)
             {
@@ -60,5 +60,30 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
             return BadRequest(new { status = HttpStatusCode.BadRequest, result, messageResult = "Sepertinya terjadi kesalahan, periksa kembali!" });
 
         }
+
+        [HttpPut("OvertimeResponseManager")]
+        public ActionResult<Overtime> PutManager(OvertimeResponseVM overtimeResponseVM)
+        {
+            var result = OvertimeRepository.OvertimeResponseManager(overtimeResponseVM);
+            if (result != 0)
+            {
+                /* return Ok(new { status = HttpStatusCode.OK, result, messageResult = "Data Berhasil di Update" });*/
+                return Ok(result);
+            }
+            return BadRequest(new { status = HttpStatusCode.BadRequest, result, messageResult = "Data tidak berhasil di update" });
+        }
+
+        [HttpPut("OvertimeResponseFinance")]
+        public ActionResult<Overtime> PutFinance(OvertimeResponseVM overtimeResponseVM)
+        {
+            var result = OvertimeRepository.OvertimeResponseFinance(overtimeResponseVM);
+            if (result != 0)
+            {
+                /* return Ok(new { status = HttpStatusCode.OK, result, messageResult = "Data Berhasil di Update" });*/
+                return Ok(result);
+            }
+            return BadRequest(new { status = HttpStatusCode.BadRequest, result, messageResult = "Data tidak berhasil di update" });
+        }
+
     }
 }

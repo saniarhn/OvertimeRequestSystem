@@ -35,5 +35,12 @@ namespace OvertimeRequestSystemClient.Repository.Data
             var result = httpClient.PostAsync(address.Link + request + "OvertimeRequest", content).Result;
             return result.StatusCode;
         }
+
+        public HttpStatusCode OvertimeResponseManager(OvertimeResponseVM overtimeResponseVM)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(overtimeResponseVM), Encoding.UTF8, "application/json");
+            var result = httpClient.PutAsync(address.Link + request + "OvertimeResponseManager", content).Result;
+            return result.StatusCode;
+        }
     }
 }
