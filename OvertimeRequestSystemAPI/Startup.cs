@@ -67,13 +67,13 @@ namespace OvertimeRequestSystemAPI
 
                 };
             });
-            
-   /*         services.AddControllers().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter());
-                options.JsonSerializerOptions.Converters.Add(new OvertimeDetaillToStringConverter());
 
-            });*/
+            /*         services.AddControllers().AddJsonOptions(options =>
+                     {
+                         options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter());
+                         options.JsonSerializerOptions.Converters.Add(new OvertimeDetaillToStringConverter());
+
+                     });*/
             services.AddControllers()
      .AddJsonOptions(options =>
      {
@@ -83,27 +83,6 @@ namespace OvertimeRequestSystemAPI
      });
 
             services.AddRazorPages();
-            services.AddAuthentication(auth =>
-            {
-                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                auth.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = false,
-                    ValidAudience = Configuration["Jwt:Audience"],
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
-
-                };
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
