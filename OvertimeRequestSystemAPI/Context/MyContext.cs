@@ -25,6 +25,11 @@ namespace OvertimeRequestSystemAPI.Context
         //membuat relasi
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+/*            unique email*/
+            modelBuilder.Entity<Employee>()
+        .HasIndex(u => u.Email)
+        .IsUnique();
+
             //one to one employee x account
             modelBuilder.Entity<Employee>()
                 .HasOne(acc => acc.Account)
@@ -54,7 +59,8 @@ namespace OvertimeRequestSystemAPI.Context
             //one to many employee x response
             modelBuilder.Entity<Response>()
                 .HasOne(emp => emp.Employee)
-                .WithMany(res => res.responses);
+                .WithMany(res => res.responses)
+                 .OnDelete(DeleteBehavior.ClientCascade); 
 
             //one to many employee x overtime
             modelBuilder.Entity<Overtime>()

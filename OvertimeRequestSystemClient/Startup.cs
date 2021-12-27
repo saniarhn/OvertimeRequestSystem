@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.IdentityModel.Tokens;
 using OvertimeRequestSystemClient.Controllers;
 using OvertimeRequestSystemClient.Repository.Data;
 using System;
@@ -33,8 +32,9 @@ namespace OvertimeRequestSystemClient
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<Address>();
-            services.AddScoped<OvertimesController>();
+            services.AddScoped<OvertimeRepository>();
             services.AddScoped<AccountRepository>();
+            services.AddScoped<EmployeeRepository>();
             services.AddControllersWithViews();
             services.AddSession();
             services.AddHttpContextAccessor();
