@@ -53,18 +53,26 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
                                     select new
                                     {
                                         Email = e.Email,
+                                        NIP = e.NIP,
                                         Name = r.RoleName
                                     }).ToList();
 
                 var claims = new List<Claim>
-                        {
-                            new Claim(JwtRegisteredClaimNames.Email, getUserData[0].Email)
-                        };
+                {
+                    new Claim(JwtRegisteredClaimNames.Email, getUserData[0].Email),
+                    new Claim(JwtRegisteredClaimNames.NameId, getUserData[0].NIP.ToString()),
+                };
 
                 foreach (var userRole in getUserData)
                 {
-                    claims.Add(new Claim(ClaimTypes.Role, userRole.Name));
+                    claims.Add(new Claim(JwtRegisteredClaimNames.UniqueName, userRole.Name));
                 }
+
+                //foreach (var userNIP in getUserData)
+                //{
+                //    claims.Add(new Claim(ClaimTypes.NameIdentifier, userNIP.NIP.ToString()));
+
+                //}
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:key"]));
                 var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

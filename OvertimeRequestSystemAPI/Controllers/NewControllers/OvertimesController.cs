@@ -30,14 +30,20 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
             this._configuration = configuration;
             this.context = myContext;
         }
-        [HttpPost("OvertimeRequest")]
-        public ActionResult Post(OvertimeRequestVM overtimerequestVM)
+        [HttpPost("OvertimeRequest/{email}")]
+        public ActionResult Post(OvertimeRequestVM overtimerequestVM,string email)
         {
             var result = OvertimeRepository.OvertimeRequest(overtimerequestVM);
             if (result == 1)
             {
                 /*return Ok(new { status = HttpStatusCode.OK, result, messageResult = "Data berhasil ditambahkan" });*/
-                return Ok(result);
+                /*         return Ok(result);*/
+                return Ok(new
+                {
+                    status = HttpStatusCode.OK,
+                    data = OvertimeRepository.OvertimeRequestMail(email),
+                    message = "Berhasil Login"
+                });
 
             }
             else if (result == 2)

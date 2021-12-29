@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using OvertimeRequestSystemAPI.Models;
 using OvertimeRequestSystemAPI.ViewModel;
 using OvertimeRequestSystemClient.Base.Controllers;
@@ -20,13 +21,17 @@ namespace OvertimeRequestSystemClient.Controllers
         }
         public IActionResult Index()
         {
+            var c = HttpContext.Session.GetString("NIP");
+            var d = Int32.Parse(c);
+            ViewData["nip"] = d;
             return View("OvertimeRequest");
         }
 
         [HttpPost]
         public JsonResult PostOvertimeRepository(OvertimeRequestVM overtimerequestVM)
         {
-            var result = overtimeRepository.PostOvertimeRequest(overtimerequestVM);
+            var sessionEmail = HttpContext.Session.GetString("Email");
+            var result = overtimeRepository.PostOvertimeRequest(overtimerequestVM, sessionEmail);
             return Json(result);
         }
 
