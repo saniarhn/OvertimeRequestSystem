@@ -42,8 +42,11 @@ namespace OvertimeRequestSystemClient.Repository.Data
             var result = httpClient.PutAsync(address.Link + request + "OvertimeResponseManager" , content).Result;
             return result.StatusCode;
         }
-
-
-
+        public HttpStatusCode OvertimeResponseFinance(OvertimeResponseVM overtimeResponseVM)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(overtimeResponseVM), Encoding.UTF8, "application/json");
+            var result = httpClient.PutAsync(address.Link + request + "OvertimeResponseFinance", content).Result;
+            return result.StatusCode;
+        }
     }
 }

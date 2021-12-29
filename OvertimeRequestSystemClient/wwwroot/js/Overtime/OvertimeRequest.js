@@ -63,15 +63,8 @@ function myFunction() {
         }
 
     }
-    
-   
-    
     $("#detail input").val('');
     $("#detail textarea").val('');
-
-
-
-
 }
 
 

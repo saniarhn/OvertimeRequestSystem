@@ -4,7 +4,7 @@
 
 @{
     ViewData["Title"] = "Home Page";
-    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    Layout = "~/Views/Shared/_LayoutFinance.cshtml";
 }
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -21,10 +21,7 @@
                 <a href="#tab-table1" data-toggle="tab">Semua Data</a>
             </li>
             <li>
-                <a href="#tab-table2" data-toggle="tab">Diajukan</a>
-            </li>
-            <li>
-                <a href="#tab-table3" data-toggle="tab">Diterima</a>
+                <a href="#tab-table2" data-toggle="tab">Diterima</a>
             </li>
         </ul>
         <!-- Toggle -->
@@ -34,7 +31,7 @@
                 <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime1">
                     <thead class="thead-dark">
                         <tr>
-                            <th class="tbtitle text-center" scope="col" colspan="6">Employee List</th>
+                            <th class="tbtitle text-center" scope="col" colspan="7">Employee List</th>
                         </tr>
                         <tr>
                             <th scope="col">NO</th>
@@ -42,6 +39,7 @@
                             <th scope="col">Overtime Id</th>
                             <th scope="col">Date</th>
                             <th scope="col">Status By Manager</th>
+                            <th scope="col">Status By Finance</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -55,27 +53,6 @@
                 <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime2">
                     <thead class="thead-dark">
                         <tr>
-                            <th class="tbtitle text-center" scope="col" colspan="6">Employee List</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">NO</th>
-                            <th scope="col">NIP</th>
-                            <th scope="col">Overtime Id</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Status By Manager</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <!-- Table 2 -->
-            <!-- Table 3 -->
-            <div class="tab-pane" id="tab-table3">
-                <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime3">
-                    <thead class="thead-dark">
-                        <tr>
                             <th class="tbtitle text-center" scope="col" colspan="5">Employee List</th>
                         </tr>
                         <tr>
@@ -83,14 +60,14 @@
                             <th scope="col">NIP</th>
                             <th scope="col">Overtime Id</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Status By Manager</th>
+                            <th scope="col">Status By Finance</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
             </div>
-            <!-- Table 3 -->
+            <!-- Table 2 -->
         </div>
 
     </div>
@@ -134,5 +111,5 @@
 <!-- Modal Update -->
 
 @section Scripts{
-    <script src="~/js/Overtime/OvertimeResponse.js"></script>
+    <script src="~/js/Overtime/OvertimeResponseFinance.js"></script>
 }

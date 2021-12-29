@@ -46,6 +46,12 @@
                 "targets": "_all"
             },
             {
+                "data": "statusByFinance",
+                "defaultContent": "Diajukan",
+                "className": "dt-center",
+                "targets": "_all"
+            },
+            {
                 "className": "dt-center",
                 "targets": "_all",
                 "data": null,
@@ -108,76 +114,7 @@
 
             },
             {
-                "data": "statusByManager",
-                "defaultContent": "Diajukan",
-                "className": "dt-center",
-                "targets": "_all"
-            },
-            {
-                "className": "dt-center",
-                "targets": "_all",
-                "data": null,
-                "render": function (data, type, row) {
-                    return `
-                            <button type="submit" class="btn btn-success"
-                                    data-placement="top" title="Accept" onclick="UpdateYes('${row["nip"]}','${row["overtimeId"]}')">
-                                <i class="fas fa-check"></i>
-                            </button>
-                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#form-edit" onclick="getDataUpdate('${row["nip"]}','${row["overtimeId"]}')"
-                                    data-placement="top" title="Decline">
-                                <i class="fas fa-times"></i>
-                            </button>
-                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#form-details" 
-                                    data-placement="top" title="Details">
-                                <i class="fas fa-info"></i>
-                            </button>`;
-
-                }
-            }
-        ],
-        scrollCollapse: true,
-        paging: false
-
-    });
-    //tableOvertime3
-    table = $("#tableOvertime3").DataTable({
-        pageLength: 5,
-        lengthMenu: [[5, 10, 15, 20, -1], [5, 10, 15, 20, 'All']],
-        responsive: true,
-        "ajax": {
-            "url": "/overtimes/getall",
-            "dataSrc": "",
-            "order": [[1, 'asc']]
-        },
-        "columns": [
-            {
-                "data": null,
-                "render": function (data, type, row, meta) {
-                    return meta.row + meta.settings._iDisplayStart + 1;
-                },
-                "className": "dt-center",
-                "targets": "_all"
-            },
-            {
-                "data": "nip",
-                "className": "dt-center",
-                "targets": "_all"
-            },
-            {
-                "data": "overtimeId",
-                "visible": false
-            },
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    return dateConversion(row["date"]);
-                },
-                "className": "dt-center",
-                "targets": "_all"
-
-            },
-            {
-                "data": "statusByManager",
+                "data": "statusByFinance",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
                 "targets": "_all"
@@ -187,10 +124,11 @@
         paging: false
 
     });
+    
 
     /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
-    $('#tableOvertime2').DataTable().column(4).search("Diajukan").draw();
-    $('#tableOvertime3').DataTable().column(4).search("Diterima").draw();
+    $('#tableOvertime1').DataTable().column(4).search("Diterima").draw();
+    $('#tableOvertime2').DataTable().column(4).search("Diterima").draw();
 
 });
 
@@ -213,12 +151,12 @@ $.ajax({
 
 function UpdateYes(nip, overtimeid) {
             var obj = new Object();
-            obj.StatusByManager = "Diterima";
+            obj.StatusByFinance = "Diterima";
             obj.NIP = nip;
             obj.OvertimeId = overtimeid;
             console.log(obj)
             $.ajax({
-                url: "/overtimes/PutOvertimeResponseManager/",
+                url: "/overtimes/PutOvertimeResponseFinance/",
                 type: "Put",
                 data: obj,
                 'dataType': 'json',
@@ -259,14 +197,14 @@ function getDataUpdate(nip, overtimeid) {
 
 function UpdateNo() {
     var obj = new Object();
-    obj.StatusByManager = "Ditolak";
+    obj.StatusByFinance = "Ditolak";
     obj.NIP = $("#updatenip").val();
     obj.ResponseDescription = $("#updaterespdesc").val();
     obj.OvertimeId = $("#updateovertimeid").val();
     obj.ManagerOrFinanceId = $("#updatemngfinid").val();
     console.log(obj)
     $.ajax({
-        url: "/overtimes/PutOvertimeResponseManager/",
+        url: "/overtimes/PutOvertimeResponseFinance/",
         type: "Put",
         data: obj,
         'dataType': 'json',
