@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+
 
 namespace OvertimeRequestSystemClient.Controllers
 {
@@ -29,17 +32,27 @@ namespace OvertimeRequestSystemClient.Controllers
             var jwtToken = await accountRepository.Auth(login);
             var token = jwtToken.Token;
 
+            var token2 = new JwtSecurityTokenHandler().ReadJwtToken(token);
+            var email = token2.Claims.First(c => c.Type == "email").Value;
+            var nip = token2.Claims.First(c => c.Type == "nameid").Value;
+            var role = token2.Claims.First(c => c.Type == "unique_name").Value;
+
             if (token == null)
             {
-                //return RedirectToAction("Dashboard", "Employees");
+
                 return Json(Url.Action("Login", "Accounts"));
             }
 
             HttpContext.Session.SetString("JWToken", token);
-            //HttpContext.Session.SetString("Name", jwtHandler.GetName(token));
-            //HttpContext.Session.SetString("ProfilePicture", "assets/img/theme/user.png");   
-            return Json(Url.Action("DashboardAdmin", "Home"));
-            //return RedirectToAction("Dashboard", "Employees");
+
+            HttpContext.Session.SetString("Email", email);
+            HttpContext.Session.SetString("NIP", nip);
+            HttpContext.Session.SetString("Role", role);
+            /*            var a = HttpContext.Session.GetString("Email");
+                        var b = HttpContext.Session.GetString("NIP");
+                        var c = HttpContext.Session.GetString("Role");*/
+            /*       return Json(Url.Action("DashboardAdmin", "Home"));*/
+            return Json(Url.Action("Index", "Overtimes"));
         }
 
 

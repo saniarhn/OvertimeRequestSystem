@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OvertimeRequestSystemAPI.ViewModel;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
 
 namespace OvertimeRequestSystemAPI.Repository.Data
 {
@@ -244,5 +245,49 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             return result;
         }
 
+
+
+        public int OvertimeRequestMail(string email)
+        {
+            var checkEmail = context.Employees.Where(e => e.Email == email).FirstOrDefault();
+
+            if (checkEmail != null)
+            {
+                var getName = checkEmail.Name;
+                var getNIP = checkEmail.NIP;
+                var getData = context.Overtimes.Find(getNIP);
+                if (getData != null)
+                {
+                    /*       string ChangePassword = Guid.NewGuid().ToString();
+
+                           getData.Password = Hashing.Hashing.HashPassword(ChangePassword);
+                           context.SaveChanges();*/
+
+                    var getHour = getData.SumOvertimeHour;
+                    var getDate = getData.Date.DayOfWeek;
+                    DateTime today = DateTime.Now;
+
+                    /*  untuk mengirim email*/
+                    MailMessage msg = new MailMessage();
+                    msg.From = new MailAddress("anothername.ok@gmail.com");
+                    msg.To.Add(new MailAddress(email));
+                    msg.Subject = "Your Overtime Request Submitted" + today;
+                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour <p>" + $"</br><p> on {getDate} <p>";
+                    msg.IsBodyHtml = true;
+
+                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+                    System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("anothername.ok@gmail.com", "polmed2018");
+                    smtpClient.Credentials = credentials;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Send(msg);
+                    return 1;
+
+                }
+                return 2;
+            }
+            return 2;
+
+
+        }
     }
 }

@@ -29,18 +29,21 @@ namespace OvertimeRequestSystemClient.Repository.Data
                 BaseAddress = new Uri(address.Link)
             };
         }
-        public HttpStatusCode PostOvertimeRequest(OvertimeRequestVM overtimerequestVM)
+        public HttpStatusCode PostOvertimeRequest(OvertimeRequestVM overtimerequestVM,string email)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(overtimerequestVM), Encoding.UTF8, "application/json");
-            var result = httpClient.PostAsync(address.Link + request + "OvertimeRequest", content).Result;
+            var result = httpClient.PostAsync(address.Link + request + "OvertimeRequest/" + email, content).Result;
             return result.StatusCode;
         }
 
         public HttpStatusCode OvertimeResponseManager(OvertimeResponseVM overtimeResponseVM)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(overtimeResponseVM), Encoding.UTF8, "application/json");
-            var result = httpClient.PutAsync(address.Link + request + "OvertimeResponseManager", content).Result;
+            var result = httpClient.PutAsync(address.Link + request + "OvertimeResponseManager" , content).Result;
             return result.StatusCode;
         }
+
+
+
     }
 }
