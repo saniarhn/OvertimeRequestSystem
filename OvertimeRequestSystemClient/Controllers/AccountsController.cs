@@ -56,7 +56,16 @@ namespace OvertimeRequestSystemClient.Controllers
                         var b = HttpContext.Session.GetString("NIP");
                         var c = HttpContext.Session.GetString("Role");*/
             /*       return Json(Url.Action("DashboardAdmin", "Home"));*/
-            return Json(Url.Action("Index", "Overtimes"));
+            var c = HttpContext.Session.GetString("Role");
+            if(c == "manager")
+            {
+                return Json(Url.Action("OvertimeResponse", "Overtimes"));
+            }
+            else
+            {
+                return Json(Url.Action("Index", "Overtimes"));
+            }
+          
         }
 
 

@@ -20,7 +20,8 @@ namespace OvertimeRequestSystemClient.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Login","Accounts");
+       
         }
 
         public IActionResult Privacy()
