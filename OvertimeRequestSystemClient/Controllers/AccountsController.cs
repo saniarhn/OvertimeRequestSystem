@@ -23,6 +23,10 @@ namespace OvertimeRequestSystemClient.Controllers
         {
             return View("Login");
         }
+        public IActionResult CreateAccount()
+        {
+            return View("CreateAccount");
+        }
         [HttpPost]
         public async Task<IActionResult> Auth(LoginVM login)
         {

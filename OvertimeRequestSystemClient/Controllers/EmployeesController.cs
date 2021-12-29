@@ -28,5 +28,10 @@ namespace OvertimeRequestSystemClient.Controllers
         {
             return View("Create");
         }
+        public IActionResult AboutEmployee()
+        {
+            return View("AboutEmployee");
+        }
+
     }
 }
