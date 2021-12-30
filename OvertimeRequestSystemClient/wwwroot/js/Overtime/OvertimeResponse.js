@@ -34,8 +34,6 @@
             },
             {
                 "data": "position",
-                "className": "dt-center",
-                "targets": "_all",
                 "visible": false
             },
             {
@@ -77,10 +75,10 @@
                                     data-placement="top" title="Decline">
                                 <i class="fas fa-times"></i>
                             </button>
-                            <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
+                                <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
                                     data-placement="top" onclick="getData('${row["nip"]}')" onclick title="Details">
                                 <i class="fas fa-info"></i>
-                            </button>`;
+                                </button>`;
 
                 }
             }
@@ -269,7 +267,7 @@ function UpdateNo() {
     })
 }
 
-function getData(nip) {
+/*function getData(nip) {
     $.ajax({
         url: "/overtimes/GetResponseForManager/" + nip
     }).done((result) => {
@@ -304,6 +302,56 @@ function getData(nip) {
                         </tr>
                     </table>
                     </div>`
+        $('.datainfo').html(text);
+    }).fail((error) => {
+        console.log(error);
+    });
+}*/
+
+function getData(nip) {
+    $.ajax({
+        url: "/overtimes/GetResponseForManager/" + nip
+    }).done((result) => {
+        console.log(result)
+        var text = ''
+        text = `
+                <div class="row">
+                    <div class="col-sm-6 mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Name</h5>
+                                <p class="card-text">${result.name}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">NIP</h5>
+                                <p class="card-text">${result.nip}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Date</h5>
+                                <p class="card-text">${result.date}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Overtime Hour</h5>
+                                <p class="card-text">${result.sumOvertimeHour}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
         $('.datainfo').html(text);
     }).fail((error) => {
         console.log(error);

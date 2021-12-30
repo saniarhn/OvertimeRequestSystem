@@ -33,8 +33,7 @@
             },
             {
                 "data": "position",
-                "className": "dt-center",
-                "targets": "_all"
+                "visible":false
             },
             {
                 "data": "overtimeId",
@@ -55,12 +54,12 @@
                 "targets": "_all"
             },
 
-            /*     {
-                     "data": "statusByManager",
-                     "defaultContent": "Diajukan",
-                     "className": "dt-center",
-                     "targets": "_all"
-                 },*/
+            {
+                 "data": "statusByFinance",
+                 "defaultContent": "Diajukan",
+                 "className": "dt-center",
+                 "targets": "_all"
+            },
             {
                 "className": "dt-center",
                 "targets": "_all",
@@ -164,10 +163,8 @@
 
     });
     
-
-    /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
-/*    $('#tableOvertime1').DataTable().column(4).search("Diterima").draw();
-    $('#tableOvertime2').DataTable().column(4).search("Diterima").draw();*/
+    /*$('#tableOvertime1').DataTable().column(6).search("Diajukan").draw();*/
+    $('#tableOvertime2').DataTable().column(7).search("Diterima").draw();
 
 });
 
