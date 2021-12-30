@@ -45,5 +45,12 @@ namespace OvertimeRequestSystemClient.Repository.Data
 
             return token;
         }
+
+        public HttpStatusCode InsertAccount(Account account)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(account), Encoding.UTF8, "application/json");
+            var result = httpClient.PostAsync(address.Link + request + "InsertAccount/", content).Result;
+            return result.StatusCode;
+        }
     }
 }

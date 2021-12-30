@@ -60,15 +60,9 @@ namespace OvertimeRequestSystemClient.Controllers
                         var b = HttpContext.Session.GetString("NIP");
                         var c = HttpContext.Session.GetString("Role");*/
             /*       return Json(Url.Action("DashboardAdmin", "Home"));*/
-            var c = HttpContext.Session.GetString("Role");
-            if(c == "manager")
-            {
-                return Json(Url.Action("OvertimeResponse", "Overtimes"));
-            }
-            else
-            {
-                return Json(Url.Action("Index", "Overtimes"));
-            }
+           
+                return Json(Url.Action("Dashboard", "Home"));
+            
           
         }
 
@@ -93,7 +87,15 @@ namespace OvertimeRequestSystemClient.Controllers
 
         public IActionResult Create()
         {
-            return View("Create");
+            return View("CreateAccount");
+        }
+
+        [HttpPost]
+        public JsonResult PostInsertAccount(Account account)
+        {
+      
+            var result = accountRepository.InsertAccount(account);
+            return Json(result);
         }
     }
  }

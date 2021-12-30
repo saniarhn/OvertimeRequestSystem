@@ -4,7 +4,7 @@
 
 @{
     ViewData["Title"] = "Home Page";
-    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
 }
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -17,52 +17,34 @@
 
         <!-- Toggle -->
         <ul class="nav nav-pills" role="tablist">
-            <li class="active">
-                <a href="#tab-table1" data-toggle="tab">Semua Data</a>
+ 
+            <li class="active"> 
+                <a href="#tab-table2" data-toggle="tab">Waiting Responses</a>
             </li>
             <li>
-                <a href="#tab-table2" data-toggle="tab">Diajukan</a>
-            </li>
-            <li>
-                <a href="#tab-table3" data-toggle="tab">Diterima</a>
+                <a href="#tab-table3" data-toggle="tab">Responses</a>
             </li>
         </ul>
         <!-- Toggle -->
         <!-- Table 1 -->
         <div class="tab-content">
-            <div class="tab-pane active" id="tab-table1">
-                <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime1">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th class="tbtitle text-center" scope="col" colspan="6">Employee List</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">NO</th>
-                            <th scope="col">NIP</th>
-                            <th scope="col">Overtime Id</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Status By Manager</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
+          
             <!-- Table 1 -->
             <!-- Table 2 -->
-            <div class="tab-pane" id="tab-table2">
+            <div class="tab-pane active" id="tab-table2">
                 <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime2">
                     <thead class="thead-dark">
-                        <tr>
+                        @*<tr>
                             <th class="tbtitle text-center" scope="col" colspan="6">Employee List</th>
-                        </tr>
+                        </tr>*@
                         <tr>
                             <th scope="col">NO</th>
                             <th scope="col">NIP</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Position</th>
                             <th scope="col">Overtime Id</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Status By Manager</th>
+                            <th scope="col">Total Overtime Hour</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -75,15 +57,19 @@
             <div class="tab-pane" id="tab-table3">
                 <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime3">
                     <thead class="thead-dark">
-                        <tr>
+                      @*  <tr>
                             <th class="tbtitle text-center" scope="col" colspan="5">Employee List</th>
-                        </tr>
+                        </tr>*@
                         <tr>
                             <th scope="col">NO</th>
                             <th scope="col">NIP</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Position</th>
                             <th scope="col">Overtime Id</th>
                             <th scope="col">Date</th>
+                            <th scope="col">Total Overtime Hour</th>
                             <th scope="col">Status By Manager</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>

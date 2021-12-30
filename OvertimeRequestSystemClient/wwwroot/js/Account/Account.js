@@ -77,7 +77,11 @@ function Insert() {
     obj.accountStatus = $("#txtAccStatus").val();
     console.log(obj);
     $.ajax({
-        url: "/accounts/Post",
+        //headers: {
+        //    'Accept': 'application/json',
+        //    'Content-Type': 'application/json'
+        //},
+        url: "accounts/InsertAccount",
         type: "Post",
         'data': obj,
         'dataType': 'json',
