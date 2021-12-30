@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OvertimeRequestSystemClient.Models;
 using System;
@@ -23,12 +24,48 @@ namespace OvertimeRequestSystemClient.Controllers
             return RedirectToAction("Login","Accounts");
        
         }
-
         public IActionResult Privacy()
         {
             return View();
         }
-
+        public IActionResult Dashboard()
+        {
+            var c = HttpContext.Session.GetString("Role");
+          
+            if (c == "employee")
+            {
+                return View("DashboardEmployee");
+            }
+            else if (c == "manager")
+            {
+                /*   return Json(Url.Action("OvertimeResponse", "Overtimes"));*/
+                return View("DashboardManager");
+            }
+            else if (c == "finance")
+            {
+                return View("DashboardFinance");
+            }
+            else if (c == "director")
+            {
+                return View("DashboardDirector");
+            }
+            else
+            {
+                return View("Index");
+            }
+        }
+        public IActionResult DashboardEmployee()
+        {
+            return View("DashboardEmployee");
+        }
+        public IActionResult DashboardDirector()
+        {
+            return View("DashboardDirector");
+        }
+        public IActionResult DashboardFinance()
+        {
+            return View("DashboardFinance");
+        }
         public IActionResult DashboardAdmin()
         {
             return View("DashboardAdmin");

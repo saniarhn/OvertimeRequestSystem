@@ -2,8 +2,6 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-}
-@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutAccount.cshtml";
 }
@@ -17,9 +15,9 @@
         <label for="exampleInputPassword1">Password</label>
         <input type="password" class="form-control" id="loginpassword" placeholder="Password">
     </div>-->
-    @*
-        <button type="submit" class="btn btn-primary" onclick="Login()">Submit</button>*@
-    <!--<button type="button" class="btn btn-primary add-btn" onclick="Login()">Login</button>
+@*
+    <button type="submit" class="btn btn-primary" onclick="Login()">Submit</button>*@
+<!--<button type="button" class="btn btn-primary add-btn" onclick="Login()">Login</button>
 
 </form>-->
 
@@ -31,7 +29,7 @@
             </div>
 
             <div class="signin-form">
-                <h2 class="form-title">Sign up</h2>
+                <h2 class="form-title">Login</h2>
                 <form method="POST" class="register-form" id="login-form">
                     <div class="form-group">
                         <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
@@ -42,14 +40,14 @@
                         <input type="password" name="your_pass" id="loginpassword" placeholder="Password" />
                     </div>
                     @*<div class="form-group">
-                        <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                        <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                    </div>*@
-                <div class="form-group form-button">
-@*                    <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" href="https://localhost:44307/admins/index" />*@
-                    @*<a href="https://localhost:44307/admins/index" class="form-submit" name="signin">Log In</a>*@
-                    <button type="button" class="btn btn-primary add-btn form-submit" onclick="Login()">Login</button>
-                </div>
+                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                        </div>*@
+                    <div class="form-group form-button">
+                        @*                    <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" href="https://localhost:44307/admins/index" />*@
+                        @*<a href="https://localhost:44307/admins/index" class="form-submit" name="signin">Log In</a>*@
+                        <button type="button" class="btn btn-primary add-btn form-submit" onclick="Login()">Login</button>
+                    </div>
                 </form>
             </div>
         </div>

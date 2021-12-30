@@ -42,7 +42,7 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
                 {
                     status = HttpStatusCode.OK,
                     data = OvertimeRepository.OvertimeRequestMail(email),
-                    message = "Berhasil Login"
+                    message = "Berhasil Kirim Email"
                 });
 
             }
@@ -74,7 +74,21 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
             if (result != 0)
             {
                 /* return Ok(new { status = HttpStatusCode.OK, result, messageResult = "Data Berhasil di Update" });*/
-                return Ok(result);
+                /*  return Ok(result);*/
+
+                /*      return Ok(new
+                      {
+                          status = HttpStatusCode.OK,
+                          data = OvertimeRepository.OvertimeResponseMailByManager(email),
+                          message = "Berhasil Kirim Email"
+                      });*/
+
+                return Ok(new
+                {
+                    status = HttpStatusCode.OK,
+                    data = OvertimeRepository.OvertimeResponseMailByManager(overtimeResponseVM.OvertimeId),
+                    message = "Berhasil Kirim Email"
+                });
             }
             return BadRequest(new { status = HttpStatusCode.BadRequest, result, messageResult = "Data tidak berhasil di update" });
         }
@@ -86,9 +100,69 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
             if (result != 0)
             {
                 /* return Ok(new { status = HttpStatusCode.OK, result, messageResult = "Data Berhasil di Update" });*/
-                return Ok(result);
+                /*        return Ok(result);*/
+
+                return Ok(new
+                {
+                    status = HttpStatusCode.OK,
+                    data = OvertimeRepository.OvertimeResponseMailByFinance(overtimeResponseVM.OvertimeId
+                    ),
+                    message = "Berhasil Kirim Email"
+                });
             }
             return BadRequest(new { status = HttpStatusCode.BadRequest, result, messageResult = "Data tidak berhasil di update" });
+        }
+
+        [HttpGet("OvertimeHistory/{nip}")]
+        public ActionResult GetHistory(int nip)
+        {
+            var result = OvertimeRepository.GetHistory(nip);
+            if (result.Count() != 0)
+            {
+                //return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data ditampilkan" });
+                return Ok(result);
+
+            }
+            return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
+        }
+
+        [HttpGet("GetResponseForManager/{nip}")]
+        public ActionResult GetResponseForManager(int nip)
+        {
+            var result = OvertimeRepository.GetResponseForManager(nip);
+            if (result.Count() != 0)
+            {
+                //return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data ditampilkan" });
+                return Ok(result);
+
+            }
+            return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
+        }
+
+        [HttpGet("GetResponseForFinance")]
+        public ActionResult GetResponseForFinance()
+        {
+            var result = OvertimeRepository.GetResponseForFinance();
+            if (result.Count() != 0)
+            {
+                //return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data ditampilkan" });
+                return Ok(result);
+
+            }
+            return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
+        }
+
+        [HttpGet("GetDetailResponse/{overtimeId}")]
+        public ActionResult GetDetailResponse(int overtimeId)
+        {
+            var result = OvertimeRepository.GetDetailResponse(overtimeId);
+            if (result.Count() != 0)
+            {
+                //return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data ditampilkan" });
+                return Ok(result);
+
+            }
+            return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
         }
 
     }
