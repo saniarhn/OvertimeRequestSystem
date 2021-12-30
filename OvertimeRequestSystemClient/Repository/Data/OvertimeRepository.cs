@@ -93,5 +93,16 @@ namespace OvertimeRequestSystemClient.Repository.Data
             return entities;
         }
 
+        public async Task<List<GetDetailResponseVM>> GetDetailResponse(int overtimeid)
+        {
+            List<GetDetailResponseVM> entities = new List<GetDetailResponseVM>();
+
+            using (var response = await httpClient.GetAsync(request + "GetDetailResponse/" + overtimeid))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<GetDetailResponseVM>>(apiResponse);
+            }
+            return entities;
+        }
     }
 }

@@ -1,5 +1,70 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
 @{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+<div class="card mb-4">
+    <div class="card-body">
+        @*<a id="buttonSubmit" role="button" class="btn btn-primary mb-2" href="https://localhost:44348/employees/create" data-placement="top" title="Create Employee">
+                <i class="fas fa-user-plus"></i>
+            </a>*@
+        <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableAccount">
+            <thead class="thead-dark">
+                @*<tr>
+                    <th class="tbtitle text-center" scope="col" colspan="4">Account List</th>
+                </tr>*@
+                <tr>
+                    <th scope="col">NO</th>
+                    <th scope="col">NIP</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Account Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Update -->
+<div class="modal fade" id="form-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="UpdateAccount" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <label for="nip">NIP</label>
+                        <input type="text" class="form-control" id="updatenip" value="" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Account Status</label>
+                        <input type="text" class="form-control" id="updateAccountStatus" placeholder="Account Status" value="" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="Update()"> Update </button>
+                </form>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="Update()"> Update </button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Account/Account.js"></script>
 }

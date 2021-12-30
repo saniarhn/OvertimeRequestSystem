@@ -39,7 +39,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    table = $("#tableAboutAccount").DataTable({
+    table = $("#tableAccount").DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 15, 20, -1], [5, 10, 15, 20, 'All']],
         responsive: true,
@@ -59,10 +59,27 @@ $(document).ready(function () {
                 "data": "nip"
             },
             {
-                "data": "password"
+                "data": "password",
+                "visible":false
             },
             {
                 "data": "accountStatus"
+            },
+            {
+                "data": null,
+                "render": function (data, type, row) {
+                    return `
+                            <button type="submit" class="btn btn-danger" onclick="Delete('${row["nip"]}')"
+                                    data-placement="top" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+
+                            <button class="btn btn-success" data-toggle="modal" onclick="getDataUpdate('${row["nip"]}')" data-target="#form-edit"
+                                    data-placement="top" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>`;
+
+                }
             }
         ]
     });
@@ -166,7 +183,7 @@ function Delete(nip) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: "/employees/Delete/" + nip,
+                url: "/accounts/Delete/" + nip,
                 type: "Delete",
                 success: function (result) {
                     console.log(result)
@@ -187,15 +204,12 @@ function Delete(nip) {
 
 function getDataUpdate(nip) {
     $.ajax({
-        url: "/employees/get/" + nip,
+        url: "/accounts/get/" + nip,
         success: function (result) {
             console.log(result)
             var data = result
             $("#updatenip").attr("value", data.nip)
-            $("#updateName").attr("value", data.name)
-            $("#updateBaseSalary").attr("value", data.basicSalary)
-            $("#updateemail").attr("value", data.email)
-            $("#updateposition").attr("value", data.position)
+            $("#updateAccountStatus").attr("value", data.accountStatus)
         },
         error: function (error) {
             console.log(error)
@@ -206,13 +220,10 @@ function getDataUpdate(nip) {
 function Update() {
     var obj = new Object();
     obj.nip = $("#updatenip").val();
-    obj.name = $("#updateName").val();
-    obj.basicSalary = $("#updateBaseSalary").val();
-    obj.email = $("#updateemail").val();
-    obj.position = $("#updateposition").val();
+    obj.accountStatus = $("#updateAccountStatus").val();
     console.log(obj)
     $.ajax({
-        url: "/employees/put/",
+        url: "/accounts/put/",
         type: "Put",
         data: obj,
         'dataType': 'json',

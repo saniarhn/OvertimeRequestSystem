@@ -112,8 +112,16 @@ namespace OvertimeRequestSystemClient.Controllers
         [HttpGet]
         public async Task<JsonResult> GetResponseForFinance()
         {
-        
             var result = await overtimeRepository.GetResponseForFinance();
+            return Json(result);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetDetailResponse()
+        {
+            var getSessionNIP = HttpContext.Session.GetString("NIP");
+            var sessionNIP = Int32.Parse(getSessionNIP);
+            var result = await overtimeRepository.GetDetailResponse(sessionNIP);
             return Json(result);
         }
     }

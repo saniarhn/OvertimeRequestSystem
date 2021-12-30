@@ -35,7 +35,8 @@
             {
                 "data": "position",
                 "className": "dt-center",
-                "targets": "_all"
+                "targets": "_all",
+                "visible": false
             },
             {
                 "data": "overtimeId",
@@ -55,13 +56,13 @@
                 "className": "dt-center",
                 "targets": "_all"
             },
-
-       /*     {
+            {
                 "data": "statusByManager",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
-                "targets": "_all"
-            },*/
+                "targets": "_all",
+                /*"visible":false*/
+            },
             {
                 "className": "dt-center",
                 "targets": "_all",
@@ -77,7 +78,7 @@
                                 <i class="fas fa-times"></i>
                             </button>
                             <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
-                                    data-placement="top" onclick="getData('${row["overtimeId"]}')" onclick title="Details">
+                                    data-placement="top" onclick="getData('${row["nip"]}')" onclick title="Details">
                                 <i class="fas fa-info"></i>
                             </button>`;
 
@@ -120,7 +121,8 @@
             {
                 "data": "position",
                 "className": "dt-center",
-                "targets": "_all"
+                "targets": "_all",
+                "visible":false
             },
             {
                 "data": "overtimeId",
@@ -167,9 +169,9 @@
     });
 
     /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
-   /* $('#tableOvertime2').DataTable().column(4).search("Diajukan").draw();
-      $('#tableOvertime3').DataTable().column(4).search("Diterima|Ditolak").draw();*/
- /*   $('#tableOvertime3').DataTable({ "iDisplayLength": 100, "search": { regex: true } }).column(4).search("Diterima|Ditolak", true, false).draw();*/
+      $('#tableOvertime2').DataTable().column(7).search("Diajukan").draw();
+    /*$('#tableOvertime3').DataTable({ "iDisplayLength": 100, "search": { regex: true } }).column(6).search("Diterima|Ditolak", true, false).draw();*/
+    /*$('#tableOvertime3').DataTable().column(6).search("Diajukan|Diterima", true, false).draw();*/
 
 });
 
@@ -267,9 +269,9 @@ function UpdateNo() {
     })
 }
 
-function getData(overtimeid) {
+function getData(nip) {
     $.ajax({
-        url: "/overtimes/get/" + overtimeid
+        url: "/overtimes/GetResponseForManager/" + nip
     }).done((result) => {
         console.log(result)
         var text = ''

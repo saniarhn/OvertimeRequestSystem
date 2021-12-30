@@ -29,7 +29,7 @@ namespace OvertimeRequestSystemClient.Controllers
         public IActionResult CreateAccount()
         {
             return View("CreateAccount");
-        }
+        }   
         public IActionResult AboutAccount()
         {
             return View("AboutAccount");
@@ -65,8 +65,6 @@ namespace OvertimeRequestSystemClient.Controllers
             
           
         }
-
-
         public IActionResult Logout()
         {
             var sessionData = HttpContext.Session.GetString("JWToken");
@@ -82,7 +80,7 @@ namespace OvertimeRequestSystemClient.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public IActionResult Create()
