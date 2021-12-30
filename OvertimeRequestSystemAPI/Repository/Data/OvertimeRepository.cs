@@ -9,6 +9,7 @@ using OvertimeRequestSystemAPI.ViewModel;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
+using System.Collections;
 
 namespace OvertimeRequestSystemAPI.Repository.Data
 {
@@ -255,7 +256,8 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             {
                 var getName = checkEmail.Name;
                 var getNIP = checkEmail.NIP;
-                var getData = context.Overtimes.Find(getNIP);
+                var getData = checkEmail.overtimes.LastOrDefault();
+
                 if (getData != null)
                 {
                     /*       string ChangePassword = Guid.NewGuid().ToString();
@@ -269,14 +271,14 @@ namespace OvertimeRequestSystemAPI.Repository.Data
 
                     /*  untuk mengirim email*/
                     MailMessage msg = new MailMessage();
-                    msg.From = new MailAddress("anothername.ok@gmail.com");
+                    msg.From = new MailAddress("sniaaaa044@gmail.com");
                     msg.To.Add(new MailAddress(email));
                     msg.Subject = "Your Overtime Request Submitted" + today;
                     msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour <p>" + $"</br><p> on {getDate} <p>";
                     msg.IsBodyHtml = true;
 
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
-                    System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("anothername.ok@gmail.com", "polmed2018");
+                    System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("sniaaaa044@gmail.com", "sania1234");
                     smtpClient.Credentials = credentials;
                     smtpClient.EnableSsl = true;
                     smtpClient.Send(msg);
@@ -289,5 +291,166 @@ namespace OvertimeRequestSystemAPI.Repository.Data
 
 
         }
+
+        public int OvertimeResponseMailByManager(int OvertimeId)
+        {
+            var getDataOvertime = context.Overtimes.Find(OvertimeId);
+            if (getDataOvertime != null)
+            {
+            var getDataEmployee = context.Employees.Find(getDataOvertime.NIP);
+            var checkEmail = getDataEmployee.Email;
+
+            if (checkEmail != null)
+            {
+                var getName = getDataEmployee.Name;
+                var getDataStatus = getDataOvertime.StatusByManager;
+              
+                    /*       string ChangePassword = Guid.NewGuid().ToString();
+
+                           getData.Password = Hashing.Hashing.HashPassword(ChangePassword);
+                           context.SaveChanges();*/
+
+                    var getHour = getDataOvertime.SumOvertimeHour;
+                    var getDate = getDataOvertime.Date.DayOfWeek;
+                    DateTime today = DateTime.Now;
+
+                    /*  untuk mengirim email*/
+                    MailMessage msg = new MailMessage();
+                    msg.From = new MailAddress("sniaaaa044@gmail.com");
+                    msg.To.Add(new MailAddress(checkEmail));
+                    msg.Subject = "Your Overtime Request Info" + today;
+                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour  on {getDate} status {getDataStatus} By Your Manager<p>" + $"</br><p> Check Your Account For Details <p>" ;
+                    msg.IsBodyHtml = true;
+
+                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+                    System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("sniaaaa044@gmail.com", "sania1234");
+                    smtpClient.Credentials = credentials;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Send(msg);
+                    return 1;
+
+      
+            }
+            return 2;
+            }
+            return 2;
+
+        }
+
+        public int OvertimeResponseMailByFinance(int OvertimeId)
+        {
+            var getDataOvertime = context.Overtimes.Find(OvertimeId);
+            var getDataEmployee = context.Employees.Find(getDataOvertime.NIP);
+            var checkEmail = getDataEmployee.Email;
+            if (getDataOvertime != null)
+            {
+                if (checkEmail != null)
+            {
+                var getName = getDataEmployee.Name;
+                var getDataStatusManager = getDataOvertime.StatusByManager;
+                var getDataStatusFinance = getDataOvertime.StatusByFinance;
+        
+                    /*       string ChangePassword = Guid.NewGuid().ToString();
+
+                           getData.Password = Hashing.Hashing.HashPassword(ChangePassword);
+                           context.SaveChanges();*/
+
+                    var getHour = getDataOvertime.SumOvertimeHour;
+                    var getDate = getDataOvertime.Date.DayOfWeek;
+
+                    DateTime today = DateTime.Now;
+
+                    /*  untuk mengirim email*/
+                    MailMessage msg = new MailMessage();
+                    msg.From = new MailAddress("sniaaaa044@gmail.com");
+                    msg.To.Add(new MailAddress(checkEmail));
+                    msg.Subject = "Your Overtime Request Info" + today;
+                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour  on {getDate} status {getDataStatusManager} By Your Manager and status  {getDataStatusFinance} By Your Finance <p>" + $"</br><p> Check Your Account For Details <p>";
+                    msg.IsBodyHtml = true;
+
+                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+                    System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("sniaaaa044@gmail.com", "sania1234");
+                    smtpClient.Credentials = credentials;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Send(msg);
+                    return 1;
+
+                
+            }
+            return 2;
+          }
+            return 2;
+
+            }
+   
+        public IEnumerable<Overtime> GetHistory(int nip)
+        {
+            var getHistory = context.Overtimes.Where(e => e.NIP == nip);
+            return getHistory.ToList();
+        }
+
+        public IEnumerable<GetResponseVM> GetResponseForManager(int nip)
+        {
+           /* ambil data pegawai sesuai manajer nya */
+            var register = from a in context.Employees
+                           where a.ManagerId == nip
+                           join b in context.Overtimes on a.NIP equals b.NIP
+                           select new GetResponseVM()
+                           {
+                               NIP = a.NIP,
+                               OvertimeId = b.OvertimeId,
+                               Name = a.Name,
+                               Position = a.Position,
+                               Date = b.Date,
+                               SumOvertimeHour = b.SumOvertimeHour,
+                               StatusByManager = b.StatusByManager
+                           };
+
+            return register.ToList();
+        }
+        public IEnumerable<GetResponseVM> GetResponseForFinance()
+        {
+            /* ambil data pegawai apabila status overtimenya diterima manajernya*/
+            var register = from a in context.Employees
+                           join b in context.Overtimes on a.NIP equals b.NIP
+                           where b.StatusByManager == "Diterima" && b.StatusByManager != null
+                           select new GetResponseVM()
+                           {
+                               NIP = a.NIP,
+                               OvertimeId = b.OvertimeId,
+                               Name = a.Name,
+                               Position = a.Position,
+                               Date = b.Date,
+                               SumOvertimeHour = b.SumOvertimeHour,
+                               StatusByFinance = b.StatusByFinance
+                           };
+
+            return register.ToList();
+        }
+
+        public IEnumerable<GetDetailResponseVM> GetDetailResponse(int overtimeId)
+        {
+            /* ambil data pegawai dan detail overtimenya*/
+            var register = from a in context.Employees
+                           join b in context.Overtimes on a.NIP equals b.NIP
+                           join c in context.OvertimeDetails on b.OvertimeId equals c.OvertimeId
+                           where b.OvertimeId == overtimeId
+                           select new GetDetailResponseVM()
+                           {
+                               NIP = a.NIP,
+                               OvertimeId = b.OvertimeId,
+                               Name = a.Name,
+                               Position = a.Position,
+                               Date = b.Date,
+                               SumOvertimeHour = b.SumOvertimeHour,
+                               StartHour = c.StartHour,
+                               EndHour = c.EndHour,
+                               TaskName = c.TaskName,
+                               LocationName = c.LocationName
+                           };
+
+            return register.ToList();
+        }
+
     }
 }

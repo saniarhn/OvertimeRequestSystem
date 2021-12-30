@@ -161,7 +161,7 @@ function Insert() {
         //    'Accept': 'application/json',
         //    'Content-Type': 'application/json'
         //},
-        url: "/Employees/Post",
+        url: "accounts/InsertAccount",
         type: "Post",
         'data': obj,
         //'data': JSON.stringify(obj),

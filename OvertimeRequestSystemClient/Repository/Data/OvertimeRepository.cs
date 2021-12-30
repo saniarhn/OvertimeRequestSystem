@@ -45,8 +45,53 @@ namespace OvertimeRequestSystemClient.Repository.Data
         public HttpStatusCode OvertimeResponseFinance(OvertimeResponseVM overtimeResponseVM)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(overtimeResponseVM), Encoding.UTF8, "application/json");
-            var result = httpClient.PutAsync(address.Link + request + "OvertimeResponseFinance", content).Result;
+            var result = httpClient.PutAsync(address.Link + request + "OvertimeResponseFinance" , content).Result;
             return result.StatusCode;
         }
+
+        /*        public HttpStatusCode OvertimeHistory(int nip)
+                {
+
+                    var result = httpClient.GetAsync(address.Link + request + "OvertimeHistory/" + nip).Result;
+                    return result.StatusCode;
+                }*/
+
+        public async Task<List<Overtime>> GetOvertimeHistory(int nip)
+        {
+            List<Overtime> entities = new List<Overtime>();
+
+            using (var response = await httpClient.GetAsync(request + "OvertimeHistory/" + nip))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<Overtime>>(apiResponse);
+            }
+            return entities;
+        }
+
+
+        public async Task<List<GetResponseVM>> GetResponseForManager(int nip)
+        {
+            List<GetResponseVM> entities = new List<GetResponseVM>();
+
+            using (var response = await httpClient.GetAsync(request + "GetResponseForManager/" + nip))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<GetResponseVM>>(apiResponse);
+            }
+            return entities;
+        }
+
+        public async Task<List<GetResponseVM>> GetResponseForFinance()
+        {
+            List<GetResponseVM> entities = new List<GetResponseVM>();
+
+            using (var response = await httpClient.GetAsync(request + "GetResponseForFinance" ))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<GetResponseVM>>(apiResponse);
+            }
+            return entities;
+        }
+
     }
 }

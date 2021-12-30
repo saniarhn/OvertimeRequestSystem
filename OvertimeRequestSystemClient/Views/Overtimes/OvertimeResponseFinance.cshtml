@@ -4,7 +4,7 @@
 
 @{
     ViewData["Title"] = "Home Page";
-    Layout = "~/Views/Shared/_LayoutFinance.cshtml";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
 }
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -18,10 +18,10 @@
         <!-- Toggle -->
         <ul class="nav nav-pills" role="tablist">
             <li class="active">
-                <a href="#tab-table1" data-toggle="tab">Semua Data</a>
+                <a href="#tab-table1" data-toggle="tab">Waiting For Responses</a>
             </li>
             <li>
-                <a href="#tab-table2" data-toggle="tab">Diterima</a>
+                <a href="#tab-table2" data-toggle="tab">Responses</a>
             </li>
         </ul>
         <!-- Toggle -->
@@ -36,10 +36,11 @@
                         <tr>
                             <th scope="col">NO</th>
                             <th scope="col">NIP</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Position</th>
                             <th scope="col">Overtime Id</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Status By Manager</th>
-                            <th scope="col">Status By Finance</th>
+                            <th scope="col">Total Overtime Hour</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -58,9 +59,13 @@
                         <tr>
                             <th scope="col">NO</th>
                             <th scope="col">NIP</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Position</th>
                             <th scope="col">Overtime Id</th>
                             <th scope="col">Date</th>
+                            <th scope="col">Total Overtime Hour</th>
                             <th scope="col">Status By Finance</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>

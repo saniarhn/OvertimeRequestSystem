@@ -49,24 +49,72 @@ namespace OvertimeRequestSystemClient.Controllers
 
         public IActionResult OvertimeResponse()
         {
-            return View("OvertimeResponse");
+            var c = HttpContext.Session.GetString("Role");
+
+          
+           if (c == "manager")
+            {
+                
+                return View("OvertimeResponse");
+            }
+            else if (c == "finance")
+            {
+                return View("OvertimeResponseFinance");
+            }
+            else
+            {
+                return View("OvertimeResponse");
+            }
+          
         }
-        public IActionResult OvertimeResponseFinance()
-        {
-            return View("OvertimeResponseFinance");
-        }
+      
         [HttpPut]
         public JsonResult PutOvertimeResponseManager(OvertimeResponseVM overtimeResponseVM)
         {
+       
             var result = overtimeRepository.OvertimeResponseManager(overtimeResponseVM);
             return Json(result);
         }
         [HttpPut]
         public JsonResult PutOvertimeResponseFinance(OvertimeResponseVM overtimeResponseVM)
         {
+
             var result = overtimeRepository.OvertimeResponseFinance(overtimeResponseVM);
             return Json(result);
         }
+        /*   [HttpGet]
+           public JsonResult GetOvertimeHistory()
+           {
+               var getSessionNIP = HttpContext.Session.GetString("NIP");
+               var sessionNIP = Int32.Parse(getSessionNIP);
+               var result = overtimeRepository.OvertimeHistory(sessionNIP);
+               return Json(result);
+           }*/
 
+        [HttpGet]
+        public async Task<JsonResult> GetOvertimeHistory()
+        {
+            var getSessionNIP = HttpContext.Session.GetString("NIP");
+            var sessionNIP = Int32.Parse(getSessionNIP);
+            var result = await overtimeRepository.GetOvertimeHistory(sessionNIP);
+            return Json(result);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetResponseForManager()
+        {
+            var getSessionNIP = HttpContext.Session.GetString("NIP");
+            var sessionNIP = Int32.Parse(getSessionNIP);
+            var result = await overtimeRepository.GetResponseForManager(sessionNIP);
+            return Json(result);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetResponseForFinance()
+        {
+        
+            var result = await overtimeRepository.GetResponseForFinance();
+            return Json(result);
+        }
     }
 }

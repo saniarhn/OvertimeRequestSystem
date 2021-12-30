@@ -1,9 +1,16 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout3.cshtml";
 }
-<h1>INI ADMIN</h1>
+<p>ini manager</p>
+@if (DateTime.Now.Year >= 2042)
+{
+    <span>The year 2042 has finally arrived!</span>
+}
+else
+{
+    <span>We're still waiting for the year of 2042...</span>
+}
