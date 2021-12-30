@@ -1,117 +1,8 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-/*// Write your JavaScript code.
-function OvertimeRequest() {
-    var dataArray = [];
-    var data = {};
-
-    $("#detail").find('input').each(function (i) {
-        if ((i + 1) % 3 === 0) {
-            data[this.id] = this.value;
-            data["taskname"] = null;
-            dataArray.push(data);
-            data = {};
-        } else {
-            data[this.id] = this.value;
-        }
-    });
-
-    $("#detail").find('textarea').each(function (i) {
-        dataArray[i].taskname = this.value;
-    });
-
-
-    console.log(dataArray)
-}
-$("#btn-add-list").on('click', myFunction);
-function myFunction() {
-    var text = ''
-    text = `
-    <div class="row">
-        <!--Grid column-->
-        <div class="col-md-6">
-            <div class="form-group mb-0">
-                <label for="inputMDEx1">Jam Mulai</label>
-                <input type="time" id="starthour" class="form-control">
-            </div>
-        </div>
-        <!--Grid column-->
-        <!--Grid column-->
-        <div class="col-md-6">
-            <div class="form-group mb-0">
-                <label for="inputMDEx1">Jam Selesai</label>
-                <input type="time" id="endhour" class="form-control">
-            </div>
-        </div>
-        <!--Grid column-->
-
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Tugas</label>
-        <textarea class="form-control" id="taskname" rows="3"></textarea>
-    </div>
-    <div class="form-group mb-0">
-        <label for="email" class="">Location</label>
-        <input type="text" id="locationname" name="locationname" class="form-control">
-    </div>`
-    $('#detail').append(text);
-
-}*/
-
 $(document).ready(function () {
     table = $("#tableEmployee").DataTable({
-        pageLength: 5,
-        lengthMenu: [[5, 10, 15, 20, -1], [5, 10, 15, 20, 'All']],
-        responsive: true,
-        "ajax": {
-            "url": "/employees/getall",
-            "dataSrc": "",
-            "order": [[1, 'asc']]
-        },
-        "columns": [
-            {
-                "data": null,
-                "render": function (data, type, row, meta) {
-                    return meta.row + meta.settings._iDisplayStart + 1;
-                }
-            },
-            {
-                "data": "nip"
-            },
-            {
-                "data": "name"
-            },
-            {
-                "data": "email"
-            },
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    return `<button class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
-                                    data-placement="top" onclick="getData('${row["nip"]}')" title="Details">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-
-                            <button type="submit" class="btn btn-danger" onclick="Delete('${row["nip"]}')"
-                                    data-placement="top" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </button>
-
-                            <button class="btn btn-success" data-toggle="modal" onclick="getDataUpdate('${row["nip"]}')" data-target="#form-edit"
-                                    data-placement="top" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>`;
-
-                }
-            }
-        ]
-    });
-   
-});
-
-$(document).ready(function () {
-    table = $("#tableAboutEmployee").DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 15, 20, -1], [5, 10, 15, 20, 'All']],
         responsive: true,
@@ -147,24 +38,48 @@ $(document).ready(function () {
 
 });
 
+$(document).ready(function () {
+    table = $("#tableAboutAccount").DataTable({
+        pageLength: 5,
+        lengthMenu: [[5, 10, 15, 20, -1], [5, 10, 15, 20, 'All']],
+        responsive: true,
+        "ajax": {
+            "url": "/accounts/getall",
+            "dataSrc": "",
+            "order": [[1, 'asc']]
+        },
+        "columns": [
+            {
+                "data": null,
+                "render": function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            },
+            {
+                "data": "nip"
+            },
+            {
+                "data": "password"
+            },
+            {
+                "data": "accountStatus"
+            }
+        ]
+    });
+   
+});
+
+
 function Insert() {
     var obj = new Object();
-    obj.Name = $("#txtEmpName").val();
-    obj.Email = $("#txtEmpEmail").val();
-    obj.Position = $("#txtEmpPosition").val();
-    obj.BasicSalary = $("#txtEmpBasicSalary").val();
-    obj.ManagerId = $("#txtEmpManagerID").val();
+    obj.nip = $("#txtNIP").val();
+    obj.password = $("#txtPassword").val();
+    obj.accountStatus = $("#txtAccStatus").val();
     console.log(obj);
-
     $.ajax({
-        //headers: {
-        //    'Accept': 'application/json',
-        //    'Content-Type': 'application/json'
-        //},
-        url: "/Employees/Post",
+        url: "/accounts/Post",
         type: "Post",
         'data': obj,
-        //'data': JSON.stringify(obj),
         'dataType': 'json',
         success: function (result) {
             console.log(result)

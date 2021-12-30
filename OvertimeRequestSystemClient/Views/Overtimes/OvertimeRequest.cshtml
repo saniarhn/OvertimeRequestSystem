@@ -101,18 +101,18 @@
 
 <!--Form Faiz-->
 <div class="container contact-form">
-    <div class="contact-image">
+    @*<div class="contact-image">
         <img src="~/img/employee-skills.svg" alt="rocket_contact" />
-    </div>
+    </div>*@
     <form id="form" class="overtime-request" method="post">
-        <h3>Insert Overtime Request</h3>
+        @*<h3>Insert Overtime Request</h3>*@
 
         <div id="form-header">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <div class="form-group">
-                        <label for="example">NIP</label>
-                        <input type="text" id="nip" name="nip" class="form-control" placeholder="Your NIP *" value="@ViewData["nip"]" readonly />
+                        <label for="example" hidden>NIP</label>
+                        <input type="text" id="nip" name="nip" class="form-control" placeholder="Your NIP *" value="@ViewData["nip"]" hidden />
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
@@ -123,7 +123,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div id="detail">
 
             <div class="row">
@@ -147,7 +147,49 @@
                 </div>
             </div>
         </div>
-           
+        @*batas*@
+        @*<div id="form-header">
+            <div id="detail">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label for="example">Lokasi</label>
+                            <input type="text" id="locationname" name="locationname" class="form-control" placeholder="" value="" />
+                            <label for="example" hidden>NIP</label>
+                            <input type="text" id="nip" name="nip" class="form-control" placeholder="Your NIP *" value="@ViewData["nip"]" hidden />
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label for="example">Tanggal Lembur</label>
+                            <input placeholder="Select date" type="date" id="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label for="example">Jam Mulai</label>
+                            <input type="time" id="starthour" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label for="example">Jam Akhir</label>
+                            <input type="time" id="endhour" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-5 mb-2">
+                        <div class="form-group">
+                            <label for="example">Tugas</label>
+                            <textarea id="taskname" name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 100px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>*@
+
         <div class="row mt-5 mb-3">
             <div class="col-md-4">
                 <div class="form-group">

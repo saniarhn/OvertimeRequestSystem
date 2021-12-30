@@ -59,8 +59,8 @@
                                     data-placement="top" title="Decline">
                                 <i class="fas fa-times"></i>
                             </button>
-                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#form-details" 
-                                    data-placement="top" title="Details">
+                            <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
+                                    data-placement="top" onclick="getData('${row["overtimeId"]}')" onclick title="Details">
                                 <i class="fas fa-info"></i>
                             </button>`;
 
@@ -190,7 +190,8 @@
 
     /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
     $('#tableOvertime2').DataTable().column(4).search("Diajukan").draw();
-    $('#tableOvertime3').DataTable().column(4).search("Diterima").draw();
+    /*$('#tableOvertime3').DataTable().column(4).search("Diterima").draw();*/
+    $('#tableOvertime3').DataTable({ "iDisplayLength": 100, "search": { regex: true } }).column(4).search("Diterima|Ditolak", true, false).draw();
 
 });
 
@@ -286,4 +287,45 @@ function UpdateNo() {
             })
         }
     })
+}
+
+function getData(overtimeid) {
+    $.ajax({
+        url: "/overtimes/get/" + overtimeid
+    }).done((result) => {
+        console.log(result)
+        var text = ''
+        text = `<div class = "text-center">
+                    <table class= "table bg-light table-hover text-info text-center">
+                        <tr>
+                            <td>NIP</td>
+                            <td>:</td>
+                            <td>${result.nip}</td>
+                        </tr>
+                        <tr>
+                            <td>Overtime Id</td>
+                            <td>:</td>
+                            <td>${result.overtimeId}</td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah Jam</td>
+                            <td>:</td>
+                            <td>${result.sumOvertimeHour}</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>:</td>
+                            <td>${result.date}</td>
+                        </tr>
+                        <tr>
+                            <td>Status By Manager</td>
+                            <td>:</td>
+                            <td>${result.statusByManager}</td>
+                        </tr>
+                    </table>
+                    </div>`
+        $('.datainfo').html(text);
+    }).fail((error) => {
+        console.log(error);
+    });
 }
