@@ -22,43 +22,45 @@
                 "targets": "_all"
             },
             {
-                "data": "nip",
+                "data": "NIP",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "name",
+                "data": "Name",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "position",
+                "data": "Position",
                 "visible":false
             },
             {
-                "data": "overtimeId",
+                "data": "OvertimeId",
                 "visible": false
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return dateConversion(row["date"]);
+                    return dateConversion(row["Date"]);
                 },
                 "className": "dt-center",
                 "targets": "_all"
 
             },
             {
-                "data": "sumOvertimeHour",
+                "data": "SumOvertimeHour",
                 "className": "dt-center",
                 "targets": "_all"
             },
 
             {
-                 "data": "statusByFinance",
-                 "defaultContent": "Diajukan",
-                 "className": "dt-center",
-                 "targets": "_all"
+                "data": "StatusByFinance",
+                "defaultContent": "Diajukan",
+                "className": "dt-center",
+                "targets": "_all",
+                "visible": false,
+                "searchable": true,
             },
             {
                 "className": "dt-center",
@@ -67,10 +69,10 @@
                 "render": function (data, type, row) {
                     return `
                             <button type="submit" class="btn btn-success"
-                                    data-placement="top" title="Accept" onclick="UpdateYes('${row["nip"]}','${row["overtimeId"]}')">
+                                    data-placement="top" title="Accept" onclick="UpdateYes('${row["NIP"]}','${row["OvertimeId"]}')">
                                 <i class="fas fa-check"></i>
                             </button>
-                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#form-edit" onclick="getDataUpdate('${row["nip"]}','${row["overtimeId"]}')"
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#form-edit" onclick="getDataUpdate('${row["NIP"]}','${row["OvertimeId"]}')"
                                     data-placement="top" title="Decline">
                                 <i class="fas fa-times"></i>
                             </button>
@@ -105,40 +107,40 @@
                 "targets": "_all"
             },
             {
-                "data": "nip",
+                "data": "NIP",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "name",
+                "data": "Name",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "position",
+                "data": "Position",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "overtimeId",
+                "data": "OvertimeId",
                 "visible": false
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return dateConversion(row["date"]);
+                    return dateConversion(row["Date"]);
                 },
                 "className": "dt-center",
                 "targets": "_all"
 
             },
             {
-                "data": "sumOvertimeHour",
+                "data": "SumOvertimeHour",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "statusByFinance",
+                "data": "StatusByFinance",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
                 "targets": "_all"
@@ -163,8 +165,8 @@
 
     });
     
-    /*$('#tableOvertime1').DataTable().column(6).search("Diajukan").draw();*/
-    $('#tableOvertime2').DataTable().column(7).search("Diterima").draw();
+    $('#tableOvertime1').DataTable().column(7).search("Diajukan").draw();
+    $('#tableOvertime2').DataTable().column(7).search('Diterima|Ditolak', true, false).draw();
 
 });
 
