@@ -23,44 +23,47 @@
                 "targets": "_all"
             },
             {
-                "data": "nip",
+                "data": "NIP",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "name",
+                "data": "Name",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "position",
-                "visible": false
+                "data": "Position",
+                "className": "dt-center",
+                "targets": "_all"
             },
-            {
-                "data": "overtimeId",
+/*            {
+                "data": "OvertimeId",
+                "className": "dt-center",
+                "targets": "_all",
                 "visible": false
-            },
+            },*/
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return dateConversion(row["date"]);
+                    return dateConversion(row["Date"]);
                 },
                 "className": "dt-center",
                 "targets": "_all"
 
             },
             {
-                "data": "sumOvertimeHour",
+                "data": "SumOvertimeHour",
                 "className": "dt-center",
                 "targets": "_all"
             },
-            {
-                "data": "statusByManager",
+/*            {
+                "data": "StatusByManager",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
                 "targets": "_all",
-                /*"visible":false*/
-            },
+                "visible":false
+            },*/
             {
                 "className": "dt-center",
                 "targets": "_all",
@@ -68,15 +71,15 @@
                 "render": function (data, type, row) {
                     return `
                             <button type="submit" class="btn btn-success"
-                                    data-placement="top" title="Accept" onclick="UpdateYes('${row["nip"]}','${row["overtimeId"]}')">
+                                    data-placement="top" title="Accept" onclick="UpdateYes('${row["NIP"]}','${row["OvertimeId"]}')">
                                 <i class="fas fa-check"></i>
                             </button>
-                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#form-edit" onclick="getDataUpdate('${row["nip"]}','${row["overtimeId"]}')"
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#form-edit" onclick="getDataUpdate('${row["NIP"]}','${row["OvertimeId"]}')"
                                     data-placement="top" title="Decline">
                                 <i class="fas fa-times"></i>
                             </button>
                                 <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
-                                    data-placement="top" onclick="getData('${row["nip"]}')" onclick title="Details">
+                                    data-placement="top" onclick="getData('${row["OvertimeId"]}')" onclick title="Details">
                                 <i class="fas fa-info"></i>
                                 </button>`;
 
@@ -107,44 +110,47 @@
                 "targets": "_all"
             },
             {
-                "data": "nip",
+                "data": "NIP",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "name",
+                "data": "Name",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "position",
+                "data": "Position",
                 "className": "dt-center",
                 "targets": "_all",
-                "visible":false
+          /*      "visible":false*/
             },
-            {
-                "data": "overtimeId",
+ /*           {
+                "data": "OvertimeId",
+                "className": "dt-center",
+                "targets": "_all",
                 "visible": false
-            },
+            },*/
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return dateConversion(row["date"]);
+                    return dateConversion(row["Date"]);
                 },
                 "className": "dt-center",
                 "targets": "_all"
 
             },
             {
-                "data": "sumOvertimeHour",
+                "data": "SumOvertimeHour",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "statusByManager",
+                "data": "StatusByManager",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
                 "targets": "_all"
+
             },
             {
                 "className": "dt-center",
@@ -152,11 +158,11 @@
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                           
-                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#form-details" 
-                                    data-placement="top" title="Details">
+                             <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
+                                    data-placement="top" onclick="getData('${row["OvertimeId"]}')" onclick title="Details">
                                 <i class="fas fa-info"></i>
-                            </button>`;
+                                </button>`;
+                          
 
                 }
             }
@@ -166,9 +172,10 @@
 
     });
 
-
-      $('#tableOvertime2').DataTable().column(7).search("Diajukan").draw();
-
+    /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
+/*      $('#tableOvertime2').DataTable().column(7).search("Diajukan").draw();*/
+/*    $('#tableOvertime3').DataTable({ "iDisplayLength": 100, "search": { regex: true } }).column(6).search("Diterima|Ditolak", true, false).draw();*/
+/*    $('#tableOvertime3').DataTable().column(6).search("Diajukan|Diterima", true, false).draw();*/
 
 });
 
@@ -189,11 +196,11 @@ $.ajax({
     }
 })
 
-function UpdateYes(nip, overtimeid) {
+function UpdateYes(NIP, OvertimeId) {
             var obj = new Object();
             obj.StatusByManager = "Diterima";
-            obj.NIP = nip;
-            obj.OvertimeId = overtimeid;
+    obj.NIP = NIP;
+    obj.OvertimeId = OvertimeId;
             console.log(obj)
             $.ajax({
                 url: "/overtimes/PutOvertimeResponseManager/",
@@ -218,14 +225,15 @@ function UpdateYes(nip, overtimeid) {
             })
 }
 
-function getDataUpdate(nip, overtimeid) {
+function getDataUpdate(NIP, OvertimeId) {
+    console.log(OvertimeId);
     $.ajax({
-        url: "/overtimes/get/" + nip,
+        url: "/overtimes/get/" + NIP,
         success: function (result) {
             console.log(result)
             var data = result
-            $("#updatenip").attr("value", nip)
-            $("#updateovertimeid").attr("value", overtimeid)
+            $("#updatenip").attr("value", NIP)
+            $("#updateovertimeid").attr("value", OvertimeId)
             $("#updaterespdesc").attr("value", data.ResponseDescription)
             $("#updatemngfinid").attr("value", data.ManagerOrFinanceId)
         },
@@ -307,51 +315,119 @@ function UpdateNo() {
     });
 }*/
 
-function getData(nip) {
+function getData(OvertimeId) {
+    var a = OvertimeId;
+    console.log(a);
     $.ajax({
-        url: "/overtimes/GetResponseForManager/" + nip
+        url: "/overtimes/GetDetailResponse/" + OvertimeId
     }).done((result) => {
         console.log(result)
+        console.log(result[0]);
+        console.log(result[1]);
+        console.log(result.length);
         var text = ''
-        text = `
-                <div class="row">
-                    <div class="col-sm-6 mb-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Name</h5>
-                                <p class="card-text">${result.name}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 mb-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">NIP</h5>
-                                <p class="card-text">${result.nip}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+   var text2 =''
+        for (var i = 0; i < result.length; i++) {
 
-                <div class="row">
-                    <div class="col-sm-6 mb-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Date</h5>
-                                <p class="card-text">${result.date}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 mb-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Overtime Hour</h5>
-                                <p class="card-text">${result.sumOvertimeHour}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>`
-        $('.datainfo').html(text);
+            if (result.length > 1) {
+                if (i == 0) {
+                    text2 = `
+                            <tr>
+                                <th colspan="4">NIP</th>
+                                <td>${result[i].NIP}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4">Name</th>
+                                <td>${result[i].Name}</td>
+                            </tr>
+                           
+                            <tr>
+                                <th colspan="4">Date</th>
+                                <td>${dateConversion(result[i].Date)}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4">Total Overtime Request</th>
+                                <td>${result[i].SumOvertimeHour}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="8" class="text-center">Detail</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Start Hour</th>
+                                <td colspan="2">${result[i].StartHour}</td>
+                                <th colspan="2">End Hour</th>
+                                <td colspan="2">${result[i].EndHour}</td>
+                            </tr>
+                            <tr>
+                                <th  colspan="2">Tugas</th>
+                                <td  colspan="2">${result[i].TaskName}</td>
+                                <th  colspan="2">Location</th>
+                                <td  colspan="2">${result[i].LocationName}</td>
+                            </tr>
+                            `;
+                }
+                else {
+                    text2 = `
+                          <tr>
+                                <th colspan="2">Start Hour</th>
+                                <td colspan="2">${result[i].StartHour}</td>
+                                <th colspan="2">End Hour</th>
+                                <td colspan="2">${result[i].EndHour}</td>
+                            </tr>
+                            <tr>
+                                <th  colspan="2">Tugas</th>
+                                <td  colspan="2">${result[i].TaskName}</td>
+                                <th  colspan="2">Location</th>
+                                <td  colspan="2">${result[i].LocationName}</td>
+                            </tr>
+                            `;
+                }
+              
+            }
+            else {
+                text2 = `
+                          <tr>
+                                <th>NIP</th>
+                                <td>${result[i].NIP}</td>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td>${result[i].Name}</td>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <td>${dateConversion(result[i].Date)}</td>
+                            </tr>
+                            <tr>
+                                <th>Total Overtime Request</th>
+                                <td>${result[i].SumOvertimeHour}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="text-center">Detail</th>
+                            </tr>
+                            <tr>
+                                <th>Start Hour</th>
+                                <td>${result[i].StartHour}</td>
+                                <th>End Hour</th>
+                                <td>${result[i].EndHour}</td>
+                            </tr>
+                            <tr>
+                                <th>Tugas</th>
+                                <td>${result[i].TaskName}</td>
+                                <th>Location</th>
+                                <td>${result[i].LocationName}</td>
+                            </tr>
+                                  `;
+            }
+            
+            
+            text += text2
+            console.log(text)
+            $('#table').html(text);
+
+        }
+    
+       
     }).fail((error) => {
         console.log(error);
     });

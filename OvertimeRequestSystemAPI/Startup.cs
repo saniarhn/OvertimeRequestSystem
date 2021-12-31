@@ -80,6 +80,7 @@ namespace OvertimeRequestSystemAPI
          options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
          options.JsonSerializerOptions.PropertyNamingPolicy = null;
          options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter());
+/*         options.JsonSerializerOptions.Converters.Add(new OvertimeDetaillToStringConverter());*/
      });
 
             services.AddRazorPages();

@@ -55,18 +55,20 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
                                     {
                                         Email = e.Email,
                                         NIP = e.NIP,
-                                        Name = r.RoleName
+                                        RoleName = r.RoleName,
+                                        Name = e.Name
                                     }).ToList();
 
                 var claims = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Email, getUserData[0].Email),
                     new Claim(JwtRegisteredClaimNames.NameId, getUserData[0].NIP.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Actort, getUserData[0].Name),
                 };
 
                 foreach (var userRole in getUserData)
                 {
-                    claims.Add(new Claim(JwtRegisteredClaimNames.UniqueName, userRole.Name));
+                    claims.Add(new Claim(JwtRegisteredClaimNames.UniqueName, userRole.RoleName));
                 }
 
                 //foreach (var userNIP in getUserData)

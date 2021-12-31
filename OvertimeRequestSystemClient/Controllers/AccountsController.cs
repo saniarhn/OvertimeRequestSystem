@@ -44,7 +44,7 @@ namespace OvertimeRequestSystemClient.Controllers
             var email = token2.Claims.First(c => c.Type == "email").Value;
             var nip = token2.Claims.First(c => c.Type == "nameid").Value;
             var role = token2.Claims.First(c => c.Type == "unique_name").Value;
-
+            var name = token2.Claims.First(c => c.Type == "actort").Value;
             if (token == null)
             {
 
@@ -56,12 +56,14 @@ namespace OvertimeRequestSystemClient.Controllers
             HttpContext.Session.SetString("Email", email);
             HttpContext.Session.SetString("NIP", nip);
             HttpContext.Session.SetString("Role", role);
-            /*            var a = HttpContext.Session.GetString("Email");
-                        var b = HttpContext.Session.GetString("NIP");
-                        var c = HttpContext.Session.GetString("Role");*/
+            HttpContext.Session.SetString("Name", name);
+            var a = HttpContext.Session.GetString("Email");
+            var b = HttpContext.Session.GetString("NIP");
+            var c = HttpContext.Session.GetString("Role");
+            var d = HttpContext.Session.GetString("Name");
             /*       return Json(Url.Action("DashboardAdmin", "Home"));*/
-           
-                return Json(Url.Action("Dashboard", "Home"));
+
+            return Json(Url.Action("Dashboard", "Home"));
             
           
         }

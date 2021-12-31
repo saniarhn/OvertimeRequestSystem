@@ -6,23 +6,25 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout3.cshtml";
 }
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-</div>
+
 
 
 <div class="card mb-4">
+
+    <div class="card-header " style="background-color: #75afff !important; ">
+        <h3 class="text-white">Request History</h3>
+    </div>
+
     <div class="card-body">
 
         <!-- Toggle -->
         <ul class="nav nav-pills" role="tablist">
- 
-            <li class="active">
+
+            <li class="active mr-4">
                 <a href="#tab-table2" data-toggle="tab">Waiting Responses</a>
             </li>
             <li>
-                <a href="#tab-table3" data-toggle="tab">Responses</a>
+                <a href="#tab-table3" data-toggle="tab">Responded</a>
             </li>
         </ul>
         <!-- Toggle -->
@@ -34,13 +36,13 @@
             <div class="tab-pane active" id="tab-table2">
                 <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime2">
                     <thead class="thead-dark">
-                      @*  <tr>
-                            <th class="tbtitle text-center" scope="col" colspan="6">List</th>
-                        </tr>*@
+                        @*  <tr>
+                                <th class="tbtitle text-center" scope="col" colspan="6">List</th>
+                            </tr>*@
                         <tr>
                             <th scope="col">NO</th>
-                       @*     <th scope="col">NIP</th>
-                            <th scope="col">Overtime Id</th>*@
+                            @*     <th scope="col">NIP</th>
+                                <th scope="col">Overtime Id</th>*@
                             <th scope="col">Date</th>
                             <th scope="col">Total Overtime Hour</th>
                             <th scope="col">Action</th>
@@ -55,13 +57,13 @@
             <div class="tab-pane" id="tab-table3">
                 <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime3">
                     <thead class="thead-dark">
-                     @*   <tr>
-                            <th class="tbtitle text-center" scope="col" colspan="5">LIST</th>
-                        </tr>*@
+                        @*   <tr>
+                                <th class="tbtitle text-center" scope="col" colspan="5">LIST</th>
+                            </tr>*@
                         <tr>
                             <th scope="col">NO</th>
                             @* <th scope="col">NIP</th>
-        <th scope="col">Overtime Id</th>*@
+                                <th scope="col">Overtime Id</th>*@
                             <th scope="col">Date</th>
                             <th scope="col">Status By Manager</th>
                             <th scope="col">Status By Finance</th>
@@ -114,6 +116,27 @@
     </div>
 </div>
 <!-- Modal Update -->
+<div id="DetailEmployee" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @*      <div class="modal-header card-header-title">
+                    <h4 class="modal-title card-element-title">Info</h4>
+                </div>*@
+            <div class="modal-body datainfo">
+                <div class="card shadow mb-4 mt-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Info</h6>
+                    </div>
+                    <div class="card-body ">
+                        <table id="table">
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts{
     <script src="~/js/Overtime/OvertimeHistory.js"></script>
