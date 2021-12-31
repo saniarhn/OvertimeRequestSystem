@@ -184,7 +184,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
         {
             var getData = context.Overtimes.Find(overtimeResponseVM.OvertimeId);
             var result = 0;
-            if (getData.StatusByManager == null)
+            if (getData.StatusByManager == null || getData.StatusByManager == "Diajukan")
             {
                 if (overtimeResponseVM.StatusByManager == "Ditolak")
                 {

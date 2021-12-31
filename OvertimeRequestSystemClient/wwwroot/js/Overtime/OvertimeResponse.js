@@ -32,14 +32,17 @@
                 "className": "dt-center",
                 "targets": "_all"
             },
-            /*{*/
-            /*    "data": "Position",
-                "visible": false
-            },
             {
-                "data": "OvertimeId",
-                "visible": false
+                "data": "Position",
+                "className": "dt-center",
+                "targets": "_all"
             },
+/*            {
+                "data": "OvertimeId",
+                "className": "dt-center",
+                "targets": "_all",
+                "visible": false
+            },*/
             {
                 "data": null,
                 "render": function (data, type, row) {
@@ -50,16 +53,16 @@
 
             },
             {
-                "data": "sumOvertimeHour",
+                "data": "SumOvertimeHour",
                 "className": "dt-center",
                 "targets": "_all"
             },
-            {
+/*            {
                 "data": "StatusByManager",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
                 "targets": "_all",
-                *//*"visible":false*//*
+                "visible":false
             },*/
             {
                 "className": "dt-center",
@@ -120,12 +123,14 @@
                 "data": "Position",
                 "className": "dt-center",
                 "targets": "_all",
-                "visible":false
+          /*      "visible":false*/
             },
-            {
+ /*           {
                 "data": "OvertimeId",
+                "className": "dt-center",
+                "targets": "_all",
                 "visible": false
-            },
+            },*/
             {
                 "data": null,
                 "render": function (data, type, row) {
@@ -135,16 +140,17 @@
                 "targets": "_all"
 
             },
-/*            {
+            {
                 "data": "SumOvertimeHour",
                 "className": "dt-center",
                 "targets": "_all"
-            },*/
+            },
             {
                 "data": "StatusByManager",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
                 "targets": "_all"
+
             },
             {
                 "className": "dt-center",
@@ -168,8 +174,8 @@
 
     /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
 /*      $('#tableOvertime2').DataTable().column(7).search("Diajukan").draw();*/
-    /*$('#tableOvertime3').DataTable({ "iDisplayLength": 100, "search": { regex: true } }).column(6).search("Diterima|Ditolak", true, false).draw();*/
-    /*$('#tableOvertime3').DataTable().column(6).search("Diajukan|Diterima", true, false).draw();*/
+/*    $('#tableOvertime3').DataTable({ "iDisplayLength": 100, "search": { regex: true } }).column(6).search("Diterima|Ditolak", true, false).draw();*/
+/*    $('#tableOvertime3').DataTable().column(6).search("Diajukan|Diterima", true, false).draw();*/
 
 });
 
@@ -193,7 +199,7 @@ $.ajax({
 function UpdateYes(NIP, OvertimeId) {
             var obj = new Object();
             obj.StatusByManager = "Diterima";
-    obj.NIP = nip;
+    obj.NIP = NIP;
     obj.OvertimeId = OvertimeId;
             console.log(obj)
             $.ajax({
@@ -220,12 +226,13 @@ function UpdateYes(NIP, OvertimeId) {
 }
 
 function getDataUpdate(NIP, OvertimeId) {
+    console.log(OvertimeId);
     $.ajax({
         url: "/overtimes/get/" + NIP,
         success: function (result) {
             console.log(result)
             var data = result
-            $("#updatenip").attr("value", nip)
+            $("#updatenip").attr("value", NIP)
             $("#updateovertimeid").attr("value", OvertimeId)
             $("#updaterespdesc").attr("value", data.ResponseDescription)
             $("#updatemngfinid").attr("value", data.ManagerOrFinanceId)
@@ -315,46 +322,112 @@ function getData(OvertimeId) {
         url: "/overtimes/GetDetailResponse/" + OvertimeId
     }).done((result) => {
         console.log(result)
-  /*      var text = ''
-        text = `
-                <div class="row">
-                    <div class="col-sm-6 mb-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Name</h5>
-                                <p class="card-text">${result.name}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 mb-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">NIP</h5>
-                                <p class="card-text">${result.nip}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        console.log(result[0]);
+        console.log(result[1]);
+        console.log(result.length);
+        var text = ''
+   var text2 =''
+        for (var i = 0; i < result.length; i++) {
 
-                <div class="row">
-                    <div class="col-sm-6 mb-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Date</h5>
-                                <p class="card-text">${result.date}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 mb-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Overtime Hour</h5>
-                                <p class="card-text">${result.sumOvertimeHour}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>`
-        $('.datainfo').html(text);*/
+            if (result.length > 1) {
+                if (i == 0) {
+                    text2 = `
+                            <tr>
+                                <th colspan="4">NIP</th>
+                                <td>${result[i].NIP}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4">Name</th>
+                                <td>${result[i].Name}</td>
+                            </tr>
+                           
+                            <tr>
+                                <th colspan="4">Date</th>
+                                <td>${dateConversion(result[i].Date)}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4">Total Overtime Request</th>
+                                <td>${result[i].SumOvertimeHour}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="8" class="text-center">Detail</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Start Hour</th>
+                                <td colspan="2">${result[i].StartHour}</td>
+                                <th colspan="2">End Hour</th>
+                                <td colspan="2">${result[i].EndHour}</td>
+                            </tr>
+                            <tr>
+                                <th  colspan="2">Tugas</th>
+                                <td  colspan="2">${result[i].TaskName}</td>
+                                <th  colspan="2">Location</th>
+                                <td  colspan="2">${result[i].LocationName}</td>
+                            </tr>
+                            `;
+                }
+                else {
+                    text2 = `
+                          <tr>
+                                <th colspan="2">Start Hour</th>
+                                <td colspan="2">${result[i].StartHour}</td>
+                                <th colspan="2">End Hour</th>
+                                <td colspan="2">${result[i].EndHour}</td>
+                            </tr>
+                            <tr>
+                                <th  colspan="2">Tugas</th>
+                                <td  colspan="2">${result[i].TaskName}</td>
+                                <th  colspan="2">Location</th>
+                                <td  colspan="2">${result[i].LocationName}</td>
+                            </tr>
+                            `;
+                }
+              
+            }
+            else {
+                text2 = `
+                          <tr>
+                                <th>NIP</th>
+                                <td>${result[i].NIP}</td>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td>${result[i].Name}</td>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <td>${dateConversion(result[i].Date)}</td>
+                            </tr>
+                            <tr>
+                                <th>Total Overtime Request</th>
+                                <td>${result[i].SumOvertimeHour}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="text-center">Detail</th>
+                            </tr>
+                            <tr>
+                                <th>Start Hour</th>
+                                <td>${result[i].StartHour}</td>
+                                <th>End Hour</th>
+                                <td>${result[i].EndHour}</td>
+                            </tr>
+                            <tr>
+                                <th>Tugas</th>
+                                <td>${result[i].TaskName}</td>
+                                <th>Location</th>
+                                <td>${result[i].LocationName}</td>
+                            </tr>
+                                  `;
+            }
+            
+            
+            text += text2
+            console.log(text)
+            $('#table').html(text);
+
+        }
+    
+       
     }).fail((error) => {
         console.log(error);
     });

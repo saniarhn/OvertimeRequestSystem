@@ -45,11 +45,11 @@
                             <th scope="col">NO</th>
                             <th scope="col">NIP</th>
                             <th scope="col">Name</th>
-      @*                      <th scope="col">Position</th>
-                            <th scope="col">Overtime Id</th>
-                            <th scope="col">Date</th>*@
-                            @*                            <th scope="col">Total Overtime Hour</th>*@
-                            <th scope="col">Status by Manager</th>
+                            <th scope="col">Position</th>
+@*                            <th scope="col">Overtime Id</th>*@
+                            <th scope="col">Date</th>
+                            <th scope="col">Total Overtime Hour</th>
+@*                            <th scope="col">Status by Manager</th>*@
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -70,7 +70,7 @@
                             <th scope="col">NIP</th>
                             <th scope="col">Name</th>
                             <th scope="col">Position</th>
-                            <th scope="col">Overtime Id</th>
+@*                            <th scope="col">Overtime Id</th>*@
                             <th scope="col">Date</th>
                             <th scope="col">Total Overtime Hour</th>
                             <th scope="col">Status By Manager</th>
@@ -105,7 +105,7 @@
                     </div>
                     <div class="form-group">
                         @*<label for="nik">Overtime ID</label>*@
-                        <input type="text" class="form-control" id="updateovertimeid" value="" hidden>
+                        <input type="text" class="form-control" id="updateovertimeid" value="" >
                     </div>
                     <div class="form-group">
                         <label for="managerid">Manager Id</label>
@@ -149,11 +149,22 @@
 <div id="DetailEmployee" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header card-header-title">
+      @*      <div class="modal-header card-header-title">
                 <h4 class="modal-title card-element-title">Info</h4>
-            </div>
+            </div>*@
             <div class="modal-body datainfo">
-                
+                <div class="card shadow mb-4 mt-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Info</h6>
+                    </div>
+                    <div class="card-body ">
+                        <table id="table">
+
+                        
+
+                        </table>
+                    </div>
+                </div>
 
             </div>
         </div>
