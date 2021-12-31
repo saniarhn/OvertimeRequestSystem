@@ -23,27 +23,27 @@
                 "targets": "_all"
             },
             {
-                "data": "nip",
+                "data": "NIP",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "name",
+                "data": "Name",
                 "className": "dt-center",
                 "targets": "_all"
             },
-            {
-                "data": "position",
+            /*{*/
+            /*    "data": "Position",
                 "visible": false
             },
             {
-                "data": "overtimeId",
+                "data": "OvertimeId",
                 "visible": false
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return dateConversion(row["date"]);
+                    return dateConversion(row["Date"]);
                 },
                 "className": "dt-center",
                 "targets": "_all"
@@ -55,12 +55,12 @@
                 "targets": "_all"
             },
             {
-                "data": "statusByManager",
+                "data": "StatusByManager",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
                 "targets": "_all",
-                /*"visible":false*/
-            },
+                *//*"visible":false*//*
+            },*/
             {
                 "className": "dt-center",
                 "targets": "_all",
@@ -68,15 +68,15 @@
                 "render": function (data, type, row) {
                     return `
                             <button type="submit" class="btn btn-success"
-                                    data-placement="top" title="Accept" onclick="UpdateYes('${row["nip"]}','${row["overtimeId"]}')">
+                                    data-placement="top" title="Accept" onclick="UpdateYes('${row["NIP"]}','${row["OvertimeId"]}')">
                                 <i class="fas fa-check"></i>
                             </button>
-                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#form-edit" onclick="getDataUpdate('${row["nip"]}','${row["overtimeId"]}')"
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#form-edit" onclick="getDataUpdate('${row["NIP"]}','${row["OvertimeId"]}')"
                                     data-placement="top" title="Decline">
                                 <i class="fas fa-times"></i>
                             </button>
                                 <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
-                                    data-placement="top" onclick="getData('${row["nip"]}')" onclick title="Details">
+                                    data-placement="top" onclick="getData('${row["OvertimeId"]}')" onclick title="Details">
                                 <i class="fas fa-info"></i>
                                 </button>`;
 
@@ -107,41 +107,41 @@
                 "targets": "_all"
             },
             {
-                "data": "nip",
+                "data": "NIP",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "name",
+                "data": "Name",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
-                "data": "position",
+                "data": "Position",
                 "className": "dt-center",
                 "targets": "_all",
                 "visible":false
             },
             {
-                "data": "overtimeId",
+                "data": "OvertimeId",
                 "visible": false
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return dateConversion(row["date"]);
+                    return dateConversion(row["Date"]);
                 },
                 "className": "dt-center",
                 "targets": "_all"
 
             },
-            {
-                "data": "sumOvertimeHour",
+/*            {
+                "data": "SumOvertimeHour",
                 "className": "dt-center",
                 "targets": "_all"
-            },
+            },*/
             {
-                "data": "statusByManager",
+                "data": "StatusByManager",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
                 "targets": "_all"
@@ -152,11 +152,11 @@
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                           
-                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#form-details" 
-                                    data-placement="top" title="Details">
+                             <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
+                                    data-placement="top" onclick="getData('${row["OvertimeId"]}')" onclick title="Details">
                                 <i class="fas fa-info"></i>
-                            </button>`;
+                                </button>`;
+                          
 
                 }
             }
@@ -167,7 +167,7 @@
     });
 
     /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
-      $('#tableOvertime2').DataTable().column(7).search("Diajukan").draw();
+/*      $('#tableOvertime2').DataTable().column(7).search("Diajukan").draw();*/
     /*$('#tableOvertime3').DataTable({ "iDisplayLength": 100, "search": { regex: true } }).column(6).search("Diterima|Ditolak", true, false).draw();*/
     /*$('#tableOvertime3').DataTable().column(6).search("Diajukan|Diterima", true, false).draw();*/
 
@@ -190,11 +190,11 @@ $.ajax({
     }
 })
 
-function UpdateYes(nip, overtimeid) {
+function UpdateYes(NIP, OvertimeId) {
             var obj = new Object();
             obj.StatusByManager = "Diterima";
-            obj.NIP = nip;
-            obj.OvertimeId = overtimeid;
+    obj.NIP = nip;
+    obj.OvertimeId = OvertimeId;
             console.log(obj)
             $.ajax({
                 url: "/overtimes/PutOvertimeResponseManager/",
@@ -219,14 +219,14 @@ function UpdateYes(nip, overtimeid) {
             })
 }
 
-function getDataUpdate(nip, overtimeid) {
+function getDataUpdate(NIP, OvertimeId) {
     $.ajax({
-        url: "/overtimes/get/" + nip,
+        url: "/overtimes/get/" + NIP,
         success: function (result) {
             console.log(result)
             var data = result
             $("#updatenip").attr("value", nip)
-            $("#updateovertimeid").attr("value", overtimeid)
+            $("#updateovertimeid").attr("value", OvertimeId)
             $("#updaterespdesc").attr("value", data.ResponseDescription)
             $("#updatemngfinid").attr("value", data.ManagerOrFinanceId)
         },
@@ -308,12 +308,14 @@ function UpdateNo() {
     });
 }*/
 
-function getData(nip) {
+function getData(OvertimeId) {
+    var a = OvertimeId;
+    console.log(a);
     $.ajax({
-        url: "/overtimes/GetResponseForManager/" + nip
+        url: "/overtimes/GetDetailResponse/" + OvertimeId
     }).done((result) => {
         console.log(result)
-        var text = ''
+  /*      var text = ''
         text = `
                 <div class="row">
                     <div class="col-sm-6 mb-2">
@@ -352,7 +354,7 @@ function getData(nip) {
                         </div>
                     </div>
                 </div>`
-        $('.datainfo').html(text);
+        $('.datainfo').html(text);*/
     }).fail((error) => {
         console.log(error);
     });

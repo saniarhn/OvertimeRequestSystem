@@ -105,6 +105,13 @@
                 "targets": "_all"
             },
             {
+                "data": "statusByManager",
+                "defaultContent": "Diajukan",
+                "className": "dt-center",
+                "targets": "_all",
+                 "visible": false
+            },
+            {
                 "className": "dt-center",
                 "targets": "_all",
                 "data": null,
@@ -193,7 +200,7 @@
     });
 
     /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
-  /*  $('#tableOvertime2').DataTable().column(4).search("Diajukan").draw();*/
+/*    $('#tableOvertime2').DataTable().column(4).search("Diajukan").draw();*/
 /*    $('#tableOvertime3').DataTable().column(4).search("Diterima").draw();*/
    /* $('#tableOvertime3').DataTable({ "iDisplayLength": 100, "search": { regex: true } }).column(3).search("Diterima|Ditolak", true, false).draw();*/
 });

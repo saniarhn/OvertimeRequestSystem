@@ -16,6 +16,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using OvertimeRequestSystemAPI.JSON;
 
 namespace OvertimeRequestSystemClient
 {
@@ -59,6 +60,14 @@ namespace OvertimeRequestSystemClient
 
                 };
             });
+            services.AddControllers()
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter());
+
+});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

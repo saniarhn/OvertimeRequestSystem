@@ -156,13 +156,14 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
         public ActionResult GetDetailResponse(int overtimeId)
         {
             var result = OvertimeRepository.GetDetailResponse(overtimeId);
-            if (result.Count() != 0)
+            if (result== null)
             {
                 //return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data ditampilkan" });
-                return Ok(result);
+                return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
 
             }
-            return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
+     
+            return Ok(result);
         }
 
     }

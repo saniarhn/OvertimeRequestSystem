@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OvertimeRequestSystemAPI.Models;
 using OvertimeRequestSystemAPI.ViewModel;
@@ -26,6 +27,7 @@ namespace OvertimeRequestSystemClient.Controllers
             ViewData["nip"] = d;
             return View("OvertimeRequest");
         }
+        [Authorize(Roles = "Manager")]
         public IActionResult OvertimeRequestManager()
         {
             return View("OvertimeRequestManager");
@@ -116,13 +118,20 @@ namespace OvertimeRequestSystemClient.Controllers
             return Json(result);
         }
 
-        [HttpGet]
-        public async Task<JsonResult> GetDetailResponse()
+        /*        [HttpGet]
+                public async Task<JsonResult> GetDetailResponse()
+                {
+                    var getSessionNIP = HttpContext.Session.GetString("NIP");
+                    var sessionNIP = Int32.Parse(getSessionNIP);
+                    var result = await overtimeRepository.GetDetailResponse(sessionNIP);
+                    return Json(result);
+                }*/
+        [Route("~/overtimes/GetDetailResponse/{overtimeId}")]
+        public async Task<JsonResult> GetDetailResponse(int overtimeId)
         {
-            var getSessionNIP = HttpContext.Session.GetString("NIP");
-            var sessionNIP = Int32.Parse(getSessionNIP);
-            var result = await overtimeRepository.GetDetailResponse(sessionNIP);
+            var result = await overtimeRepository.GetDetailResponse(overtimeId);
             return Json(result);
         }
+
     }
 }
