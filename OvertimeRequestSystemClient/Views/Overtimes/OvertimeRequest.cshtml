@@ -114,7 +114,7 @@
                         <div class="col-md-6 ">
                             <div class="form-group">
                                 <label for="example">Tanggal Lembur</label>
-                                <input placeholder="Select date" type="date" id="date" class="form-control">
+                                <input placeholder="Select date" type="date" id="date" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -126,26 +126,26 @@
                         <div class="col-md-4 ">
                             <div class="form-group">
                                 <label for="example">Jam Mulai</label>
-                                <input type="time" id="starthour" class="form-control">
+                                <input type="time" id="starthour" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-4 ">
                             <div class="form-group">
                                 <label for="example">Jam Akhir</label>
-                                <input type="time" id="endhour" class="form-control">
+                                <input type="time" id="endhour" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-4 ">
                             <div class="form-group">
                                 <label for="example">Lokasi</label>
-                                <input type="text" id="locationname" name="locationname" class="form-control" placeholder="" value="" />
+                                <input type="text" id="locationname" name="locationname" class="form-control" placeholder="" value="" required />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 ">
                             <label for="example">Tugas</label>
-                            <textarea id="taskname" name="txtMsg" class="form-control" placeholder="Your Message *"></textarea>
+                            <textarea id="taskname" name="txtMsg" class="form-control" placeholder="Your Message *" re></textarea>
                         </div>
                     </div>
                 </div>
@@ -194,6 +194,8 @@
     </div>
 
 <!--Form Faiz-->
+
+
 
 @section Scripts{
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

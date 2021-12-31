@@ -4,15 +4,12 @@
 
     obj.Email = $("#loginemail").val();
     obj.Password = $("#loginpassword").val();
-
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     console.log(obj);
     $.ajax({
-
         type: "POST",
         url: "/Accounts/Auth",
         dataType: 'json',
-
         data: obj
     }).done((result) => {
         console.log(result);
@@ -26,3 +23,9 @@
         })
     })
 }
+
+/*$body = $("body");
+$(document).on({
+    ajaxStart: function () { $body.addClass("loading"); },
+    ajaxStop: function () { $body.removeClass("loading"); }
+});*/

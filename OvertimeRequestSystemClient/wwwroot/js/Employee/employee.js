@@ -314,3 +314,28 @@ function Update() {
         }
     })
 }
+
+/*function Validate() {
+    'use strict';
+    window.addEventListener('load', function () {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('click', function (event) {
+                console.log(form.checkValidity() === false && ($('#txtEmpEmail').val().length != 0) === false)
+                if (form.checkValidity() === false && ($('#txtEmpEmail').val().length != 0) === false) {
+                    form.classList.add('was-validated');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Submit Gagal'
+                    })
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                } else {
+                    Insert()
+                }
+            }, false);
+        });
+    }, false);
+}*/
