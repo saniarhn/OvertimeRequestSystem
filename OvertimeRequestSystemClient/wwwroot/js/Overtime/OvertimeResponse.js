@@ -316,7 +316,7 @@ function UpdateNo() {
     });
 }*/
 
-function getData(OvertimeId) {
+/*function getData(OvertimeId) {
     var a = OvertimeId;
     console.log(a);
     $.ajax({
@@ -429,6 +429,123 @@ function getData(OvertimeId) {
         }
     
        
+    }).fail((error) => {
+        console.log(error);
+    });
+}*/
+function getData(OvertimeId) {
+    var a = OvertimeId;
+    console.log(a);
+    $.ajax({
+        url: "/overtimes/GetDetailResponse/" + OvertimeId
+    }).done((result) => {
+        console.log(result)
+        console.log(result[0]);
+        console.log(result[1]);
+        console.log(result.length);
+        var text = ''
+        var text2 = ''
+        for (var i = 0; i < result.length; i++) {
+
+            if (result.length > 1) {
+                if (i == 0) {
+                    text2 = `
+                            <div class="row">
+                                  <div class="col-md-4">NIP</div>
+                                  <div class="col-md-4">${result[i].NIP}</div>
+                            </div>
+                            <div class="row">
+                                  <div class="col-md-4">Name</div>
+                                  <div class="col-md-4">${result[i].Name}</div>
+                            </div>
+                            <div class="row">
+                                  <div class="col-md-4">Date</div>
+                                  <div class="col-md-4">${dateConversion(result[i].Date)}</div>
+                            </div>
+                           <div class="row">
+                                  <div class="col-md-4">Total Overtime Request</div>
+                                  <div class="col-md-4">${result[i].SumOvertimeHour}</div>
+                            </div>
+                            <div class="row mb-3 mt-2">
+                                  <div class="col-md-12 text-center">Detail</div>
+                            </div>
+                            <div class="row">
+                                  <div class="col-md-2">Start Hour</div>
+                                  <div class="col-md-2">${result[i].StartHour}</div>
+                                  <div class="col-md-2">End Hour</div>
+                                  <div class="col-md-2">${result[i].EndHour}</div>
+                                  <div class="col-md-2">Location</div>
+                                  <div class="col-md-2">${result[i].LocationName}</div>
+                            </div>
+                            <div class="row">
+                                  <div class="col-md-2">Tugas</div>
+                                  <div class="col-md-10">${result[i].TaskName}</div>
+                            </div>
+                            `;
+                }
+                else {
+                    text2 = `
+                          <hr/>
+                          <div class="row mt-2">
+                                  <div class="col-md-2">Start Hour</div>
+                                  <div class="col-md-2">${result[i].StartHour}</div>
+                                  <div class="col-md-2">End Hour</div>
+                                  <div class="col-md-2">${result[i].EndHour}</div>
+                                  <div class="col-md-2">Location</div>
+                                  <div class="col-md-2">${result[i].LocationName}</div>
+                            </div>
+                            <div class="row">
+                                  <div class="col-md-2">Tugas</div>
+                                  <div class="col-md-10">${result[i].TaskName}</div>
+                            </div>
+                            `;
+                }
+
+            }
+            else {
+                text2 = `
+                          <div class="row">
+                                  <div class="col-md-4">NIP</div>
+                                  <div class="col-md-4">${result[i].NIP}</div>
+                            </div>
+                            <div class="row">
+                                  <div class="col-md-4">Name</div>
+                                  <div class="col-md-4">${result[i].Name}</div>
+                            </div>
+                            <div class="row">
+                                  <div class="col-md-4">Date</div>
+                                  <div class="col-md-4">${dateConversion(result[i].Date)}</div>
+                            </div>
+                           <div class="row">
+                                  <div class="col-md-4">Total Overtime Request</div>
+                                  <div class="col-md-4">${result[i].SumOvertimeHour}</div>
+                            </div>
+                            <div class="row mb-3 mt-2">
+                                  <div class="col-md-12 text-center">Detail</div>
+                            </div>
+                            <div class="row">
+                                  <div class="col-md-2">Start Hour</div>
+                                  <div class="col-md-2">${result[i].StartHour}</div>
+                                  <div class="col-md-2">End Hour</div>
+                                  <div class="col-md-2">${result[i].EndHour}</div>
+                                  <div class="col-md-2">Location</div>
+                                  <div class="col-md-2">${result[i].LocationName}</div>
+                            </div>
+                            <div class="row">
+                                  <div class="col-md-2">Tugas</div>
+                                  <div class="col-md-10">${result[i].TaskName}</div>
+                            </div>
+                                  `;
+            }
+
+
+            text += text2
+            console.log(text)
+            $('#table').html(text);
+
+        }
+
+
     }).fail((error) => {
         console.log(error);
     });
