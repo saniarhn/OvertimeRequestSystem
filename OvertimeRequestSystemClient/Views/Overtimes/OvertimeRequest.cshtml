@@ -6,93 +6,7 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout3.cshtml";
 }
-@*<h1>Overtime Request</h1>*@
 
-<!--<form id="form" class="overtime-request">
-    <div id="form-header">
-        <div class="row">
-            <!--Grid column-->
-<!--<div class="col-md-6">
-    <div class="form-group mb-0">
-        <label for="name" class="">Your NIP</label>
-        <input type="text" id="nip" name="nip" class="form-control" value="@ViewData["nip"]" readonly>
-    </div>
-</div>-->
-<!--Grid column-->
-<!--Grid column-->
-<!--@* <div class="col-md-6">
-        <div class="form-group mb-0">
-            <label for="email" class="">Your Name</label>
-            <input type="text" id="email" name="email" class="form-control">
-        </div>
-    </div>*@-->
-<!--Grid column-->
-<!--</div>
-<div class="row">-->
-<!--Grid column-->
-<!--<div class="col-md-6">
-            <div class="form-group mb-0">
-                <label for="example">Tanggal Mulai</label>
-                <input placeholder="Select date" type="date" id="date" class="form-control">
-            </div>
-        </div>
-    </div>
-</div>-->
-<!--Grid row-->
-<!--<h1>Detail</h1>
-<div id="detail">
-    <div class="row">-->
-<!--Grid column-->
-<!--<div class="col-md-6">
-    <div class="form-group mb-0">
-        <label for="inputMDEx1">Jam Mulai</label>
-        <input type="time" id="starthour" class="form-control">
-    </div>
-</div>-->
-<!--Grid column-->
-<!--Grid column-->
-<!--<div class="col-md-6">
-    <div class="form-group mb-0">
-        <label for="inputMDEx1">Jam Selesai</label>
-        <input type="time" id="endhour" class="form-control">
-    </div>
-</div>-->
-<!--Grid column-->
-<!--</div>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Tugas</label>
-            <textarea class="form-control" id="taskname" rows="3"></textarea>
-        </div>
-        <div class="form-group mb-0">
-            <label for="email" class="">Location</label>
-            <input type="text" id="locationname" name="locationname" class="form-control">
-        </div>
-    </div>
-
-
-
-    <button type="button" id="btn-add-list" class="btn btn-primary text-center">Add List</button>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Tanggal</th>
-                <th scope="col">Jam Mulai</th>
-                <th scope="col">Jam Selesai</th>
-                <th scope="col">Tugas</th>
-                <th scope="col">Lokasi</th>
-            </tr>
-        </thead>
-        <tbody id="tb_content">
-        </tbody>
-    </table>
-
-    <button type="button" id="kirim" class="btn btn-primary add-btn" onclick="OvertimeRequest()">Kirim</button>
-
-
-</form>-->
-<!--Form Faiz-->
 
 <div class="row">
     <div class="col-lg-12 margin-tb mb-4">
@@ -190,6 +104,7 @@
 
                     <div class="col-md-12 text-center">
                         <div class="form-group text-center">
+                            <input class="btn btn-danger" id ="delete" type="button"  value="Hapus">
                             <button type="button" id="kirim" class="btn btn-primary add-btn" onclick="OvertimeRequest()">Kirim</button>
                         </div>
                     </div>

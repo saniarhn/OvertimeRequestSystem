@@ -274,7 +274,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                     msg.From = new MailAddress("sniaaaa044@gmail.com");
                     msg.To.Add(new MailAddress(email));
                     msg.Subject = "Your Overtime Request Submitted" + today;
-                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour <p>" + $"</br><p> on {getDate} <p>";
+                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour on {getDate} <p>" + $"</br><p> has submitted <p>";
                     msg.IsBodyHtml = true;
 
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
@@ -312,6 +312,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
 
                     var getHour = getDataOvertime.SumOvertimeHour;
                     var getDate = getDataOvertime.Date.DayOfWeek;
+                    var getDate2 = getDataOvertime.Date.ToShortDateString();
                     DateTime today = DateTime.Now;
 
                     /*  untuk mengirim email*/
@@ -319,7 +320,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                     msg.From = new MailAddress("sniaaaa044@gmail.com");
                     msg.To.Add(new MailAddress(checkEmail));
                     msg.Subject = "Your Overtime Request Info" + today;
-                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour  on {getDate} status {getDataStatus} By Your Manager<p>" + $"</br><p> Check Your Account For Details <p>" ;
+                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour  on {getDate}, {getDate2}<p>" + $"</br><p>status {getDataStatus} By Your Manager<p>" + $"</br><p> Check Your Account For Details <p>" ;
                     msg.IsBodyHtml = true;
 
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
@@ -357,7 +358,8 @@ namespace OvertimeRequestSystemAPI.Repository.Data
 
                     var getHour = getDataOvertime.SumOvertimeHour;
                     var getDate = getDataOvertime.Date.DayOfWeek;
-
+                    var getDate2 = getDataOvertime.Date.ToShortDateString();
+                    var a = getDate2;
                     DateTime today = DateTime.Now;
 
                     /*  untuk mengirim email*/
@@ -365,7 +367,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                     msg.From = new MailAddress("sniaaaa044@gmail.com");
                     msg.To.Add(new MailAddress(checkEmail));
                     msg.Subject = "Your Overtime Request Info" + today;
-                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour  on {getDate} status {getDataStatusManager} By Your Manager and status  {getDataStatusFinance} By Your Finance <p>" + $"</br><p> Check Your Account For Details <p>";
+                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour  on {getDate}, {getDate2} <p>" + $" </br> <p> status {getDataStatusManager} By Your Manager and status  {getDataStatusFinance} By Your Finance <p>" + $"</br><p> Check Your Account For Details <p>";
                     msg.IsBodyHtml = true;
 
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
@@ -447,6 +449,29 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                                EndHour = c.EndHour,
                                TaskName = c.TaskName,
                                LocationName = c.LocationName
+                           };
+
+            return register.ToList();
+        }
+
+        public IEnumerable<GetResponseVM> GetResponseForDirector(int nip)
+        {
+            /* ambil data pegawai sesuai manajer nya */
+            var register = from a in context.Employees
+                           where a.ManagerId == nip
+                           join b in context.Overtimes on a.NIP equals b.NIP
+                           join c in context.AccountRoles on b.NIP equals c.NIP
+                           join d in context.Roles on c.RoleId equals d.RoleId
+                           where d.RoleName == "manager"|| d.RoleName == "finance"
+                           select new GetResponseVM()
+                           {
+                               NIP = a.NIP,
+                               OvertimeId = b.OvertimeId,
+                               Name = a.Name,
+                               Position = a.Position,
+                               Date = b.Date,
+                               SumOvertimeHour = b.SumOvertimeHour,
+                               StatusByManager = b.StatusByManager
                            };
 
             return register.ToList();

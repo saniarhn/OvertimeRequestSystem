@@ -165,6 +165,19 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
      
             return Ok(result);
         }
+        [HttpGet("GetResponseForDirector/{nip}")]
+        public ActionResult GetResponseForDirector(int nip)
+        {
+            var result = OvertimeRepository.GetResponseForDirector(nip);
+            if (result.Count() != 0)
+            {
+                //return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data ditampilkan" });
+                return Ok(result);
+
+            }
+            return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
+        }
+
 
     }
 }

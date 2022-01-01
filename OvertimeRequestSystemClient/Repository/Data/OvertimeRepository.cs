@@ -104,5 +104,16 @@ namespace OvertimeRequestSystemClient.Repository.Data
             }
             return entities;
         }
+        public async Task<List<GetResponseVM>> GetResponseForDirector(int nip)
+        {
+            List<GetResponseVM> entities = new List<GetResponseVM>();
+
+            using (var response = await httpClient.GetAsync(request + "GetResponseForDirector/" + nip))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<GetResponseVM>>(apiResponse);
+            }
+            return entities;
+        }
     }
 }

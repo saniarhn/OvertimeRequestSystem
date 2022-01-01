@@ -53,11 +53,11 @@ namespace OvertimeRequestSystemClient.Controllers
         public IActionResult OvertimeResponse()
         {
             var c = HttpContext.Session.GetString("Role");
-
-          
-           if (c == "manager")
+            var e = HttpContext.Session.GetString("NIP");
+            var d = Int32.Parse(e);
+            ViewData["nip"] = d;
+            if (c == "manager")
             {
-                
                 return View("OvertimeResponse");
             }
             else if (c == "finance")
@@ -66,7 +66,7 @@ namespace OvertimeRequestSystemClient.Controllers
             }
             else
             {
-                return View("OvertimeResponse");
+                return View("OvertimeResponseDirector");
             }
           
         }
@@ -131,6 +131,15 @@ namespace OvertimeRequestSystemClient.Controllers
         public async Task<JsonResult> GetDetailResponse(int overtimeId)
         {
             var result = await overtimeRepository.GetDetailResponse(overtimeId);
+            return Json(result);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetResponseForDirector()
+        {
+            var getSessionNIP = HttpContext.Session.GetString("NIP");
+            var sessionNIP = Int32.Parse(getSessionNIP);
+            var result = await overtimeRepository.GetResponseForDirector(sessionNIP);
             return Json(result);
         }
 

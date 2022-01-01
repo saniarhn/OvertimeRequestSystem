@@ -2,14 +2,13 @@
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
     });
-    
-    //tableOvertime2
-    table = $("#tableOvertime2").DataTable({
+    //tableOvertime1
+    table = $("#tableOvertime1").DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 15, 20, -1], [5, 10, 15, 20, 'All']],
         responsive: true,
         "ajax": {
-            "url": "/overtimes/GetResponseForManager",
+            "url": "/overtimes/GetResponseForDirector",
             "dataSrc": "",
             "order": [[1, 'asc']]
         },
@@ -34,15 +33,12 @@
             },
             {
                 "data": "Position",
-                "className": "dt-center",
-                "targets": "_all"
+                "visible":false
             },
-/*            {
+            {
                 "data": "OvertimeId",
-                "className": "dt-center",
-                "targets": "_all",
                 "visible": false
-            },*/
+            },
             {
                 "data": null,
                 "render": function (data, type, row) {
@@ -57,14 +53,14 @@
                 "className": "dt-center",
                 "targets": "_all"
             },
+
             {
-                "data": "StatusByManager",
+                "data": "StatusByFinance",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
                 "targets": "_all",
                 "visible": false,
                 "searchable": true,
-
             },
             {
                 "className": "dt-center",
@@ -80,7 +76,7 @@
                                     data-placement="top" title="Decline">
                                 <i class="fas fa-times"></i>
                             </button>
-                                <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
+                            <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
                                     data-placement="top" onclick="getData('${row["OvertimeId"]}')" onclick title="Details">
                                 <i class="fas fa-info"></i>
                                 </button>`;
@@ -88,17 +84,16 @@
                 }
             }
         ],
- /*       scrollCollapse: true,
+/*        scrollCollapse: true,
         paging: false*/
-
     });
-    //tableOvertime3
-    table = $("#tableOvertime3").DataTable({
+    //tableOvertime2
+    table = $("#tableOvertime2").DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 15, 20, -1], [5, 10, 15, 20, 'All']],
         responsive: true,
         "ajax": {
-            "url": "/overtimes/GetResponseForManager",
+            "url": "/overtimes/GetResponseForDirector",
             "dataSrc": "",
             "order": [[1, 'asc']]
         },
@@ -124,15 +119,13 @@
             {
                 "data": "Position",
                 "className": "dt-center",
-                "targets": "_all",
-          /*      "visible":false*/
+                "targets": "_all"
             },
- /*           {
+            {
                 "data": "OvertimeId",
-                "className": "dt-center",
-                "targets": "_all",
-                "visible": false
-            },*/
+                "visible": false,
+                "searchable":true
+            },
             {
                 "data": null,
                 "render": function (data, type, row) {
@@ -148,11 +141,10 @@
                 "targets": "_all"
             },
             {
-                "data": "StatusByManager",
+                "data": "StatusByFinance",
                 "defaultContent": "Diajukan",
                 "className": "dt-center",
                 "targets": "_all"
-
             },
             {
                 "className": "dt-center",
@@ -160,11 +152,10 @@
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                             <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
+                                <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
                                     data-placement="top" onclick="getData('${row["OvertimeId"]}')" onclick title="Details">
                                 <i class="fas fa-info"></i>
                                 </button>`;
-                          
 
                 }
             }
@@ -173,10 +164,9 @@
         paging: false*/
 
     });
-
-    /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
-    $('#tableOvertime2').DataTable().column(6).search("Diajukan").draw();
-    $('#tableOvertime3').DataTable().column(6).search('Diterima|Ditolak', true, false).draw();
+    
+    $('#tableOvertime1').DataTable().column(7).search("Diajukan").draw();
+    $('#tableOvertime2').DataTable().column(7).search('Diterima|Ditolak', true, false).draw();
 
 });
 
@@ -188,7 +178,7 @@ function dateConversion(dates) {
 }
 
 $.ajax({
-    "url": "/overtimes/GetResponseForManager",
+    "url": "/overtimes/GetResponseForDirector",
     success: function (result) {
         console.log(result)
     },
@@ -197,14 +187,25 @@ $.ajax({
     }
 })
 
-function UpdateYes(NIP, OvertimeId) {
+
+$.ajax({
+    "url": "/overtimes/GetResponseForDirector",
+    success: function (result) {
+        console.log(result)
+    },
+    error: function (error) {
+        console.log(error)
+    }
+})
+/*
+function UpdateYes(nip, overtimeid) {
             var obj = new Object();
-            obj.StatusByManager = "Diterima";
-    obj.NIP = NIP;
-    obj.OvertimeId = OvertimeId;
+            obj.StatusByFinance = "Diterima";
+            obj.NIP = nip;
+            obj.OvertimeId = overtimeid;
             console.log(obj)
             $.ajax({
-                url: "/overtimes/PutOvertimeResponseManager/",
+                url: "/overtimes/PutOvertimeResponseFinance/",
                 type: "Put",
                 data: obj,
                 'dataType': 'json',
@@ -224,17 +225,16 @@ function UpdateYes(NIP, OvertimeId) {
                     })
                 }
             })
-}
+}*/
 
-function getDataUpdate(NIP, OvertimeId) {
-/*    console.log(OvertimeId);*/
+function getDataUpdate(nip, overtimeid) {
     $.ajax({
-        url: "/overtimes/get/" + NIP,
+        url: "/overtimes/get/" + nip,
         success: function (result) {
             console.log(result)
             var data = result
-            $("#updatenip").attr("value", NIP)
-            $("#updateovertimeid").attr("value", OvertimeId)
+            $("#updatenip").attr("value", nip)
+            $("#updateovertimeid").attr("value", overtimeid)
             $("#updaterespdesc").attr("value", data.ResponseDescription)
             $("#updatemngfinid").attr("value", data.ManagerOrFinanceId)
         },
@@ -244,16 +244,16 @@ function getDataUpdate(NIP, OvertimeId) {
     })
 }
 
-function UpdateNo() {
+/*function UpdateNo() {
     var obj = new Object();
-    obj.StatusByManager = "Ditolak";
+    obj.StatusByFinance = "Ditolak";
     obj.NIP = $("#updatenip").val();
     obj.ResponseDescription = $("#updaterespdesc").val();
     obj.OvertimeId = $("#updateovertimeid").val();
     obj.ManagerOrFinanceId = $("#updatemngfinid").val();
     console.log(obj)
     $.ajax({
-        url: "/overtimes/PutOvertimeResponseManager/",
+        url: "/overtimes/PutOvertimeResponseFinance/",
         type: "Put",
         data: obj,
         'dataType': 'json',
@@ -273,47 +273,6 @@ function UpdateNo() {
             })
         }
     })
-}
-
-/*function getData(nip) {
-    $.ajax({
-        url: "/overtimes/GetResponseForManager/" + nip
-    }).done((result) => {
-        console.log(result)
-        var text = ''
-        text = `<div class = "text-center">
-                    <table class= "table bg-light table-hover text-info text-center">
-                        <tr>
-                            <td>NIP</td>
-                            <td>:</td>
-                            <td>${result.nip}</td>
-                        </tr>
-                        <tr>
-                            <td>Overtime Id</td>
-                            <td>:</td>
-                            <td>${result.overtimeId}</td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah Jam</td>
-                            <td>:</td>
-                            <td>${result.sumOvertimeHour}</td>
-                        </tr>
-                        <tr>
-                            <td>Date</td>
-                            <td>:</td>
-                            <td>${result.date}</td>
-                        </tr>
-                        <tr>
-                            <td>Status By Manager</td>
-                            <td>:</td>
-                            <td>${result.statusByManager}</td>
-                        </tr>
-                    </table>
-                    </div>`
-        $('.datainfo').html(text);
-    }).fail((error) => {
-        console.log(error);
-    });
 }*/
 
 /*function getData(OvertimeId) {
@@ -327,7 +286,7 @@ function UpdateNo() {
         console.log(result[1]);
         console.log(result.length);
         var text = ''
-   var text2 =''
+        var text2 = ''
         for (var i = 0; i < result.length; i++) {
 
             if (result.length > 1) {
@@ -383,7 +342,7 @@ function UpdateNo() {
                             </tr>
                             `;
                 }
-              
+
             }
             else {
                 text2 = `
@@ -420,29 +379,30 @@ function UpdateNo() {
                             </tr>
                                   `;
             }
-            
-            
+
+
             text += text2
             console.log(text)
             $('#table').html(text);
 
         }
-    
-       
+
+
     }).fail((error) => {
         console.log(error);
     });
 }*/
+
 function getData(OvertimeId) {
-/*    var a = OvertimeId;
-    console.log(a);*/
+    var a = OvertimeId;
+    console.log(a);
     $.ajax({
         url: "/overtimes/GetDetailResponse/" + OvertimeId
     }).done((result) => {
-    /*    console.log(result)
+        console.log(result)
         console.log(result[0]);
         console.log(result[1]);
-        console.log(result.length);*/
+        console.log(result.length);
         var text = ''
         var text2 = ''
         for (var i = 0; i < result.length; i++) {
@@ -540,7 +500,7 @@ function getData(OvertimeId) {
 
 
             text += text2
-         /*   console.log(text)*/
+            console.log(text)
             $('#table').html(text);
 
         }

@@ -49,6 +49,10 @@ namespace OvertimeRequestSystemClient.Controllers
             {
                 return View("DashboardDirector");
             }
+            else if (c == "admin")
+            {
+                return View("DashboardAdmin");
+            }
             else
             {
                 return View("Index");

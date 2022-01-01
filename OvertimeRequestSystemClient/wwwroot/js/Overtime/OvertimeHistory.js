@@ -66,8 +66,8 @@
                 }
             }
         ],
-        scrollCollapse: true,
-        paging: false
+      /*  scrollCollapse: true,
+        paging: false*/
 
     });
     //tableOvertime3
@@ -132,8 +132,8 @@
                 }
             }
         ],
-        scrollCollapse: true,
-        paging: false
+/*        scrollCollapse: true,
+        paging: false*/
 
     });
 

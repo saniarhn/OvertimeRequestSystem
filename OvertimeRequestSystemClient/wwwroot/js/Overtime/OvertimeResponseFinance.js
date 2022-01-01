@@ -84,8 +84,8 @@
                 }
             }
         ],
-        scrollCollapse: true,
-        paging: false
+/*        scrollCollapse: true,
+        paging: false*/
     });
     //tableOvertime2
     table = $("#tableOvertime2").DataTable({
@@ -160,8 +160,8 @@
                 }
             }
         ],
-        scrollCollapse: true,
-        paging: false
+/*        scrollCollapse: true,
+        paging: false*/
 
     });
     

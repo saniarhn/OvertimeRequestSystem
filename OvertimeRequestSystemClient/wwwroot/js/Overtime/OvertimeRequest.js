@@ -5,6 +5,8 @@ var dataPertama = [];
 function myFunction() {
 
 
+ 
+
     var data1 = {};
     
     $("#form-header").find('input').each(function (i) {
@@ -63,6 +65,8 @@ function myFunction() {
         }
 
     }
+    document.getElementById('date').setAttribute('readonly', true);
+
     $("#detail input").val('');
     $("#detail textarea").val('');
 }
@@ -128,4 +132,10 @@ function OvertimeRequest() {
             text: 'Gagal Request'
         })
     })
-        }
+}
+
+$("#delete").on('click', myDelete);
+function myDelete() {
+    document.getElementById('delete').type = 'reset';
+    $("#tb_content tr").remove();
+}

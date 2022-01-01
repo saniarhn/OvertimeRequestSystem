@@ -59,6 +59,7 @@ function myFunction() {
 
 }*/
 
+
 $(document).ready(function () {
     table = $("#tableEmployee").DataTable({
         pageLength: 5,
@@ -77,28 +78,28 @@ $(document).ready(function () {
                 }
             },
             {
-                "data": "nip"
+                "data": "NIP"
             },
             {
-                "data": "name"
+                "data": "Name"
             },
             {
-                "data": "email"
+                "data": "Position"
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
                     return `<button class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
-                                    data-placement="top" onclick="getData('${row["nip"]}')" title="Details">
+                                    data-placement="top" onclick="getData('${row["NIP"]}')" title="Details">
                                 <i class="fas fa-info-circle"></i>
                             </button>
 
-                            <button type="submit" class="btn btn-danger" onclick="Delete('${row["nip"]}')"
+                            <button type="submit" class="btn btn-danger" onclick="Delete('${row["NIP"]}')"
                                     data-placement="top" title="Delete">
                                 <i class="fas fa-trash"></i>
                             </button>
 
-                            <button class="btn btn-success" data-toggle="modal" onclick="getDataUpdate('${row["nip"]}')" data-target="#form-edit"
+                            <button class="btn btn-success" data-toggle="modal" onclick="getDataUpdate('${row["NIP"]}')" data-target="#form-edit"
                                     data-placement="top" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </button>`;
@@ -109,7 +110,7 @@ $(document).ready(function () {
     });
    
 });
-
+/*
 $(document).ready(function () {
     table = $("#tableAboutEmployee").DataTable({
         pageLength: 5,
@@ -128,25 +129,25 @@ $(document).ready(function () {
                 }
             },
             {
-                "data": "nip"
+                "data": "NIP"
             },
             {
-                "data": "name"
+                "data": "Name"
             },
             {
-                "data": "email"
+                "data": "Email"
             },
             {
-                "data": "position"
+                "data": "Position"
             },
             {
-                "data": "basicSalary"
+                "data": "BasicSalary"
             }
         ]
     });
 
 });
-
+*/
 function Insert() {
     var obj = new Object();
     obj.Name = $("#txtEmpName").val();
@@ -194,9 +195,9 @@ function Insert() {
     })
 }
 
-function getData(nip) {
+function getData(NIP) {
     $.ajax({
-        url: "/employees/get/" + nip
+        url: "/employees/get/" + NIP
     }).done((result) => {
         console.log(result)
         var text = ''
@@ -205,37 +206,43 @@ function getData(nip) {
                         <tr>
                             <td>NIP</td>
                             <td>:</td>
-                            <td>${result.nip}</td>
+                            <td>${result.NIP}</td>
                         </tr>
                         <tr>
                             <td>Name</td>
                             <td>:</td>
-                            <td>${result.name}</td>
+                            <td>${result.Name}</td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>:</td>
-                            <td>${result.email}</td>
+                            <td>${result.Email}</td>
                         </tr>
                         <tr>
-                            <td>Email</td>
+                            <td>Position</td>
                             <td>:</td>
-                            <td>${result.position}</td>
+                            <td>${result.Position}</td>
                         </tr>
                         <tr>
-                            <td>Base Salary</td>
+                            <td>Basic Salary</td>
                             <td>:</td>
-                            <td>Rp ${result.basicSalary}</td>
+                            <td>Rp ${result.BasicSalary}</td>
                         </tr>
+                        <tr>
+                            <td>Manager Id</td>
+                            <td>:</td>
+                            <td> ${result.ManagerId}</td>
+                        </tr>
+
                     </table>
                     </div>`
-        $('.datainfo').html(text);
+        $('#DetailEmployee .modal-body').html(text);
     }).fail((error) => {
         console.log(error);
     });
 }
 
-function Delete(nip) {
+function Delete(NIP) {
     Swal.fire({
         title: 'Are you sure to Delete this Field?',
         text: "You won't be able to revert this!",
@@ -247,7 +254,7 @@ function Delete(nip) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: "/employees/Delete/" + nip,
+                url: "/employees/Delete/" + NIP,
                 type: "Delete",
                 success: function (result) {
                     console.log(result)
@@ -266,17 +273,17 @@ function Delete(nip) {
     })
 }
 
-function getDataUpdate(nip) {
+function getDataUpdate(NIP) {
     $.ajax({
-        url: "/employees/get/" + nip,
+        url: "/employees/get/" + NIP,
         success: function (result) {
             console.log(result)
             var data = result
-            $("#updatenip").attr("value", data.nip)
-            $("#updateName").attr("value", data.name)
-            $("#updateBaseSalary").attr("value", data.basicSalary)
-            $("#updateemail").attr("value", data.email)
-            $("#updateposition").attr("value", data.position)
+            $("#updatenip").attr("value", data.NIP)
+            $("#updateName").attr("value", data.Name)
+            $("#updateBaseSalary").attr("value", data.BasicSalary)
+            $("#updateemail").attr("value", data.Email)
+            $("#updateposition").attr("value", data.Position)
         },
         error: function (error) {
             console.log(error)
@@ -314,6 +321,18 @@ function Update() {
         }
     })
 }
+
+$.ajax({
+    "url": "/employees/getall",
+    success: function (result) {
+        console.log(result)
+    },
+    error: function (error) {
+        console.log(error)
+    }
+})
+
+
 
 /*function Validate() {
     'use strict';

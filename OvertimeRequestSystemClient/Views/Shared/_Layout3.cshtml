@@ -87,7 +87,7 @@
             }
             else if (a == "manager")
             {
-                @*  Side Bar Employee *@
+                @*  Side Bar Employee + manager *@
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -99,24 +99,25 @@
                         <div class="bg-white py-2 collapse-inner rounded">
 
                             <a class="collapse-item" href="https://localhost:44348/overtimes/OvertimeHistory">Overtime Request</a>
+                            <a class="collapse-item" href="https://localhost:44348/overtimes/overtimeresponse">Overtime Response</a>
                         </div>
                     </div>
                 </li>
 
                 @*  Side Bar Manager *@
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                       aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Manager</span>
-                    </a>
-                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Employee:</h6>
-                            <a class="collapse-item" href="https://localhost:44348/overtimes/overtimeresponse">Overtime Response</a>
-                        </div>
+                @*        <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                   aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Manager</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Employee:</h6>
+                        <a class="collapse-item" href="https://localhost:44348/overtimes/overtimeresponse">Overtime Response</a>
                     </div>
-                </li>
+                </div>
+            </li>*@
 
             }
             else if (a == "admin")
@@ -146,38 +147,52 @@
 
             else if (a == "finance")
             {
-                @*  Side Bar Employee *@
+                @*  Side Bar Employee + Finance *@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                        aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-fw fa-user"></i>
-                        <span>Employee</span>
+                        <span>Overtime</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Employee:</h6>
-                            <a class="collapse-item" href="https://localhost:44348/overtimes/Index">Overtime Request</a>
-                            <a class="collapse-item" href="https://localhost:44348/overtimes/OvertimeHistory">Overtime History</a>
+
+                            <a class="collapse-item" href="https://localhost:44348/overtimes/OvertimeHistory">Overtime Request</a>
+                            <a class="collapse-item" href="https://localhost:44348/overtimes/overtimeresponse">Overtime Response</a>
                         </div>
                     </div>
                 </li>
                 @*  Side Bar Finance *@
+                <!--<li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+               aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Finance</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Employee:</h6>-->
+                @*                            <a class="collapse-item" href="https://localhost:44348/overtimes/Index">Overtime Request</a>*@
+                <!--<a class="collapse-item" href="https://localhost:44348/overtimes/overtimeresponse">Overtime Response</a>
+                </div>
+            </div>
+        </li>-->
+            }
+            else if (a == "director")
+            {
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                        aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Finance</span>
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Overtime</span>
                     </a>
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Employee:</h6>
-                            @*                            <a class="collapse-item" href="https://localhost:44348/overtimes/Index">Overtime Request</a>*@
                             <a class="collapse-item" href="https://localhost:44348/overtimes/overtimeresponse">Overtime Response</a>
                         </div>
                     </div>
                 </li>
             }
-
 
 
 
