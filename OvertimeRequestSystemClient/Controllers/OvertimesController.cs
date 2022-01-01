@@ -20,6 +20,7 @@ namespace OvertimeRequestSystemClient.Controllers
         {
             this.overtimeRepository = repository;
         }
+        [Authorize]
         public IActionResult Index()
         {
             var c = HttpContext.Session.GetString("NIP");
