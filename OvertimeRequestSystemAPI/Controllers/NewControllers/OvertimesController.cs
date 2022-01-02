@@ -18,7 +18,7 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
     [ApiController]
     public class OvertimesController : BaseController<Overtime, OvertimeRepository, int>
     {
-   
+
 
         private OvertimeRepository OvertimeRepository;
         public IConfiguration _configuration;
@@ -31,7 +31,7 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
             this.context = myContext;
         }
         [HttpPost("OvertimeRequest/{email}")]
-        public ActionResult Post(OvertimeRequestVM overtimerequestVM,string email)
+        public ActionResult Post(OvertimeRequestVM overtimerequestVM, string email)
         {
             var result = OvertimeRepository.OvertimeRequest(overtimerequestVM);
             if (result == 1)
@@ -156,13 +156,13 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
         public ActionResult GetDetailResponse(int overtimeId)
         {
             var result = OvertimeRepository.GetDetailResponse(overtimeId);
-            if (result== null)
+            if (result == null)
             {
                 //return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data ditampilkan" });
                 return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
 
             }
-     
+
             return Ok(result);
         }
         [HttpGet("GetResponseForDirector/{nip}")]
@@ -177,6 +177,26 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
             }
             return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
         }
+
+        [HttpPut("OvertimeResponseDirector")]
+        public ActionResult<Overtime> PutDirector(OvertimeResponseVM overtimeResponseVM)
+        {
+            var result = OvertimeRepository.OvertimeResponseDirector(overtimeResponseVM);
+            if (result != 0)
+            {
+                /* return Ok(new { status = HttpStatusCode.OK, result, messageResult = "Data Berhasil di Update" });*/
+                /*                return Ok(result);*/
+
+                return Ok(new
+                {
+                    status = HttpStatusCode.OK,
+                    data = OvertimeRepository.OvertimeResponseMailByDirector(overtimeResponseVM.OvertimeId),
+                    message = "Berhasil Kirim Email"
+                });
+            }
+            return BadRequest(new { status = HttpStatusCode.BadRequest, result, messageResult = "Data tidak berhasil di update" });
+        }
+
 
 
     }

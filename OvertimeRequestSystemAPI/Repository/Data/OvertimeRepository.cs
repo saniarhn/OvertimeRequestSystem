@@ -477,5 +477,85 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             return register.ToList();
         }
 
+        public int OvertimeResponseDirector(OvertimeResponseVM overtimeResponseVM)
+        {
+            var getData = context.Overtimes.Find(overtimeResponseVM.OvertimeId);
+            var result = 0;
+            if (getData.StatusByManager == null || getData.StatusByManager == "Diajukan")
+            {
+                if (overtimeResponseVM.StatusByManager == "Ditolak")
+                {
+                    Response response = new Response()
+                    {
+                        ResponseDescription = overtimeResponseVM.ResponseDescription,
+                        ManagerOrFinanceId = overtimeResponseVM.ManagerOrFinanceId,
+                        OvertimeId = getData.OvertimeId
+                    };
+                    context.Responses.Add(response);
+                    context.SaveChanges();
+                    getData.StatusByManager = overtimeResponseVM.StatusByManager;
+                    getData.StatusByFinance = getData.StatusByManager;
+                    context.Entry(getData).State = EntityState.Modified;
+                    context.SaveChanges();
+                    result = 1;
+                }
+                getData.StatusByManager = overtimeResponseVM.StatusByManager;
+                getData.StatusByFinance = getData.StatusByManager;
+                context.Entry(getData).State = EntityState.Modified;
+                context.SaveChanges();
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
+            return result;
+        }
+        public int OvertimeResponseMailByDirector(int OvertimeId)
+        {
+            var getDataOvertime = context.Overtimes.Find(OvertimeId);
+            if (getDataOvertime != null)
+            {
+                var getDataEmployee = context.Employees.Find(getDataOvertime.NIP);
+                var checkEmail = getDataEmployee.Email;
+
+                if (checkEmail != null)
+                {
+                    var getName = getDataEmployee.Name;
+                    var getDataStatus = getDataOvertime.StatusByManager;
+
+                    /*       string ChangePassword = Guid.NewGuid().ToString();
+
+                           getData.Password = Hashing.Hashing.HashPassword(ChangePassword);
+                           context.SaveChanges();*/
+
+                    var getHour = getDataOvertime.SumOvertimeHour;
+                    var getDate = getDataOvertime.Date.DayOfWeek;
+                    var getDate2 = getDataOvertime.Date.ToShortDateString();
+                    DateTime today = DateTime.Now;
+
+                    /*  untuk mengirim email*/
+                    MailMessage msg = new MailMessage();
+                    msg.From = new MailAddress("sniaaaa044@gmail.com");
+                    msg.To.Add(new MailAddress(checkEmail));
+                    msg.Subject = "Your Overtime Request Info" + today;
+                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour  on {getDate}, {getDate2}<p>" + $"</br><p>status {getDataStatus} By Your Director<p>" + $"</br><p> Check Your Account For Details <p>";
+                    msg.IsBodyHtml = true;
+
+                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+                    System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("sniaaaa044@gmail.com", "sania1234");
+                    smtpClient.Credentials = credentials;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Send(msg);
+                    return 1;
+
+
+                }
+                return 2;
+            }
+            return 2;
+
+        }
+
     }
 }

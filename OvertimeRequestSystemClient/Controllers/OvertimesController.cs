@@ -85,6 +85,14 @@ namespace OvertimeRequestSystemClient.Controllers
             var result = overtimeRepository.OvertimeResponseFinance(overtimeResponseVM);
             return Json(result);
         }
+        [HttpPut]
+        public JsonResult PutOvertimeResponseDirector(OvertimeResponseVM overtimeResponseVM)
+        {
+
+            var result = overtimeRepository.OvertimeResponseDirector(overtimeResponseVM);
+            return Json(result);
+        }
+
         /*   [HttpGet]
            public JsonResult GetOvertimeHistory()
            {

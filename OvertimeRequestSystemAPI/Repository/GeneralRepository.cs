@@ -19,8 +19,35 @@ namespace OvertimeRequestSystemAPI.Repository
             this.myContext = myContext;
             entities = myContext.Set<Entity>();
         }
+        public int Delete(Key key)
+        {
+
+            var entity = entities.Find(key);
+            /* apabila nik tidak ditemukan*/
+            if (entity == null)
+            {
+                return 0;
+            }
+            entities.Remove(entity);
+            var result = myContext.SaveChanges();
+            return result;
+
+        }
+
+        public IEnumerable<Entity> Get()
+        {
+            //throw new NotImplementedException();
+            return entities.ToList();
+        }
+
+        public Entity Get(Key key)
+        {
+            return entities.Find(key);
+        }
+
         public int Insert(Entity entity)
         {
+
             var check = entities.Add(entity);
             if (check == null)
             {
@@ -28,51 +55,29 @@ namespace OvertimeRequestSystemAPI.Repository
             }
             var result = myContext.SaveChanges();
             return result;
-            /*entities.Add(entity);
-            var result = myContext.SaveChanges();
-            return result;*/
-            //throw new NotImplementedException();
-        }
-        public int Delete(Key key)
-        {
-            var find = entities.Find(key);
-            if (find != null)
-            {
-                myContext.Remove(find);
-            }
-            entities.Remove(find);
-            var result = myContext.SaveChanges();
-            return result;
-            //throw new NotImplementedException();
+
+
         }
 
-        public IEnumerable<Entity> Get()
-        {
-            return entities.ToList();
-            //throw new NotImplementedException();
-        }
 
-        public Entity Get(Key key)
+        public int Update(Entity entity)
         {
-            return entities.Find(key);
-            //throw new NotImplementedException();
-        }
 
-        public int Update(Entity entity, Key key)
-        {
             myContext.Entry(entity).State = EntityState.Modified;
             var result = 0;
             try
             {
                 myContext.SaveChanges();
                 result = 1;
+
             }
-            catch(Exception)
+            catch (Exception)
             {
                 result = 0;
             }
             return result;
-            //throw new NotImplementedException();
+
         }
+
     }
 }

@@ -7,66 +7,77 @@
         <h1 class="h3 mb-0 text-gray-800">Create Employee</h1>
     </div>*@
 <!-- Page Heading -->
-<div class="container contact-form">
+
+<div class="row">
+    <div class="col-lg-12 margin-tb mb-4">
+        <div class="pull-right">
+            <a class="btn btn-info" href="https://localhost:44348/employees/"> Back</a>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="post">
+            @*<h3>Create Employee</h3>*@
+            <!-- Row 1 -->
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label for="example">Name</label>
+                        <input id="txtEmpName" type="text" name="txtEmpName" class="form-control" placeholder="Your Name *" value="" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="example">Email</label>
+                        <input id="txtEmpEmail" type="email" name="txtEmpEmail" class="form-control" placeholder="Your Email *" value="" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="example">Position</label>
+                        <input id="txtEmpPosition" type="text" name="txtEmpPosition" class="form-control" placeholder="Your Position *" value="" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="example">ManagerID</label>
+                        <input id="txtEmpManagerID" type="text" name="txtEmpManagerID" class="form-control" placeholder="Your ManagerID *" value="" required />
+                    </div>
+                </div>
+
+            </div>
+            <!-- Row 2 -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="example">Basic Salary</label>
+                        <input id="txtEmpBasicSalary" type="number" name="txtEmpBasicSalary" class="form-control" placeholder="Your Basic Salary *" value="" required />
+                    </div>
+                </div>
+            </div>
+          
+
+            <!-- Row 3 -->
+          
+
+            <div class="row mt-5 mb-3">
+
+
+                <div class="col-md-12 text-center">
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-primary add-btn" onclick="return Insert()">Save changes</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
     @*<div class="contact-image">
             <img src="~/img/add.svg" alt="rocket_contact" />
         </div>*@
-    <form method="post">
-        @*<h3>Create Employee</h3>*@
-        <!-- Row 1 -->
-        <div class="row">
-            <div class="col-md-6">
 
-                <div class="form-group">
-                    <label for="example">Name</label>
-                    <input id="txtEmpName" type="text" name="txtEmpName" class="form-control" placeholder="Your Name *" value="" required />
-                </div>
-                <div class="form-group">
-                    <label for="example">Email</label>
-                    <input id="txtEmpEmail" type="email" name="txtEmpEmail" class="form-control" placeholder="Your Email *" value="" required />
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="example">Position</label>
-                    <input id="txtEmpPosition" type="text" name="txtEmpPosition" class="form-control" placeholder="Your Position *" value="" required />
-                </div>
-                <div class="form-group">
-                    <label for="example">ManagerID</label>
-                    <input id="txtEmpManagerID" type="text" name="txtEmpManagerID" class="form-control" placeholder="Your ManagerID *" value="" required />
-                </div>
-            </div>
 
-        </div>
-        <!-- Row 2 -->
-        <div class="row mt-5">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="example">Basic Salary</label>
-                    <input id="txtEmpBasicSalary" type="number" name="txtEmpBasicSalary" class="form-control" placeholder="Your Basic Salary *" value="" required />
-                </div>
-            </div>
-        </div>
-        <!-- Row 3 -->
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <div class="form-group">
-
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group text-center">
-                    @* <input id="buttonsubmit" type="submit" name="btnSubmit" class="btnContact" value="Submit Data" />*@
-                    <button type="button" class="btn btn-primary add-btn" onclick="return Insert()">Save changes</button>
-                </div>
-            </div>
-            <div class="col-md-4">
-
-            </div>
-        </div>
-
-    </form>
-</div>
 
 
 <!--<!-- Page Heading -->

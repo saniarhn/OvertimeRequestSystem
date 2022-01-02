@@ -1,8 +1,8 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-$(document).ready(function () {
-    table = $("#tableEmployee").DataTable({
+/*$(document).ready(function () {
+    table = $("#tableAccount").DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 15, 20, -1], [5, 10, 15, 20, 'All']],
         responsive: true,
@@ -37,7 +37,7 @@ $(document).ready(function () {
     });
 
 });
-
+*/
 $(document).ready(function () {
     table = $("#tableAccount").DataTable({
         pageLength: 5,
@@ -56,14 +56,14 @@ $(document).ready(function () {
                 }
             },
             {
-                "data": "nip"
+                "data": "NIP"
             },
             {
-                "data": "password",
+                "data": "Password",
                 "visible":false
             },
             {
-                "data": "accountStatus"
+                "data": "AccountStatus"
             },
             {
                 "data": null,
@@ -244,3 +244,14 @@ function Update() {
         }
     })
 }
+
+
+$.ajax({
+    "url": "/accounts/getall",
+    success: function (result) {
+        console.log(result)
+    },
+    error: function (error) {
+        console.log(error)
+    }
+})

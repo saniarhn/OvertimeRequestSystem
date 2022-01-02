@@ -1,63 +1,7 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-/*// Write your JavaScript code.
-function OvertimeRequest() {
-    var dataArray = [];
-    var data = {};
 
-    $("#detail").find('input').each(function (i) {
-        if ((i + 1) % 3 === 0) {
-            data[this.id] = this.value;
-            data["taskname"] = null;
-            dataArray.push(data);
-            data = {};
-        } else {
-            data[this.id] = this.value;
-        }
-    });
-
-    $("#detail").find('textarea').each(function (i) {
-        dataArray[i].taskname = this.value;
-    });
-
-
-    console.log(dataArray)
-}
-$("#btn-add-list").on('click', myFunction);
-function myFunction() {
-    var text = ''
-    text = `
-    <div class="row">
-        <!--Grid column-->
-        <div class="col-md-6">
-            <div class="form-group mb-0">
-                <label for="inputMDEx1">Jam Mulai</label>
-                <input type="time" id="starthour" class="form-control">
-            </div>
-        </div>
-        <!--Grid column-->
-        <!--Grid column-->
-        <div class="col-md-6">
-            <div class="form-group mb-0">
-                <label for="inputMDEx1">Jam Selesai</label>
-                <input type="time" id="endhour" class="form-control">
-            </div>
-        </div>
-        <!--Grid column-->
-
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Tugas</label>
-        <textarea class="form-control" id="taskname" rows="3"></textarea>
-    </div>
-    <div class="form-group mb-0">
-        <label for="email" class="">Location</label>
-        <input type="text" id="locationname" name="locationname" class="form-control">
-    </div>`
-    $('#detail').append(text);
-
-}*/
 
 
 $(document).ready(function () {
@@ -281,9 +225,10 @@ function getDataUpdate(NIP) {
             var data = result
             $("#updatenip").attr("value", data.NIP)
             $("#updateName").attr("value", data.Name)
-            $("#updateBaseSalary").attr("value", data.BasicSalary)
+            $("#updateBasicSalary").attr("value", data.BasicSalary)
             $("#updateemail").attr("value", data.Email)
             $("#updateposition").attr("value", data.Position)
+            $("#updatemanagerid").attr("value", data.ManagerId)
         },
         error: function (error) {
             console.log(error)
@@ -293,17 +238,20 @@ function getDataUpdate(NIP) {
 
 function Update() {
     var obj = new Object();
-    obj.nip = $("#updatenip").val();
-    obj.name = $("#updateName").val();
-    obj.basicSalary = $("#updateBaseSalary").val();
-    obj.email = $("#updateemail").val();
-    obj.position = $("#updateposition").val();
+    obj.NIP = $("#updatenip").val();
+    obj.Name = $("#updateName").val();
+    obj.BasicSalary = $("#updateBasicSalary").val();
+    obj.Email = $("#updateemail").val();
+    obj.Position = $("#updateposition").val();
+    obj.ManagerId = $("#updatemanagerid").val();
+
+    console.log("data yang dikirim");
     console.log(obj)
     $.ajax({
+        type: "PUT",
         url: "/employees/put/",
-        type: "Put",
+        dataType: 'json',
         data: obj,
-        'dataType': 'json',
         success: function (result) {
             Swal.fire({
                 icon: 'success',
@@ -321,6 +269,7 @@ function Update() {
         }
     })
 }
+
 
 $.ajax({
     "url": "/employees/getall",

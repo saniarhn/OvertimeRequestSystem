@@ -10,7 +10,7 @@ namespace OvertimeRequestSystemAPI.Repository.Interface
         IEnumerable<Entity> Get();
         Entity Get(Key key);
         int Insert(Entity entity);
-        int Update(Entity entity, Key key);
+        int Update(Entity entity);
         int Delete(Key key);
     }
 }

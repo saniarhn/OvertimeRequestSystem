@@ -8,44 +8,48 @@
 }
 <!-- Page Heading -->
 @*<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-</div>
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    </div>
 *@
 
 <div class="card mb-4">
     <div class="card-header " style="background-color: #75afff !important; ">
         <h3 class="text-white">Response Overtime</h3>
     </div>
+
     <div class="card-body">
 
         <!-- Toggle -->
         <ul class="nav nav-pills mb-4" role="tablist">
 
             <li class="active mr-4">
-                <a href="#tab-table1" data-toggle="tab">Waiting Responses</a>
+                <a href="#tab-table2" data-toggle="tab">Waiting Responses</a>
             </li>
             <li>
-                <a href="#tab-table2" data-toggle="tab">Responded</a>
+                <a href="#tab-table3" data-toggle="tab">Responded</a>
             </li>
         </ul>
         <!-- Toggle -->
         <!-- Table 1 -->
         <div class="tab-content">
-            <div class="tab-pane active" id="tab-table1">
-                <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime1">
+
+            <!-- Table 1 -->
+            <!-- Table 2 -->
+            <div class="tab-pane active" id="tab-table2">
+                <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime2">
                     <thead class="thead-dark">
                         @*<tr>
-                                <th class="tbtitle text-center" scope="col" colspan="7">Employee List</th>
+                                <th class="tbtitle text-center" scope="col" colspan="6">Employee List</th>
                             </tr>*@
                         <tr>
                             <th scope="col">NO</th>
                             <th scope="col">NIP</th>
                             <th scope="col">Name</th>
                             <th scope="col">Position</th>
-                            <th scope="col">Overtime Id</th>
+                            @*                            <th scope="col">Overtime Id</th>*@
                             <th scope="col">Date</th>
                             <th scope="col">Total Overtime Hour</th>
-                            <th scope="col">Status By Finance</th>
+                            <th scope="col">Status by Manager</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -53,12 +57,12 @@
                     </tbody>
                 </table>
             </div>
-            <!-- Table 1 -->
             <!-- Table 2 -->
-            <div class="tab-pane" id="tab-table2">
-                <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime2">
+            <!-- Table 3 -->
+            <div class="tab-pane" id="tab-table3">
+                <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableOvertime3">
                     <thead class="thead-dark">
-                        @*<tr>
+                        @*  <tr>
                                 <th class="tbtitle text-center" scope="col" colspan="5">Employee List</th>
                             </tr>*@
                         <tr>
@@ -66,10 +70,10 @@
                             <th scope="col">NIP</th>
                             <th scope="col">Name</th>
                             <th scope="col">Position</th>
-                            <th scope="col">Overtime Id</th>
+                            @*                            <th scope="col">Overtime Id</th>*@
                             <th scope="col">Date</th>
                             <th scope="col">Total Overtime Hour</th>
-                            <th scope="col">Status By Finance</th>
+                            <th scope="col">Status By Director</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -77,7 +81,7 @@
                     </tbody>
                 </table>
             </div>
-            <!-- Table 2 -->
+            <!-- Table 3 -->
         </div>
 
     </div>
@@ -104,7 +108,7 @@
                         <input type="text" class="form-control" id="updateovertimeid" value="" hidden>
                     </div>
                     <div class="form-group">
- @*                       <label for="managerid">Manager Id</label>*@
+                        @*                        <label for="managerid">Manager Id</label>*@
                         <input type="text" class="form-control" id="updatemngfinid" value="@ViewData["nip"]" hidden>
                     </div>
                     <div class="form-group">
@@ -119,23 +123,44 @@
     </div>
 </div>
 <!-- Modal Update -->
-<!-- Modal Info -->
+<!-- Modal info -->
+@*<div class="modal fade" id="DetailEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row datainfo">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!-- Modal info -->
 <!--<div id="DetailEmployee" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">-->
-            @*      <div class="modal-header card-header-title">
-                    <h4 class="modal-title card-element-title">Info</h4>
-                </div>*@
-            <!--<div class="modal-body datainfo">
+@*      <div class="modal-header card-header-title">
+        <h4 class="modal-title card-element-title">Info</h4>
+    </div>*@
+<!--<div class="modal-body datainfo">
                 <div class="card shadow mb-4 mt-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Info</h6>-->
-                        @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>*@
-                    <!--</div>
+                        <h6 class="m-0 font-weight-bold text-primary">Info</h6>
+                    </div>
                     <div class="card-body ">
                         <table id="table">
+
+
+
                         </table>
                     </div>
                 </div>

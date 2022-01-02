@@ -77,19 +77,32 @@ namespace OvertimeRequestSystemAPI.Base
             }
             return NotFound(new{ status = HttpStatusCode.NotFound, result = Found, message = "Data tidak ditemukan"});
         }
+        /*  [HttpPut]
+          public ActionResult Update(Entity entity, Key key)
+          {
+              var result = repository.Update(entity, key);
+              try
+              {
+                  *//*return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data terupdate" });*//*
+                  return Ok(result);
+              }
+              catch (Exception)
+              {
+                  return BadRequest(new { status = HttpStatusCode.BadRequest, Message = "Gagal update" });
+              }
+          }*/
+
+
         [HttpPut]
-        public ActionResult Update(Entity entity, Key key)
+        public ActionResult<Entity> Put(Entity entity)
         {
-            var result = repository.Update(entity, key);
-            try
+            var result = repository.Update(entity);
+            if (result != 0)
             {
-                /*return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data terupdate" });*/
+                /* return Ok(new { status = HttpStatusCode.OK, result, messageResult = "Data Berhasil di Update" });*/
                 return Ok(result);
             }
-            catch (Exception)
-            {
-                return BadRequest(new { status = HttpStatusCode.BadRequest, Message = "Gagal update" });
-            }
+            return BadRequest(new { status = HttpStatusCode.BadRequest, result, messageResult = "Data tidak berhasil di update" });
         }
     }
 }
