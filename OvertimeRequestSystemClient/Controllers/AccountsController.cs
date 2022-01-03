@@ -91,10 +91,10 @@ namespace OvertimeRequestSystemClient.Controllers
         }
 
         [HttpPost]
-        public JsonResult PostInsertAccount(Account account)
+        public JsonResult PostInsertAccount(AccVM accVM)
         {
       
-            var result = accountRepository.InsertAccount(account);
+            var result = accountRepository.InsertAccount(accVM);
             return Json(result);
         }
     }

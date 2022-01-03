@@ -9,5 +9,7 @@ namespace OvertimeRequestSystemAPI.ViewModel
     {
         public int NIP { get; set; }
         public string Password { get; set; }
+        public string AccountStatus { get; set; }
+        public int RoleId { get; set; }
     }
 }

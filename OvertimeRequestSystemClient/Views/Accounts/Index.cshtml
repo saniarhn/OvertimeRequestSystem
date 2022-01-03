@@ -54,11 +54,11 @@
                         <input type="text" class="form-control" id="updatenip" value="" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="name">Account Status</label>
-                        <input type="text" class="form-control" id="updateAccountStatus" placeholder="Account Status" value="" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
+                        <label for="exampleFormControlSelect1">Account Status</label>
+                        <select class="form-control" id="updateAccountStatus">
+                            <option value="Active">Active</option>
+                            <option value="Non-Active">Non-Active</option>
+                        </select>
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-info" onclick="Update()"> Update </button>

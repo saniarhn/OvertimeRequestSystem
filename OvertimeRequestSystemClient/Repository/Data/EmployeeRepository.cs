@@ -39,5 +39,17 @@ namespace OvertimeRequestSystemClient.Repository.Data
             }
             return entities;
         }*/
+
+        public async Task<List<KeyValuePair<string, int>>> GetCountPosition()
+        {
+            List<KeyValuePair<string, int>> entities = new List<KeyValuePair<string, int>>();
+
+            using (var response = await httpClient.GetAsync(request))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<KeyValuePair<string, int>>>(apiResponse);
+            }
+            return entities;
+        }
     }
 }

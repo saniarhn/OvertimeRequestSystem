@@ -63,18 +63,19 @@ $(document).ready(function () {
                 "visible":false
             },
             {
-                "data": "AccountStatus"
+                "data": "AccountStatus",
+                 "defaultContent": "Active",
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                            <button type="submit" class="btn btn-danger" onclick="Delete('${row["nip"]}')"
+                            <button type="submit" class="btn btn-danger" onclick="Delete('${row["NIP"]}')"
                                     data-placement="top" title="Delete">
                                 <i class="fas fa-trash"></i>
                             </button>
 
-                            <button class="btn btn-success" data-toggle="modal" onclick="getDataUpdate('${row["nip"]}')" data-target="#form-edit"
+                            <button class="btn btn-success" data-toggle="modal" onclick="getDataUpdate('${row["NIP"]}')" data-target="#form-edit"
                                     data-placement="top" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </button>`;
@@ -92,16 +93,17 @@ function Insert() {
     obj.nip = $("#txtNIP").val();
     obj.password = $("#txtPassword").val();
     obj.accountStatus = $("#txtAccStatus").val();
+    obj.RoleId = $("#txtRole").val();
     console.log(obj);
     $.ajax({
         //headers: {
         //    'Accept': 'application/json',
         //    'Content-Type': 'application/json'
         //},
-        url: "accounts/InsertAccount",
-        type: "Post",
-        'data': obj,
-        'dataType': 'json',
+        type: "POST",
+        url: "/accounts/PostInsertAccount",
+        dataType: 'json',
+        data: obj,
         success: function (result) {
             console.log(result)
             if (result == 200) {
@@ -130,9 +132,9 @@ function Insert() {
     })
 }
 
-function getData(nip) {
+function getData(NIP) {
     $.ajax({
-        url: "/employees/get/" + nip
+        url: "/employees/get/" + NIP
     }).done((result) => {
         console.log(result)
         var text = ''
@@ -141,27 +143,27 @@ function getData(nip) {
                         <tr>
                             <td>NIP</td>
                             <td>:</td>
-                            <td>${result.nip}</td>
+                            <td>${result.NIP}</td>
                         </tr>
                         <tr>
                             <td>Name</td>
                             <td>:</td>
-                            <td>${result.name}</td>
+                            <td>${result.Name}</td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>:</td>
-                            <td>${result.email}</td>
+                            <td>${result.Email}</td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>:</td>
-                            <td>${result.position}</td>
+                            <td>${result.Position}</td>
                         </tr>
                         <tr>
                             <td>Base Salary</td>
                             <td>:</td>
-                            <td>Rp ${result.basicSalary}</td>
+                            <td>Rp ${result.BasicSalary}</td>
                         </tr>
                     </table>
                     </div>`
@@ -202,13 +204,14 @@ function Delete(nip) {
     })
 }
 
-function getDataUpdate(nip) {
+function getDataUpdate(NIP) {
+    console.log(NIP);
     $.ajax({
-        url: "/accounts/get/" + nip,
+        url: "/accounts/get/" + NIP,
         success: function (result) {
             console.log(result)
             var data = result
-            $("#updatenip").attr("value", data.nip)
+            $("#updatenip").attr("value", data.NIP)
             $("#updateAccountStatus").attr("value", data.accountStatus)
         },
         error: function (error) {

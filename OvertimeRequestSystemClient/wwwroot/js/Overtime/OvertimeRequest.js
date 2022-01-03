@@ -113,7 +113,7 @@ function OvertimeRequest() {
         var listdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         var date4 = listdays[date3.getDay()];
         console.log(date4);
-        if (date4 != 'Sunday' || date4 != 'Saturday') {
+        if (date4 != 'Sunday' && date4 != 'Saturday') {
 
             for (a = 0; a < dataPertama.length; a++) {
                 let valuestart = moment.duration(dataPertama[a].starthour, "HH:mm");
@@ -256,6 +256,7 @@ function myDelete() {
     document.getElementById('delete').type = 'reset';
     $("#tb_content tr").remove();
     document.getElementById('date').removeAttribute('readonly', false);
+    dataPertama = [];
 }
 
 /*function addDays(date, days) {

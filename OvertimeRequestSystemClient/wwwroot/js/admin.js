@@ -66,6 +66,17 @@ $.ajax({
 });
 
 $.ajax({
+    "url": "/employees/GetCountPosition",
+    success: function (result) {
+        console.log(result)
+    },
+    error: function (error) {
+        console.log(error)
+    }
+})
+
+
+$.ajax({
     url: "https://localhost:44382/OvertimeRequestSystemAPI/Employees/GetCountRole"
 }).done((result) => {
     console.log(result)

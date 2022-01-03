@@ -46,10 +46,10 @@ namespace OvertimeRequestSystemClient.Repository.Data
             return token;
         }
 
-        public HttpStatusCode InsertAccount(Account account)
+        public HttpStatusCode InsertAccount(AccVM accVM)
         {
-            StringContent content = new StringContent(JsonConvert.SerializeObject(account), Encoding.UTF8, "application/json");
-            var result = httpClient.PostAsync(address.Link + request + "InsertAccount/", content).Result;
+            StringContent content = new StringContent(JsonConvert.SerializeObject(accVM), Encoding.UTF8, "application/json");
+            var result = httpClient.PostAsync(address.Link + request + "InsertAccount", content).Result;
             return result.StatusCode;
         }
     }
