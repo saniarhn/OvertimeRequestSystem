@@ -33,12 +33,19 @@ namespace OvertimeRequestSystemClient.Controllers
             return View("AboutEmployee");
         }
 
-        /*[HttpGet]
+        [HttpGet]
         public async Task<JsonResult> GetCountPosition()
         {
             var result = await employeeRepository.GetCountPosition();
             return Json(result);
-        }*/
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetCountRole()
+        {
+            var result = await employeeRepository.GetCountRole();
+            return Json(result);
+        }
     }
  
 }

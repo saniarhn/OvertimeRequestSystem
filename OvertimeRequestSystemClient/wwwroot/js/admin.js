@@ -74,6 +74,15 @@ $.ajax({
         console.log(error)
     }
 })
+$.ajax({
+    "url": "/employees/GetCountRole",
+    success: function (result) {
+        console.log(result)
+    },
+    error: function (error) {
+        console.log(error)
+    }
+})
 
 
 $.ajax({
@@ -120,4 +129,13 @@ $.ajax({
     console.log(error);
 });
 
+$.ajax({
+    "url": "/employees/GetCountRole",
+    success: function (result) {
+        console.log(result)
+    },
+    error: function (error) {
+        console.log(error)
+    }
+})
 

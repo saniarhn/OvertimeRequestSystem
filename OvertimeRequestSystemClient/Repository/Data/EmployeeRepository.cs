@@ -39,16 +39,32 @@ namespace OvertimeRequestSystemClient.Repository.Data
             }
             return entities;
         }*/
-        /*public async Task<List<KeyValuePair<List<string>, List<int>>>> GetCountPosition()
+
+
+
+        public async Task<List<CountPositionVM>> GetCountPosition()
         {
-            *//*List<KeyValuePair<string, int>> entities = new List<KeyValuePair<string, int>>();*//*
-            List<KeyValuePair<List<string>, List<int>>> entities = new List<KeyValuePair<List<string>, List<int>>>();
-            using (var response = await httpClient.GetAsync(request + "GetCountPosition"))
+            List<CountPositionVM> entities = new List<CountPositionVM>();
+     
+            using (var response = await httpClient.GetAsync(request + "GetCountPosition/"))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                entities = JsonConvert.DeserializeObject<List<KeyValuePair<List<string>, List<int>>>>(apiResponse);
+                entities = JsonConvert.DeserializeObject<List<CountPositionVM>>(apiResponse);
             }
             return entities;
-        }*/
+        }
+
+        public async Task<List<CountRoleVM>> GetCountRole()
+        {
+            List<CountRoleVM> entities = new List<CountRoleVM>();
+
+            using (var response = await httpClient.GetAsync(request + "GetCountRole/"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<CountRoleVM>>(apiResponse);
+            }
+            return entities;
+        }
+
     }
 }
