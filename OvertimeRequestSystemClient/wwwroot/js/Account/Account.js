@@ -78,7 +78,11 @@ $(document).ready(function () {
                             <button class="btn btn-success" data-toggle="modal" onclick="getDataUpdate('${row["NIP"]}')" data-target="#form-edit"
                                     data-placement="top" title="Edit">
                                 <i class="fas fa-edit"></i>
-                            </button>`;
+                            </button>
+                            <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#DetailEmployee"
+                                    data-placement="top" onclick="getData('${row["NIP"]}')" onclick title="Details">
+                                <i class="fas fa-info"></i>
+                                </button>`;
 
                 }
             }
@@ -134,40 +138,76 @@ function Insert() {
 
 function getData(NIP) {
     $.ajax({
-        url: "/employees/get/" + NIP
+        url: "/accounts/GetDetailAccount/" + NIP
     }).done((result) => {
         console.log(result)
         var text = ''
-        text = `<div class = "text-center">
-                    <table class= "table bg-light table-hover text-info text-center">
-                        <tr>
-                            <td>NIP</td>
-                            <td>:</td>
-                            <td>${result.NIP}</td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>:</td>
-                            <td>${result.Name}</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>:</td>
-                            <td>${result.Email}</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>:</td>
-                            <td>${result.Position}</td>
-                        </tr>
-                        <tr>
-                            <td>Base Salary</td>
-                            <td>:</td>
-                            <td>Rp ${result.BasicSalary}</td>
-                        </tr>
-                    </table>
-                    </div>`
-        $('.datainfo').html(text);
+        var text2 = ''
+        for (var i = 0; i < result.length; i++) {
+            if (result.length > 1) {
+                if (i == 0) {
+                    text2 = `<div class="row mb-2">
+                     <div class="col-md-3">NIP</div>
+                     <div class="col-md-3">${result[i].NIP}</div>
+                     <div class="col-md-3">Name</div>
+                     <div class="col-md-3">${result[i].Name}</div>
+                </div>
+                <div class="row mb-2">
+                     <div class="col-md-3">Email</div>
+                     <div class="col-md-3">${result[i].Email}</div>
+                     <div class="col-md-3">Position</div>
+                     <div class="col-md-3">${result[i].Position}</div>
+                </div>
+                <div class="row mb-2">
+                     <div class="col-md-3">Basic Salary</div>
+                     <div class="col-md-3">${result[i].BasicSalary}</div>
+                     <div class="col-md-3">Manager Id</div>
+                     <div class="col-md-3">${result[i].ManagerId}</div>
+                </div>
+                <div class="row mb-2">
+                     <div class="col-md-3">Account Status</div>
+                     <div class="col-md-3">${result[i].AccountStatus}</div>
+                     <div class="col-md-3">Role Name</div>
+                     <div class="col-md-3">${result[i].RoleName}</div>
+                </div>`;
+                }
+                else {
+                    text2 = `
+                <div class="row mb-2">
+                     <div class="col-md-3">Role Name</div>
+                     <div class="col-md-3">${result[i].RoleName}</div>
+                </div>`;
+                }
+            }
+            else {
+                text2 = `<div class="row mb-2">
+                     <div class="col-md-3">NIP</div>
+                     <div class="col-md-3">${result[i].NIP}</div>
+                     <div class="col-md-3">Name</div>
+                     <div class="col-md-3">${result[i].Name}</div>
+                </div>
+                <div class="row mb-2">
+                     <div class="col-md-3">Email</div>
+                     <div class="col-md-3">${result[i].Email}</div>
+                     <div class="col-md-3">Position</div>
+                     <div class="col-md-3">${result[i].Position}</div>
+                </div>
+                <div class="row mb-2">
+                     <div class="col-md-3">Basic Salary</div>
+                     <div class="col-md-3">${result[i].BasicSalary}</div>
+                     <div class="col-md-3">Manager Id</div>
+                     <div class="col-md-3">${result[i].ManagerId}</div>
+                </div>
+                <div class="row mb-2">
+                     <div class="col-md-3">Account Status</div>
+                     <div class="col-md-3">${result[i].AccountStatus}</div>
+                     <div class="col-md-3">Role Name</div>
+                     <div class="col-md-3">${result[i].RoleName}</div>
+                </div>`;
+            }
+            text += text2
+            $('#table').html(text);
+        }
     }).fail((error) => {
         console.log(error);
     });

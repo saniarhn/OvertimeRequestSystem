@@ -128,6 +128,16 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
                 return BadRequest(new { status = HttpStatusCode.BadRequest, Message = "Gagal memasukan data" });
             }
         }
+        [HttpGet("GetDetailAccount/{nip}")]
+        public ActionResult GetDetailAccount(int nip)
+        {
+            var result = accountRepository.GetDetailAccount(nip);
+            if(result == null)
+            {
+                return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
+            }
+            return Ok(result);
+        }
 
        /* [HttpPost("InsertAccount")]
         public ActionResult Post(Account account)
