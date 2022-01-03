@@ -55,8 +55,6 @@ namespace OvertimeRequestSystemAPI.Repository
             }
             var result = myContext.SaveChanges();
             return result;
-
-
         }
 
 

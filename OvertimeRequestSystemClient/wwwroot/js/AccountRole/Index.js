@@ -85,9 +85,7 @@ $(document).ready(function () {
 
 function Insert() {
     var obj = new Object();
-    obj.nip = $("#txtNIP").val();
-    obj.password = $("#txtPassword").val();
-    obj.accountStatus = $("#txtAccStatus").val();
+    obj.NIP = $("#txtNIP").val();
     obj.RoleId = $("#txtRole").val();
     console.log(obj);
     $.ajax({
@@ -96,7 +94,7 @@ function Insert() {
         //    'Content-Type': 'application/json'
         //},
         type: "POST",
-        url: "/accounts/PostInsertAccount",
+        url: "/accountroles/post",
         dataType: 'json',
         data: obj,
         success: function (result) {

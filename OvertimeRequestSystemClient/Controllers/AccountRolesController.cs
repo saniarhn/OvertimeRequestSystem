@@ -21,6 +21,10 @@ namespace OvertimeRequestSystemClient.Controllers
         {
             return View("Index");
         }
+        public IActionResult CreateAccountRole()
+        {
+            return View();
+        }
 
     }
 }
