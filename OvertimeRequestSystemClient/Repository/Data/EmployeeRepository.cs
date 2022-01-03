@@ -32,24 +32,23 @@ namespace OvertimeRequestSystemClient.Repository.Data
         /*public async Task<List<KeyValuePair<string, int>>> GetCountPosition()
         {
             List<KeyValuePair<string, int>> entities = new List<KeyValuePair<string, int>>();
-            using (var response = await httpClient.GetAsync(request+ "GetCountPosition"))
+            using (var response = await httpClient.GetAsync(request + "GetCountPosition"))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 entities = JsonConvert.DeserializeObject<List<KeyValuePair<string, int>>>(apiResponse);
             }
             return entities;
         }*/
-
-        public async Task<List<KeyValuePair<string, int>>> GetCountPosition()
+        /*public async Task<List<KeyValuePair<List<string>, List<int>>>> GetCountPosition()
         {
-            List<KeyValuePair<string, int>> entities = new List<KeyValuePair<string, int>>();
-
-            using (var response = await httpClient.GetAsync(request))
+            *//*List<KeyValuePair<string, int>> entities = new List<KeyValuePair<string, int>>();*//*
+            List<KeyValuePair<List<string>, List<int>>> entities = new List<KeyValuePair<List<string>, List<int>>>();
+            using (var response = await httpClient.GetAsync(request + "GetCountPosition"))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                entities = JsonConvert.DeserializeObject<List<KeyValuePair<string, int>>>(apiResponse);
+                entities = JsonConvert.DeserializeObject<List<KeyValuePair<List<string>, List<int>>>>(apiResponse);
             }
             return entities;
-        }
+        }*/
     }
 }
