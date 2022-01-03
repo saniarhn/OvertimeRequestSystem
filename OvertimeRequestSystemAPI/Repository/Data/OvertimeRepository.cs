@@ -24,7 +24,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
         {
             var getData = context.Employees.Find(overtimerequestVM.NIP);
             float salary = getData.BasicSalary;
-         /*   var getData2 = context.Parameters.ToList();*/
+            /*   var getData2 = context.Parameters.ToList();*/
             var a = context.Parameters.Where(e => e.ParameterName.Contains("konstanta_rumus")).FirstOrDefault();
             var konstanta_rumus = a.Value;
             var b = context.Parameters.Where(e => e.ParameterName.Contains("wd_percent_first_hour")).FirstOrDefault();
@@ -45,10 +45,29 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             var wk_second_hour = j.Value;
             var k = context.Parameters.Where(e => e.ParameterName.Contains("wk_third_hour")).FirstOrDefault();
             var wk_third_hour = k.Value;
+
+            var register = (from r in context.Overtimes
+                            where r.NIP == overtimerequestVM.NIP && r.Date.Month == overtimerequestVM.Date.Month
+                            group r by r.NIP into testcount
+                            select new
+                            {
+
+                                NIP = testcount.Key,
+                                Hour = testcount.Sum(t => t.SumOvertimeHour),
+
+                            }).FirstOrDefault();
+
             var result = 0;
+
+
+
             try
             {
-        
+
+
+
+
+
                 int sisajam2 = 0;
                 int sisajam3 = 0;
                 double hasil1 = 0;
@@ -56,7 +75,10 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                 double hasil3 = 0;
                 double hasil_lembur = 0;
 
-          
+
+                if (register == null || register.Hour <= 40)
+                {
+
                     /*untuk menampung hasil jam per detail*/
                     List<int> Hitung = new List<int>();
 
@@ -71,16 +93,16 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                     var arrayjam = Hitung;
                     int sumjam = Hitung.Sum();
                     /*  masukkan nilai total jam lembur*/
-              /*      overtimerequestVM.SumOvertimeHour = sumjam;*/
+                    /*      overtimerequestVM.SumOvertimeHour = sumjam;*/
 
                     if (overtimerequestVM.Date.DayOfWeek == DayOfWeek.Sunday || overtimerequestVM.Date.DayOfWeek == DayOfWeek.Saturday)
                     {
-                      
+
                         /*  jika jumlah jam lembur diantara 1-8*/
                         if (sumjam > 0 && sumjam <= wk_first_hour)
                         {
                             /* sisajam pasti 0 karena sumjam dikurang angka lembur antara 1-8 , dimana 1-8 adalah 1-8 jam pertama*/
-                       
+
                             hasil1 = konstanta_rumus * salary * wk_percent_first_hour * sumjam;
                             hasil_lembur = hasil1;
                         }
@@ -88,7 +110,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                         else if (sumjam == wk_second_hour)
                         {
                             /* jam awal 8 menyatakan 9 pasti sudah melewati 8 jam pertama*/
-                            
+
                             sisajam2 = sumjam - Convert.ToInt32(wk_first_hour);
                             hasil1 = konstanta_rumus * salary * wk_percent_first_hour * Convert.ToInt32(wk_first_hour);
                             hasil2 = konstanta_rumus * salary * wk_percent_second_hour * sisajam2;
@@ -96,7 +118,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                         }
                         else if (sumjam > wk_second_hour && sumjam <= wk_third_hour)
                         {
-                        
+
                             sisajam2 = sumjam - Convert.ToInt32(wk_first_hour);
                             sisajam3 = sumjam - Convert.ToInt32(wk_first_hour) - sisajam2;
                             hasil1 = konstanta_rumus * salary * wk_percent_first_hour * wk_first_hour;
@@ -105,16 +127,16 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                             hasil_lembur = hasil1 + hasil2 + hasil3;
                         }
 
-                      
+
 
                     }
 
 
-                    else 
+                    else
                     {
                         if (sumjam > 0 && sumjam <= wd_first_hour)
                         {
-                         
+
                             hasil1 = konstanta_rumus * salary * wd_percent_first_hour * sumjam;
                             hasil_lembur = hasil1;
                         }
@@ -125,11 +147,11 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                             hasil2 = konstanta_rumus * salary * wd_percent_second_hour * sisajam2;
                             hasil_lembur = hasil1 + hasil2;
                         }
-                        
+
                     }
                     float sumsalary = Convert.ToInt32(hasil_lembur);
                     /*  masukkan nilai salary lembur*/
-                /*    overtimerequestVM.OvertimeSalary = sumsalary;*/
+                    /*    overtimerequestVM.OvertimeSalary = sumsalary;*/
 
                     Overtime overtime = new Overtime()
                     {
@@ -166,9 +188,14 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                     context.SaveChanges();
                     result = 1;
 
-                
 
-            
+                }
+                else
+                {
+                    result = 0;
+                }
+
+
 
 
             }
@@ -177,6 +204,9 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                 return result;
             }
 
+
+
+
             return result;
         }
 
@@ -184,6 +214,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
         {
             var getData = context.Overtimes.Find(overtimeResponseVM.OvertimeId);
             var result = 0;
+
             if (getData.StatusByManager == null || getData.StatusByManager == "Diajukan")
             {
                 if (overtimeResponseVM.StatusByManager == "Ditolak")
@@ -297,14 +328,14 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             var getDataOvertime = context.Overtimes.Find(OvertimeId);
             if (getDataOvertime != null)
             {
-            var getDataEmployee = context.Employees.Find(getDataOvertime.NIP);
-            var checkEmail = getDataEmployee.Email;
+                var getDataEmployee = context.Employees.Find(getDataOvertime.NIP);
+                var checkEmail = getDataEmployee.Email;
 
-            if (checkEmail != null)
-            {
-                var getName = getDataEmployee.Name;
-                var getDataStatus = getDataOvertime.StatusByManager;
-              
+                if (checkEmail != null)
+                {
+                    var getName = getDataEmployee.Name;
+                    var getDataStatus = getDataOvertime.StatusByManager;
+
                     /*       string ChangePassword = Guid.NewGuid().ToString();
 
                            getData.Password = Hashing.Hashing.HashPassword(ChangePassword);
@@ -320,7 +351,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                     msg.From = new MailAddress("sniaaaa044@gmail.com");
                     msg.To.Add(new MailAddress(checkEmail));
                     msg.Subject = "Your Overtime Request Info" + today;
-                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour  on {getDate}, {getDate2}<p>" + $"</br><p>status {getDataStatus} By Your Manager<p>" + $"</br><p> Check Your Account For Details <p>" ;
+                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> Your Overtime Request {getHour} Hour  on {getDate}, {getDate2}<p>" + $"</br><p>status {getDataStatus} By Your Manager<p>" + $"</br><p> Check Your Account For Details <p>";
                     msg.IsBodyHtml = true;
 
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
@@ -330,9 +361,9 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                     smtpClient.Send(msg);
                     return 1;
 
-      
-            }
-            return 2;
+
+                }
+                return 2;
             }
             return 2;
 
@@ -346,11 +377,11 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             if (getDataOvertime != null)
             {
                 if (checkEmail != null)
-            {
-                var getName = getDataEmployee.Name;
-                var getDataStatusManager = getDataOvertime.StatusByManager;
-                var getDataStatusFinance = getDataOvertime.StatusByFinance;
-        
+                {
+                    var getName = getDataEmployee.Name;
+                    var getDataStatusManager = getDataOvertime.StatusByManager;
+                    var getDataStatusFinance = getDataOvertime.StatusByFinance;
+
                     /*       string ChangePassword = Guid.NewGuid().ToString();
 
                            getData.Password = Hashing.Hashing.HashPassword(ChangePassword);
@@ -377,14 +408,14 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                     smtpClient.Send(msg);
                     return 1;
 
-                
+
+                }
+                return 2;
             }
-            return 2;
-          }
             return 2;
 
-            }
-   
+        }
+
         public IEnumerable<Overtime> GetHistory(int nip)
         {
             var getHistory = context.Overtimes.Where(e => e.NIP == nip);
@@ -393,7 +424,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
 
         public IEnumerable<GetResponseVM> GetResponseForManager(int nip)
         {
-           /* ambil data pegawai sesuai manajer nya */
+            /* ambil data pegawai sesuai manajer nya */
             var register = from a in context.Employees
                            where a.ManagerId == nip
                            join b in context.Overtimes on a.NIP equals b.NIP
@@ -462,7 +493,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                            join b in context.Overtimes on a.NIP equals b.NIP
                            join c in context.AccountRoles on b.NIP equals c.NIP
                            join d in context.Roles on c.RoleId equals d.RoleId
-                           where d.RoleName == "manager"|| d.RoleName == "finance"
+                           where d.RoleName == "manager" || d.RoleName == "finance"
                            select new GetResponseVM()
                            {
                                NIP = a.NIP,
@@ -555,6 +586,25 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             }
             return 2;
 
+        }
+
+
+        public IEnumerable GetCount()
+        {
+            /* ambil data pegawai apabila status overtimenya diterima manajernya*/
+            var register = from b in context.Overtimes
+                           where b.NIP == 2 && b.Date.Month == DateTime.Now.Month
+                           group b by b.NIP into testcount
+                           select new
+                           {
+
+                               NIP = testcount.Key,
+                               Quantity = testcount.Sum(t => t.SumOvertimeHour),
+
+                           };
+
+
+            return register.ToList();
         }
 
     }

@@ -197,6 +197,17 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
             return BadRequest(new { status = HttpStatusCode.BadRequest, result, messageResult = "Data tidak berhasil di update" });
         }
 
+        [HttpGet("GetCount")]
+        public ActionResult GetCount()
+        {
+            var result = OvertimeRepository.GetCount();
+            if (result == null)
+            {
+                return NotFound(new { status = HttpStatusCode.NoContent, result, messageResult = "Data masih kosong" });
+            }
+            //      return Ok(new { status = HttpStatusCode.OK, result, messageResult = "Semua data berhasil ditampilkan" });
+            return Ok(result);
+        }
 
 
     }
