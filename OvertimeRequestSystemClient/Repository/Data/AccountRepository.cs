@@ -1,5 +1,4 @@
 ﻿
-
 using OvertimeRequestSystemAPI.Models;
 using OvertimeRequestSystemAPI.ViewModel;
 using OvertimeRequestSystemClient.Base.Urls;
@@ -51,6 +50,16 @@ namespace OvertimeRequestSystemClient.Repository.Data
             StringContent content = new StringContent(JsonConvert.SerializeObject(accVM), Encoding.UTF8, "application/json");
             var result = httpClient.PostAsync(address.Link + request + "InsertAccount", content).Result;
             return result.StatusCode;
+        }
+        public async Task<List<GetDetailAccountVM>> GetDetailAccount(int nip)
+        {
+            List<GetDetailAccountVM> entities = new List<GetDetailAccountVM>();
+            using(var response = await httpClient.GetAsync(request + "GetDetailAccount/" + nip))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<GetDetailAccountVM>>(apiResponse);
+            }
+            return entities;
         }
     }
 }

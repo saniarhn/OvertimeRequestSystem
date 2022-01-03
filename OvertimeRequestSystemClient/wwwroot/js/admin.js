@@ -21,8 +21,8 @@ var chart = new ApexCharts(document.querySelector("#chart-1"), options);
 chart.render();
 
 $.ajax({
-    /*url: "https://localhost:44382/OvertimeRequestSystemAPI/Employees/GetCountPosition"*/
-    url:"/employees/GetCountPosition"
+    url: "https://localhost:44382/OvertimeRequestSystemAPI/Employees/GetCountPosition"
+    /*url:"/employees/GetCountPosition"*/
 }).done((result) => {
     console.log(result)
     var options2 = {

@@ -88,6 +88,27 @@ namespace OvertimeRequestSystemAPI.Repository.Data
 
 
         }
+        public IEnumerable<GetDetailAccountVM> GetDetailAccount(int nip)
+        {
+            var getData = from r in context.Roles
+                          join ar in context.AccountRoles on r.RoleId equals ar.RoleId
+                          join a in context.Accounts on ar.NIP equals a.NIP
+                          join e in context.Employees on a.NIP equals e.NIP
+                          where e.NIP == nip
+                          select new GetDetailAccountVM()
+                          {
+                              NIP = e.NIP,
+                              Name = e.Name,
+                              Email = e.Email,
+                              Position = e.Position,
+                              BasicSalary = e.BasicSalary,
+                              ManagerId = e.ManagerId,
+                              AccountStatus = a.AccountStatus,
+                              RoleId = ar.RoleId,
+                              RoleName = r.RoleName
+                          };
+            return getData.ToList();
+        }
         /*        public override int InsertAccount(Account account)
                 {
 

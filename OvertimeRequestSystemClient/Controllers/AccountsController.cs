@@ -97,5 +97,11 @@ namespace OvertimeRequestSystemClient.Controllers
             var result = accountRepository.InsertAccount(accVM);
             return Json(result);
         }
+        [Route("~/accounts/GetDetailAccount/{nip}")]
+        public async Task<JsonResult> GetDetailAccount(int nip)
+        {
+            var result = await accountRepository.GetDetailAccount(nip);
+            return Json(result);
+        }
     }
  }
