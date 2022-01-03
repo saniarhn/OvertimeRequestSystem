@@ -36,6 +36,7 @@ namespace OvertimeRequestSystemClient
             services.AddScoped<OvertimeRepository>();
             services.AddScoped<AccountRepository>();
             services.AddScoped<EmployeeRepository>();
+            services.AddScoped<AccountRoleRepository>();
             services.AddControllersWithViews();
             services.AddSession();
             services.AddHttpContextAccessor();
