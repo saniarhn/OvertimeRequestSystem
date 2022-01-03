@@ -591,7 +591,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
 
         public IEnumerable GetCount()
         {
-            /* ambil data pegawai apabila status overtimenya diterima manajernya*/
+          
             var register = from b in context.Overtimes
                            where b.NIP == 2 && b.Date.Month == DateTime.Now.Month
                            group b by b.NIP into testcount

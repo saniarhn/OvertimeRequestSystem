@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections;
+using OvertimeRequestSystemAPI.ViewModel;
 
 namespace OvertimeRequestSystemAPI.Repository.Data
 {
@@ -16,7 +18,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             this.context = myContext;
         }
 
-        public KeyValuePair<List<string>, List<int>> GetCountPosition()
+   /*     public KeyValuePair<List<string>, List<int>> GetCountPosition()
         {
             var getData = (from a in context.Accounts
                            join e in context.Employees on a.NIP equals e.NIP
@@ -34,9 +36,9 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                 NumberOfEmployees.Add(x.NumberOfEmployees);
             }
             return new KeyValuePair<List<string>, List<int>>(PositionName, NumberOfEmployees);
-        }
+        }*/
 
-        public KeyValuePair<List<string>, List<int>> GetCountRole()
+        /*public KeyValuePair<List<string>, List<int>> GetCountRole()
         {
             var getData = (from ar in context.AccountRoles
                            join r in context.Roles on ar.RoleId equals r.RoleId
@@ -54,6 +56,37 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                 NumberOfEmployees.Add(x.NumberOfEmployees);
             }
             return new KeyValuePair<List<string>, List<int>>(RoleName, NumberOfEmployees);
+        }
+*/
+
+        public IEnumerable<CountPositionVM> GetCountPosition()
+        {
+            var register = from a in context.Accounts
+                           join e in context.Employees on a.NIP equals e.NIP
+                           group e by e.Position into testcount
+                           select new CountPositionVM()
+                           {
+
+                               PositionName = testcount.Key,
+                               Quantity = testcount.Count(),
+
+                           };
+            return register.ToList();
+        }
+
+        public IEnumerable<CountRoleVM> GetCountRole()
+        {
+            var register = from ar in context.AccountRoles
+                           join r in context.Roles on ar.RoleId equals r.RoleId
+                           group r by r.RoleName into count
+                           select new CountRoleVM()
+                           {
+
+                               RoleName = count.Key,
+                               NumberOfEmployees = count.Count()
+
+                           };
+            return register.ToList();
         }
     }
 }
