@@ -1,0 +1,75 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12 margin-tb mb-4">
+        <div class="pull-right">
+            <a class="btn btn-info" href="https://localhost:44348/accountroles/Create"> Create</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="card mb-4">
+    <div class="card-body">
+
+        <table style="width:100%" class="table dt-responsive nowrap mt-2" id="tableAccountRole">
+            <thead class="thead-dark">
+                @*<tr>
+                        <th class="tbtitle text-center" scope="col" colspan="4">Account List</th>
+                    </tr>*@
+                <tr>
+                    <th scope="col">NO</th>
+                    <th scope="col">NIP</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Update -->
+<div class="modal fade" id="form-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="UpdateAccount" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <label for="nip">NIP</label>
+                        <input type="text" class="form-control" id="updatenip" value="" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Account Status</label>
+                        <select class="form-control" id="updateAccountStatus">
+                            <option value="Active">Active</option>
+                            <option value="Non-Active">Non-Active</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="Update()"> Update </button>
+                </form>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="Update()"> Update </button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/AccountRole/Index.js"></script>
+}
