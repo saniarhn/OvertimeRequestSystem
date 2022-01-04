@@ -27,7 +27,15 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             try
             {
                 var getEmail = context.Employees.Where(e => e.Email == loginVM.Email).FirstOrDefault();
+                var getNIP = getEmail.NIP;
+                var getDataAccount = context.Accounts.Find(getNIP);
+                var getStatusAccount = getDataAccount.AccountStatus;
 
+         /*       var getStatus = (from e in context.Set<Employee>()
+                                 join a in context.Set<Account>() on e.NIP equals a.NIP
+                                 where e.Email == loginVM.Email
+                                 && a.AccountStatus == "Active"
+                                 select a.AccountStatus).Single();*/
 
                 var pass = (from e in context.Set<Employee>()
                             join a in context.Set<Account>() on e.NIP equals a.NIP
@@ -36,16 +44,25 @@ namespace OvertimeRequestSystemAPI.Repository.Data
 
                 if (getEmail != null)
                 {
-                    var getPassword = Hashing.Hashing.ValidatePassword(loginVM.Password, pass);
-                    /*    var getPassword = context.Accounts.Where(e => e.Password == loginVM.Password).FirstOrDefault();*/
-                    if (getPassword)
+                    if(getStatusAccount == "Active")
                     {
-                        result = 1;
+                        var getPassword = Hashing.Hashing.ValidatePassword(loginVM.Password, pass);
+                        /*    var getPassword = context.Accounts.Where(e => e.Password == loginVM.Password).FirstOrDefault();*/
+                        if (getPassword)
+                        {
+                            result = 1;
+                        }
+                        else
+                        {
+                            result = 2;
+                        }
+
                     }
                     else
                     {
-                        result = 2;
+                        result = 3;
                     }
+                
                 }
                 else
                 {
