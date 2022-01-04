@@ -217,7 +217,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
 
             if (getData.StatusByManager == null || getData.StatusByManager == "Diajukan")
             {
-                if (overtimeResponseVM.StatusByManager == "Ditolak")
+                if (overtimeResponseVM.StatusByManager == "denied")
                 {
                     Response response = new Response()
                     {
@@ -248,9 +248,9 @@ namespace OvertimeRequestSystemAPI.Repository.Data
         {
             var getData = context.Overtimes.Find(overtimeResponseVM.OvertimeId);
             var result = 0;
-            if (getData.StatusByManager == "Ditolak" || getData.StatusByManager == "Diterima")
+            if (getData.StatusByManager == "denied" || getData.StatusByManager == "accepted")
             {
-                if (overtimeResponseVM.StatusByFinance == "Ditolak")
+                if (overtimeResponseVM.StatusByFinance == "denied")
                 {
                     Response response = new Response()
                     {
@@ -446,7 +446,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             /* ambil data pegawai apabila status overtimenya diterima manajernya*/
             var register = from a in context.Employees
                            join b in context.Overtimes on a.NIP equals b.NIP
-                           where b.StatusByManager == "Diterima" && b.StatusByManager != null
+                           where b.StatusByManager == "accepted" && b.StatusByManager != null
                            select new GetResponseVM()
                            {
                                NIP = a.NIP,
@@ -514,7 +514,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             var result = 0;
             if (getData.StatusByManager == null || getData.StatusByManager == "Diajukan")
             {
-                if (overtimeResponseVM.StatusByManager == "Ditolak")
+                if (overtimeResponseVM.StatusByManager == "denied")
                 {
                     Response response = new Response()
                     {

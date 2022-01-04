@@ -142,7 +142,7 @@
 /*    $('#tableOvertime3').DataTable().column(4).search("Diterima").draw();*/
     /* $('#tableOvertime3').DataTable({ "iDisplayLength": 100, "search": { regex: true } }).column(3).search("Diterima|Ditolak", true, false).draw();*/
     $('#tableOvertime2').DataTable().column(3).search("Diajukan").draw();
-    $('#tableOvertime3').DataTable().column(2).search('Diterima|Ditolak', true, false).draw();
+    $('#tableOvertime3').DataTable().column(2).search('accepted|denied', true, false).draw();
 });
 
 

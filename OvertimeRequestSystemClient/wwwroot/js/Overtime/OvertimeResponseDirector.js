@@ -176,7 +176,7 @@
 
     /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
     $('#tableOvertime2').DataTable().column(6).search("Diajukan").draw();
-    $('#tableOvertime3').DataTable().column(6).search('Diterima|Ditolak', true, false).draw();
+    $('#tableOvertime3').DataTable().column(6).search('accepted|denied', true, false).draw();
 
 });
 
@@ -199,7 +199,7 @@ $.ajax({
 
 function UpdateYes(NIP, OvertimeId) {
     var obj = new Object();
-    obj.StatusByManager = "Diterima";
+    obj.StatusByManager = "accepted";
     obj.NIP = NIP;
     obj.OvertimeId = OvertimeId;
     console.log(obj)
@@ -246,7 +246,7 @@ function getDataUpdate(NIP, OvertimeId) {
 
 function UpdateNo() {
     var obj = new Object();
-    obj.StatusByManager = "Ditolak";
+    obj.StatusByManager = "denied";
     obj.NIP = $("#updatenip").val();
     obj.ResponseDescription = $("#updaterespdesc").val();
     obj.OvertimeId = $("#updateovertimeid").val();

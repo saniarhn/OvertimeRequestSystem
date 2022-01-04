@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-var options = {
+/*var options = {
     chart: {
         type: 'bar'
     },
@@ -18,16 +18,27 @@ var options = {
 
 var chart = new ApexCharts(document.querySelector("#chart-1"), options);
 
-chart.render();
+chart.render();*/
 
 $.ajax({
-    url: "https://localhost:44382/OvertimeRequestSystemAPI/Employees/GetCountPosition"
-    /*url:"/employees/GetCountPosition"*/
+    url: "/employees/GetCountPosition",
 }).done((result) => {
+
     console.log(result)
+    const Name = [];
+    const Value = [];
+    $.each(result, function (key, val) {
+        if (val.PositionName != "") {
+            Name.push(val.PositionName);
+            Value.push(val.Quantity);
+        }
+    });
+    console.log(Name);
+    console.log(Value);
+
     var options2 = {
         series: [{
-            data: result.result.Value
+            data: Value
         }],
         chart: {
             height: 350,
@@ -51,7 +62,7 @@ $.ajax({
             show: false
         },
         xaxis: {
-            categories: result.result.Key,
+            categories: Name,
             labels: {
                 style: {
                     fontSize: '12px'
@@ -69,6 +80,17 @@ $.ajax({
     "url": "/employees/GetCountPosition",
     success: function (result) {
         console.log(result)
+        const Name = [];
+        const Value = [];
+        $.each(result, function (key, val) {
+            if (val.PositionName != "") {
+                Name.push(val.PositionName);
+                Value.push(val.Quantity);
+            }
+        });
+        console.log(Name);
+        console.log(Value);
+
     },
     error: function (error) {
         console.log(error)
@@ -86,12 +108,23 @@ $.ajax({
 
 
 $.ajax({
-    url: "https://localhost:44382/OvertimeRequestSystemAPI/Employees/GetCountRole"
+    url: "/employees/GetCountRole"
 }).done((result) => {
     console.log(result)
+    const Name = [];
+    const Value = [];
+    $.each(result, function (key, val) {
+        if (val.PositionName != "") {
+            Name.push(val.RoleName);
+            Value.push(val.NumberOfEmployees);
+        }
+    });
+    console.log(Name);
+    console.log(Value);
+
     var options3 = {
         series: [{
-            data: result.result.Value
+            data: Value
         }],
         chart: {
             height: 350,
@@ -115,7 +148,7 @@ $.ajax({
             show: false
         },
         xaxis: {
-            categories: result.result.Key,
+            categories: Name,
             labels: {
                 style: {
                     fontSize: '12px'
@@ -133,6 +166,7 @@ $.ajax({
     "url": "/employees/GetCountRole",
     success: function (result) {
         console.log(result)
+      
     },
     error: function (error) {
         console.log(error)

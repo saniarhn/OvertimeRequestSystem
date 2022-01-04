@@ -1,14 +1,11 @@
-﻿$("#btn-add-list").on('click', myFunction);
+﻿//$("#btn-add-list").on('click', myFunction);
 var index = 0;
 var dataPertama = [];
 
 function myFunction() {
 
-
- 
-
     var data1 = {};
-    
+
     $("#form-header").find('input').each(function (i) {
         if ((i + 1) % 2 === 0) {
             data1[this.id] = this.value;
@@ -44,10 +41,10 @@ function myFunction() {
     });
 
     index += 1;
-
+        
     console.log(dataPertama)
 
-    
+
     for (let i = 0; i < dataPertama.length; i++) {
         document.getElementById("tb_content").innerHTML = null;
         var a = 0;
@@ -78,10 +75,9 @@ function OvertimeRequest() {
 
     const dataKedua = [];
     var data = {};
-    for (index = 0; index < dataPertama.length; index++)
-    {
+    for (index = 0; index < dataPertama.length; index++) {
 
-        data["starthour"] = dataPertama[index].starthour 
+        data["starthour"] = dataPertama[index].starthour
         data["endhour"] = dataPertama[index].endhour
         data["locationname"] = dataPertama[index].locationname
         data["taskname"] = dataPertama[index].taskname
@@ -98,16 +94,15 @@ function OvertimeRequest() {
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     console.log(obj);
 
-/*    tanggal hariini format yyyy-mm-dd*/
+    /*    tanggal hariini format yyyy-mm-dd*/
     var todayDate = new Date().toISOString().slice(0, 10);
-/*    tanggal hariini -7*/
+    /*    tanggal hariini -7*/
     var date2 = minDays(new Date(), 7);
-/*    tanggal hariini -7 ubah format jd yyyy-mm-dd*/
+    /*    tanggal hariini -7 ubah format jd yyyy-mm-dd*/
     var todayDate2 = date2.toISOString().slice(0, 10);
 
     console.log(todayDate2 <= obj.Date && obj.Date <= todayDate);
-    if (todayDate2 <= obj.Date && obj.Date <= todayDate)
-    {
+    if (todayDate2 <= obj.Date && obj.Date <= todayDate) {
         var date3 = new Date(obj.Date);
 
         var listdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -205,7 +200,7 @@ function OvertimeRequest() {
             })
 
         }
-      
+
     }
     else {
         Swal.fire({
@@ -214,48 +209,50 @@ function OvertimeRequest() {
             text: 'Your Date Request has a Problem'
         })
     }
- /*   $.ajax({
-         
-    type: "POST",
-        url: "/Overtimes/PostOvertimeRepository",
-            dataType: 'json',
+    /*   $.ajax({
             
-    data: obj
-}).done((result) => {
-    console.log(result);
-    if (result == 200) {
-        
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil Request',
-            showConfirmButton: false,
-            timer: 1500
-        })
-    }
-    else if (result == 400) {
-        console.log(result)
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Gagal Request'
-        })
-    }
-
-}).fail((error) => {
-    console.log(error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Gagal Request'
-        })
-    })*/
+       type: "POST",
+           url: "/Overtimes/PostOvertimeRepository",
+               dataType: 'json',
+               
+       data: obj
+   }).done((result) => {
+       console.log(result);
+       if (result == 200) {
+           
+           Swal.fire({
+               icon: 'success',
+               title: 'Berhasil Request',
+               showConfirmButton: false,
+               timer: 1500
+           })
+       }
+       else if (result == 400) {
+           console.log(result)
+           Swal.fire({
+               icon: 'error',
+               title: 'Oops...',
+               text: 'Gagal Request'
+           })
+       }
+   
+   }).fail((error) => {
+       console.log(error);
+           Swal.fire({
+               icon: 'error',
+               title: 'Oops...',
+               text: 'Gagal Request'
+           })
+       })*/
 }
 
 $("#delete").on('click', myDelete);
+
 function myDelete() {
     document.getElementById('delete').type = 'reset';
     $("#tb_content tr").remove();
     document.getElementById('date').removeAttribute('readonly', false);
+    index = 0;
     dataPertama = [];
 }
 
@@ -269,4 +266,26 @@ function minDays(date, days) {
     var result = new Date(date);
     result.setDate(result.getDate() - days);
     return result;
+}
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+function Validate() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            if (form.checkValidity() === true) {
+                myFunction();
+                form.classList.remove('was-validated');
+            }
+            else {
+                form.classList.add('was-validated');
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        })
 }
