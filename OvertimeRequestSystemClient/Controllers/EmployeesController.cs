@@ -46,7 +46,6 @@ namespace OvertimeRequestSystemClient.Controllers
             var result = await employeeRepository.GetCountRole();
             return Json(result);
         }
-
     }
 
 }
