@@ -56,7 +56,7 @@
 
             {
                 "data": "StatusByFinance",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all",
                 "visible": false,
@@ -142,7 +142,7 @@
             },
             {
                 "data": "StatusByFinance",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all"
             },
@@ -165,7 +165,7 @@
 
     });
     
-    $('#tableOvertime1').DataTable().column(7).search("Diajukan").draw();
+    $('#tableOvertime1').DataTable().column(7).search("pending").draw();
     $('#tableOvertime2').DataTable().column(7).search('accepted|denied', true, false).draw();
 
 });

@@ -121,5 +121,16 @@ namespace OvertimeRequestSystemClient.Repository.Data
             }
             return entities;
         }
+        public async Task<List<Overtime>> GetCountSalary(int nip)
+        {
+            List<Overtime> entities = new List<Overtime>();
+
+            using (var response = await httpClient.GetAsync(request + "GetCountSalary/" + nip))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<Overtime>>(apiResponse);
+            }
+            return entities;
+        }
     }
 }

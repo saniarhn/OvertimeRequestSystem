@@ -46,7 +46,7 @@
             },
             {
                 "data": "StatusByManager",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all",
                 "visible": false,
@@ -109,13 +109,13 @@
             },
             {
                 "data": "StatusByManager",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all"
             },
             {
                 "data": "StatusByFinance",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all"
             },
@@ -141,7 +141,7 @@
 /*    $('#tableOvertime2').DataTable().column(4).search("Diajukan").draw();*/
 /*    $('#tableOvertime3').DataTable().column(4).search("Diterima").draw();*/
     /* $('#tableOvertime3').DataTable({ "iDisplayLength": 100, "search": { regex: true } }).column(3).search("Diterima|Ditolak", true, false).draw();*/
-    $('#tableOvertime2').DataTable().column(3).search("Diajukan").draw();
+    $('#tableOvertime2').DataTable().column(3).search("pending").draw();
     $('#tableOvertime3').DataTable().column(2).search('accepted|denied', true, false).draw();
 });
 
@@ -151,6 +151,29 @@ function dateConversion(dates) {
     var newDate = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()
     return newDate
 }
+
+
+$.ajax({
+    "url": "/overtimes/GetCountSalary",
+    success: function (result) {
+        console.log(result);
+        if (result[0].OvertimeSalary != null) {
+            var text = `${result[0].OvertimeSalary}`;
+            console.log(text)
+            $('#overtime-salary').html(text);
+        }
+        else {
+            var text = `0`;
+            $('#overtime-salary').html(text);
+        }
+    },
+    error: function (error) {
+        console.log(error)
+        var text = `0`;
+        $('#overtime-salary').html(text);
+    }
+})
+
 
 $.ajax({
     "url": "/overtimes/GetOvertimeHistory",
@@ -280,6 +303,8 @@ $.ajax({
     });
 }*/
 
+
+
 function getData(OvertimeId) {
     var a = OvertimeId;
     console.log(a);
@@ -387,7 +412,7 @@ function getData(OvertimeId) {
 
 
             text += text2
-            console.log(text)
+
             $('#table').html(text);
 
         }

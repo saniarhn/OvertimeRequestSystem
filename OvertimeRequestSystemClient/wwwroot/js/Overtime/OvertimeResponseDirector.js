@@ -59,7 +59,7 @@
             },
             {
                 "data": "StatusByManager",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all",
                 "visible": false,
@@ -149,7 +149,7 @@
             },
             {
                 "data": "StatusByManager",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all"
 
@@ -175,7 +175,7 @@
     });
 
     /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
-    $('#tableOvertime2').DataTable().column(6).search("Diajukan").draw();
+    $('#tableOvertime2').DataTable().column(6).search("pending").draw();
     $('#tableOvertime3').DataTable().column(6).search('accepted|denied', true, false).draw();
 
 });

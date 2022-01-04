@@ -215,7 +215,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             var getData = context.Overtimes.Find(overtimeResponseVM.OvertimeId);
             var result = 0;
 
-            if (getData.StatusByManager == null || getData.StatusByManager == "Diajukan")
+            if (getData.StatusByManager == null || getData.StatusByManager == "pending")
             {
                 if (overtimeResponseVM.StatusByManager == "denied")
                 {
@@ -512,7 +512,7 @@ namespace OvertimeRequestSystemAPI.Repository.Data
         {
             var getData = context.Overtimes.Find(overtimeResponseVM.OvertimeId);
             var result = 0;
-            if (getData.StatusByManager == null || getData.StatusByManager == "Diajukan")
+            if (getData.StatusByManager == null || getData.StatusByManager == "pending")
             {
                 if (overtimeResponseVM.StatusByManager == "denied")
                 {
@@ -607,5 +607,97 @@ namespace OvertimeRequestSystemAPI.Repository.Data
             return register.ToList();
         }
 
+        public IEnumerable<Overtime> GetCountSalary(int NIP)
+        {
+
+            var register = from r in context.Overtimes
+                           where r.NIP == NIP && r.Date.Month == DateTime.Now.Month
+                           && r.StatusByManager == "accepted" && r.StatusByFinance == "accepted"
+                           group r by r.NIP into testcount
+                           select new Overtime()
+                           {
+
+                               NIP = testcount.Key,
+                               SumOvertimeHour = testcount.Sum(t => t.SumOvertimeHour),
+                               OvertimeSalary = testcount.Sum(s => s.OvertimeSalary)
+
+                           };
+
+
+            return register.ToList();
+        }
+
+
+
+/*
+        public int OvertimeSalaryMail(string email)
+        {
+            var checkEmail = context.Employees.Where(e => e.Email == email).FirstOrDefault();
+
+            if (checkEmail != null)
+            {
+                var getName = checkEmail.Name;
+                var getNIP = checkEmail.NIP;
+
+
+                var getData = (from r in context.Overtimes
+                                where r.NIP == checkEmail.NIP && r.Date.Month == DateTime.Now.Month
+                                && r.StatusByManager=="accepted" && r.StatusByFinance == "accepted"
+                                group r by r.NIP into testcount
+                                select new
+                                {
+
+                                    NIP = testcount.Key,
+                                    Hour = testcount.Sum(t => t.SumOvertimeHour),
+                                    Salary =testcount.Sum(s => s.OvertimeSalary)
+
+                                }).FirstOrDefault();
+
+
+                *//*       string ChangePassword = Guid.NewGuid().ToString();
+
+                       getData.Password = Hashing.Hashing.HashPassword(ChangePassword);
+                       context.SaveChanges();*//*
+                if (getData != null)
+                {
+                    var getHour = getData.Hour;
+                    var getSalary = getData.Salary;
+                    var getDateMonth = DateTime.Now.Month;
+                    var getDateYear = DateTime.Now.Year;
+                    DateTime today = DateTime.Now;
+
+                    *//*  untuk mengirim email*//*
+                    MailMessage msg = new MailMessage();
+                    msg.From = new MailAddress("sniaaaa044@gmail.com");
+                    msg.To.Add(new MailAddress(email));
+                    msg.Subject = "Your Overtime Invoice Info" + today;
+                    msg.Body = $"<p>Hai,{getName}</p>" + $"</br><p> at this time, your overtime total is {getHour} Hour for {getDateMonth}{getDateYear}  <p>" + $"</br><p> this amount of overtime pay Will be sent to you on your payday<p>";
+                    msg.IsBodyHtml = true;
+
+                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+                    System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("sniaaaa044@gmail.com", "sania1234");
+                    smtpClient.Credentials = credentials;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Send(msg);
+                    return 1;
+
+                }
+                else
+                {
+                    return 2;
+                }
+
+
+
+            }
+            else
+            {
+                return 2;
+            }
+    
+
+
+        }*/
+   
     }
 }
