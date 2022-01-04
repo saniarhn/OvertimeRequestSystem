@@ -5,12 +5,30 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout3.cshtml";
 }
-<p>ini manager</p>
-@if (DateTime.Now.Year >= 2042)
-{
-    <span>The year 2042 has finally arrived!</span>
-}
-else
-{
-    <span>We're still waiting for the year of 2042...</span>
+<h5> Hai, Manager</h5>
+<!--Chart-->
+<div class="row mb-4">
+    <div class="col-sm-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <div id="chart-2">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <div id="chart-3">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Chart-->
+
+@section Scripts{
+    <script src="~/js/admin.js"></script>
 }

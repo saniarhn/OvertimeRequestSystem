@@ -209,6 +209,39 @@ namespace OvertimeRequestSystemAPI.Controllers.NewControllers
             return Ok(result);
         }
 
+        [HttpGet("GetCountSalary/{NIP}")]
+        public ActionResult GetCountSalary(int NIP)
+        {
+            var result = OvertimeRepository.GetCountSalary(NIP);
+            if (result.Count() != 0)
+            {
+                //return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Data ditampilkan" });
+                return Ok(result);
+
+            }
+            return NotFound(new { status = HttpStatusCode.NotFound, Message = $"Data belum tersedia" });
+        }
+
+   /*     [HttpPost("OvertimeSalaryMail/{email}")]
+        public ActionResult OvertimeSalaryMail(string email)
+        {
+            var result = OvertimeRepository.OvertimeSalaryMail(email);
+            if (result == 1)
+            {
+                return Ok(new { status = HttpStatusCode.OK, result = result, Message = "Forgot Password Berhasil, Password Baru Anda Telah di Kirimkan Ke Email Anda" });
+            }
+            else if (result == 2)
+            {
+                return BadRequest(new { status = HttpStatusCode.BadRequest, Message = "Gagal mengirim Email" });
+            }
+            else if (result == 3)
+            {
+
+                return BadRequest(new { status = HttpStatusCode.BadRequest, Message = "Akun tidak ditemukan" });
+            }
+            return BadRequest(new { status = HttpStatusCode.BadRequest, Message = "Gagal melakukan perintah forgot password" });
+
+        }*/
 
     }
 }

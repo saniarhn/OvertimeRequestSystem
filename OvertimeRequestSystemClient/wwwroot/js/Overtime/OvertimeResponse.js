@@ -59,7 +59,7 @@
             },
             {
                 "data": "StatusByManager",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all",
                 "visible": false,
@@ -149,7 +149,7 @@
             },
             {
                 "data": "StatusByManager",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all"
 
@@ -175,8 +175,8 @@
     });
 
     /*$('#tableOvertime1').DataTable().column(4).search("Diterima").draw();*/
-    $('#tableOvertime2').DataTable().column(6).search("Diajukan").draw();
-    $('#tableOvertime3').DataTable().column(6).search('Diterima|Ditolak', true, false).draw();
+    $('#tableOvertime2').DataTable().column(6).search("pending").draw();
+    $('#tableOvertime3').DataTable().column(6).search('accepted|denied', true, false).draw();
 
 });
 
@@ -197,9 +197,9 @@ $.ajax({
     }
 })
 
-function UpdateYes(NIP, OvertimeId) {
+/*function UpdateYes(NIP, OvertimeId) {
             var obj = new Object();
-            obj.StatusByManager = "Diterima";
+    obj.StatusByManager = "accepted";
     obj.NIP = NIP;
     obj.OvertimeId = OvertimeId;
             console.log(obj)
@@ -212,7 +212,8 @@ function UpdateYes(NIP, OvertimeId) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Good job!',
-                        text: 'Your data has been saved!'
+                        text: 'Your data has been saved!',
+                        timer: 1500
                     }),
                         table.ajax.reload()
                 },
@@ -224,7 +225,41 @@ function UpdateYes(NIP, OvertimeId) {
                     })
                 }
             })
-}
+}*/
+
+
+function UpdateYes(NIP, OvertimeId){
+
+
+    var obj = new Object();
+    obj.StatusByManager = "accepted";
+    obj.NIP = NIP;
+    obj.OvertimeId = OvertimeId;
+    console.log(obj);
+    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+    $.ajax({
+        type: "PUT",
+        url: "/overtimes/PutOvertimeResponseManager/",
+        dataType: 'json',
+        data: obj
+
+            }).done((result) => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Your data has been saved!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            table.ajax.reload();
+        }).fail((error) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Submit Fail!'
+            })
+        })
+        }
+
 
 function getDataUpdate(NIP, OvertimeId) {
 /*    console.log(OvertimeId);*/
@@ -246,7 +281,7 @@ function getDataUpdate(NIP, OvertimeId) {
 
 function UpdateNo() {
     var obj = new Object();
-    obj.StatusByManager = "Ditolak";
+    obj.StatusByManager = "denied";
     obj.NIP = $("#updatenip").val();
     obj.ResponseDescription = $("#updaterespdesc").val();
     obj.OvertimeId = $("#updateovertimeid").val();
@@ -261,7 +296,8 @@ function UpdateNo() {
             Swal.fire({
                 icon: 'success',
                 title: 'Good job!',
-                text: 'Your data has been saved!'
+                text: 'Your data has been saved!',
+                timer: 1500
             }),
                 table.ajax.reload()
         },

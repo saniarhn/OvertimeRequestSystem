@@ -56,7 +56,7 @@
 
             {
                 "data": "StatusByFinance",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all",
                 "visible": false,
@@ -142,7 +142,7 @@
             },
             {
                 "data": "StatusByFinance",
-                "defaultContent": "Diajukan",
+                "defaultContent": "pending",
                 "className": "dt-center",
                 "targets": "_all"
             },
@@ -165,8 +165,8 @@
 
     });
     
-    $('#tableOvertime1').DataTable().column(7).search("Diajukan").draw();
-    $('#tableOvertime2').DataTable().column(7).search('Diterima|Ditolak', true, false).draw();
+    $('#tableOvertime1').DataTable().column(7).search("pending").draw();
+    $('#tableOvertime2').DataTable().column(7).search('accepted|denied', true, false).draw();
 
 });
 
@@ -189,7 +189,7 @@ $.ajax({
 
 function UpdateYes(nip, overtimeid) {
             var obj = new Object();
-            obj.StatusByFinance = "Diterima";
+    obj.StatusByFinance = "accepted";
             obj.NIP = nip;
             obj.OvertimeId = overtimeid;
             console.log(obj)
@@ -235,7 +235,7 @@ function getDataUpdate(nip, overtimeid) {
 
 function UpdateNo() {
     var obj = new Object();
-    obj.StatusByFinance = "Ditolak";
+    obj.StatusByFinance = "denied";
     obj.NIP = $("#updatenip").val();
     obj.ResponseDescription = $("#updaterespdesc").val();
     obj.OvertimeId = $("#updateovertimeid").val();

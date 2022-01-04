@@ -152,5 +152,16 @@ namespace OvertimeRequestSystemClient.Controllers
             return Json(result);
         }
 
+
+        [HttpGet]
+        public async Task<JsonResult> GetCountSalary()
+        {
+            var getSessionNIP = HttpContext.Session.GetString("NIP");
+            var sessionNIP = Int32.Parse(getSessionNIP);
+            var result = await overtimeRepository.GetCountSalary(sessionNIP);
+            return Json(result);
+        }
+
+
     }
 }
