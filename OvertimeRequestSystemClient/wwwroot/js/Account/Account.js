@@ -234,7 +234,8 @@ function Delete(nip) {
                         title: 'Deleted!',
                         text: 'Your file has been deleted.'
                     })
-                    table.ajax.reload()
+                    /*table.ajax.reload()*/
+                    $('#tableAccount').DataTable().ajax.reload();
                 },
                 error: function (error) {
                     alert("Delete Fail");
@@ -276,7 +277,8 @@ function Update() {
                 title: 'Good job!',
                 text: 'Your data has been saved!'
             }),
-                table.ajax.reload()
+            /*table.ajax.reload()*/
+                $('#tableAccount').DataTable().ajax.reload();
         },
         error: function (error) {
             Swal.fire({
