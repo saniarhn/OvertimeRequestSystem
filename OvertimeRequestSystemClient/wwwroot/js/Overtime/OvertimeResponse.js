@@ -250,7 +250,9 @@ function UpdateYes(NIP, OvertimeId){
                 showConfirmButton: false,
                 timer: 1500
             })
-            table.ajax.reload();
+                /*table.ajax.reload();*/
+                $('#tableOvertime2').DataTable().ajax.reload();
+                $('#tableOvertime3').DataTable().ajax.reload();
         }).fail((error) => {
             Swal.fire({
                 icon: 'error',
@@ -299,7 +301,9 @@ function UpdateNo() {
                 text: 'Your data has been saved!',
                 timer: 1500
             }),
-                table.ajax.reload()
+            /*table.ajax.reload()*/
+            $('#tableOvertime2').DataTable().ajax.reload();
+            $('#tableOvertime3').DataTable().ajax.reload();
         },
         error: function (error) {
             Swal.fire({

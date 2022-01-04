@@ -214,7 +214,9 @@ function UpdateYes(NIP, OvertimeId) {
                 title: 'Good job!',
                 text: 'Your data has been saved!'
             }),
-                table.ajax.reload()
+            /*table.ajax.reload()*/
+            $('#tableOvertime2').DataTable().ajax.reload();
+            $('#tableOvertime3').DataTable().ajax.reload();
         },
         error: function (error) {
             Swal.fire({
@@ -263,7 +265,9 @@ function UpdateNo() {
                 title: 'Good job!',
                 text: 'Your data has been saved!'
             }),
-                table.ajax.reload()
+            /*table.ajax.reload()*/
+            $('#tableOvertime2').DataTable().ajax.reload();
+            $('#tableOvertime3').DataTable().ajax.reload();
         },
         error: function (error) {
             Swal.fire({
