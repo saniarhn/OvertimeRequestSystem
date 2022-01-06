@@ -479,7 +479,8 @@ namespace OvertimeRequestSystemAPI.Repository.Data
                                StartHour = c.StartHour,
                                EndHour = c.EndHour,
                                TaskName = c.TaskName,
-                               LocationName = c.LocationName
+                               LocationName = c.LocationName,
+                               OvertimeSalary = (int)b.OvertimeSalary,
                            };
 
             return register.ToList();

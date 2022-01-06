@@ -16,7 +16,7 @@
     </div>
 </div>
 
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header " style="background-color: #7AB6C2 !important; ">
             <h3 class="text-white">Request Overtime</h3>
         </div>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-md-6 ">
                             <div class="form-group">
-                                <label for="example">Tanggal Lembur</label>
+                                <label for="example">Date</label>
                                 <input placeholder="Select date" type="date" id="date" class="form-control" required>
                             </div>
                         </div>
@@ -47,26 +47,26 @@
                     <div class="row">
                         <div class="col-md-4 ">
                             <div class="form-group">
-                                <label for="example">Jam Mulai</label>
+                                <label for="example">Start Hour</label>
                                 <input type="time" id="starthour" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-4 ">
                             <div class="form-group">
-                                <label for="example">Jam Akhir</label>
+                                <label for="example">End Hour</label>
                                 <input type="time" id="endhour" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-4 ">
                             <div class="form-group">
-                                <label for="example">Lokasi</label>
+                                <label for="example">Location</label>
                                 <input type="text" id="locationname" name="locationname" class="form-control" placeholder="" value="" required />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 ">
-                            <label for="example">Tugas</label>
+                            <label for="example">Task</label>
                             <textarea id="taskname" name="txtMsg" class="form-control" placeholder="" required></textarea>
                         </div>
                     </div>
@@ -88,11 +88,11 @@
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Tanggal Mulai</th>
-                                <th scope="col">Jam Mulai</th>
-                                <th scope="col">Jam Selesai</th>
-                                <th scope="col">Tugas</th>
-                                <th scope="col">Lokasi</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Start Hour</th>
+                                <th scope="col">End Hour</th>
+                                <th scope="col">Task</th>
+                                <th scope="col">Location</th>
                             </tr>
                         </thead>
                         <tbody id="tb_content">
@@ -104,8 +104,8 @@
 
                     <div class="col-md-12 text-center">
                         <div class="form-group text-center">
-                            <input class="btn btn-danger" id ="delete" type="button"  value="Hapus">
-                            <button type="button" id="kirim" class="btn btn-primary add-btn" onclick="OvertimeRequest()">Kirim</button>
+                            <input class="btn btn-danger" id ="delete" type="button"  value="Reset">
+                            <button type="button" id="kirim" class="btn btn-primary add-btn" onclick="OvertimeRequest()">Send</button>
                         </div>
                     </div>
 

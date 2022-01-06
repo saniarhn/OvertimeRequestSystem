@@ -20,6 +20,8 @@ namespace OvertimeRequestSystemAPI.ViewModel
         public string TaskName { get; set; }
         public string LocationName { get; set; }
         public int SumOvertimeHour { get; set; }
+        public int OvertimeSalary { get; set; }
+
         [JsonPropertyName("ListDetail")]
         [JsonConverter(typeof(OvertimeDetaillToStringConverter))]
         public List<OvertimeDetail> ListDetail { get; set; }

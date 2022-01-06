@@ -485,102 +485,106 @@ function getData(OvertimeId) {
         console.log(result.length);*/
         var text = ''
         var text2 = ''
+        var text3 = ''
         for (var i = 0; i < result.length; i++) {
 
             if (result.length > 1) {
                 if (i == 0) {
-                    text2 = `
-                            <div class="row">
-                                  <div class="col-md-4">NIP</div>
+                    text3 = ` <div class="row">
+                                  <div class="col-md-4 font-weight-bold">NIP</div>
                                   <div class="col-md-4">${result[i].NIP}</div>
                             </div>
                             <div class="row">
-                                  <div class="col-md-4">Name</div>
+                                  <div class="col-md-4 font-weight-bold">Name</div>
                                   <div class="col-md-4">${result[i].Name}</div>
                             </div>
                             <div class="row">
-                                  <div class="col-md-4">Date</div>
+                                  <div class="col-md-4 font-weight-bold">Date</div>
                                   <div class="col-md-4">${dateConversion(result[i].Date)}</div>
                             </div>
                            <div class="row">
-                                  <div class="col-md-4">Total Overtime Request</div>
+                                  <div class="col-md-4 font-weight-bold">Total Hour Request</div>
                                   <div class="col-md-4">${result[i].SumOvertimeHour}</div>
-                            </div>
-                            <div class="row mb-3 mt-2">
-                                  <div class="col-md-12 text-center">Detail</div>
-                            </div>
-                            <div class="row">
-                                  <div class="col-md-2">Start Hour</div>
-                                  <div class="col-md-2">${result[i].StartHour}</div>
-                                  <div class="col-md-2">End Hour</div>
-                                  <div class="col-md-2">${result[i].EndHour}</div>
-                                  <div class="col-md-2">Location</div>
-                                  <div class="col-md-2">${result[i].LocationName}</div>
-                            </div>
-                            <div class="row">
-                                  <div class="col-md-2">Tugas</div>
-                                  <div class="col-md-10">${result[i].TaskName}</div>
-                            </div>
+                            </div>`;
+                    text2 = `
+                            <tr>
+                                  <th colspan="12" class="text-center">Detail</th>
+                            </tr>
+                            <tr>
+                                  <th>Start Hour</th>
+                                  <td>${result[i].StartHour}</td>
+                                  <th>End Hour</th>
+                                  <td>${result[i].EndHour}</td>
+                                  <th>Location</th>
+                                  <td>${result[i].LocationName}</td>
+                            </tr>
+                            <tr>
+                                  <th>Task</th>
+                                  <td colspan="10">${result[i].TaskName}</td>
+                            </tr>
                             `;
                 }
                 else {
                     text2 = `
                           <hr/>
-                          <div class="row mt-2">
-                                  <div class="col-md-2">Start Hour</div>
-                                  <div class="col-md-2">${result[i].StartHour}</div>
-                                  <div class="col-md-2">End Hour</div>
-                                  <div class="col-md-2">${result[i].EndHour}</div>
-                                  <div class="col-md-2">Location</div>
-                                  <div class="col-md-2">${result[i].LocationName}</div>
-                            </div>
-                            <div class="row">
-                                  <div class="col-md-2">Tugas</div>
-                                  <div class="col-md-10">${result[i].TaskName}</div>
-                            </div>
+                          <tr>
+                                  <th>Start Hour</th>
+                                  <td>${result[i].StartHour}</td>
+                                  <th>End Hour</th>
+                                  <td>${result[i].EndHour}</td>
+                                  <th>Location</th>
+                                  <td>${result[i].LocationName}</td>
+                            </tr>
+                            <tr>
+                                  <th>Task</th>
+                                  <td colspan="10">${result[i].TaskName}</td>
+                            </tr>
                             `;
                 }
 
             }
             else {
-                text2 = `
-                          <div class="row">
-                                  <div class="col-md-4">NIP</div>
-                                  <div class="col-md-4">${result[i].NIP}</div>
+                text3 = ` <div class="row">
+                                  <div class="col-md-4 font-weight-bold">NIP</div>
+                                  <div class="col-md-4 ">${result[i].NIP}</div>
                             </div>
                             <div class="row">
-                                  <div class="col-md-4">Name</div>
-                                  <div class="col-md-4">${result[i].Name}</div>
+                                  <div class="col-md-4 font-weight-bold">Name</div>
+                                  <div class="col-md-4 ">${result[i].Name}</div>
                             </div>
                             <div class="row">
-                                  <div class="col-md-4">Date</div>
+                                  <div class="col-md-4 font-weight-bold">Date</div>
                                   <div class="col-md-4">${dateConversion(result[i].Date)}</div>
                             </div>
                            <div class="row">
-                                  <div class="col-md-4">Total Overtime Request</div>
+                                  <div class="col-md-4 font-weight-bold">Total Hour Request</div>
                                   <div class="col-md-4">${result[i].SumOvertimeHour}</div>
                             </div>
-                            <div class="row mb-3 mt-2">
-                                  <div class="col-md-12 text-center">Detail</div>
-                            </div>
-                            <div class="row">
-                                  <div class="col-md-2">Start Hour</div>
-                                  <div class="col-md-2">${result[i].StartHour}</div>
-                                  <div class="col-md-2">End Hour</div>
-                                  <div class="col-md-2">${result[i].EndHour}</div>
-                                  <div class="col-md-2">Location</div>
-                                  <div class="col-md-2">${result[i].LocationName}</div>
-                            </div>
-                            <div class="row">
-                                  <div class="col-md-2">Tugas</div>
-                                  <div class="col-md-10">${result[i].TaskName}</div>
-                            </div>
+                           `;
+                text2 = `
+                     
+                            <tr>
+                                  <th colspan="12" class="text-center">Detail</th>
+                            </tr>
+                            <tr>
+                                  <th>Start Hour</th>
+                                  <td>${result[i].StartHour}</td>
+                                  <th>End Hour</th>
+                                  <td>${result[i].EndHour}</td>
+                                  <th>Location</th>
+                                  <td>${result[i].LocationName}</td>
+                            </tr>
+                            <tr>
+                                  <th>Task</th>
+                                  <td colspan="10">${result[i].TaskName}</td>
+                            </tr>
                                   `;
             }
 
-
+            
             text += text2
-         /*   console.log(text)*/
+            /*   console.log(text)*/
+            $('#table1').html(text3);
             $('#table').html(text);
 
         }
